@@ -1,0 +1,72 @@
+============================================
+GRADERBOT - QUICK START GUIDE
+============================================
+
+WHAT THIS DOES:
+- Automatically grades student Jupyter notebooks
+- Compares student work against a solution notebook
+- Uses AI (Claude) to evaluate and provide feedback
+- Generates readable reports for students
+
+--------------------------------------------
+FIRST TIME SETUP (already done)
+--------------------------------------------
+1. Install Python 3.11+
+2. Open PowerShell in this folder
+3. Run: python -m venv venv
+4. Run: venv\Scripts\activate
+5. Run: pip install -r requirements.txt
+6. Create .env file with: ANTHROPIC_API_KEY=your-key
+
+--------------------------------------------
+HOW TO RUN
+--------------------------------------------
+
+OPTION 1: Easy Mode (double-click or command line)
+
+    run_grader.bat demo
+        - Runs a demo with example files
+        - Shows grading in action
+
+    run_grader.bat grade solutions\SOLUTION.ipynb submissions\STUDENT.ipynb
+        - Grades a student notebook against solution
+        - Saves results to results\ folder
+
+    run_grader.bat report results\STUDENT.json
+        - Generates readable report from JSON
+
+
+OPTION 2: Manual Commands
+
+    1. Open PowerShell
+    2. cd C:\Users\smann\Desktop\llm_grader
+    3. venv\Scripts\activate
+    4. graderbot grade --solution "solutions\solution.ipynb" --notebook "submissions\student.ipynb" --provider anthropic --model claude-3-haiku-20240307 --out "results\output.json"
+    5. python -m graderbot.report "results\output.json"
+
+--------------------------------------------
+FOLDER STRUCTURE
+--------------------------------------------
+
+    llm_grader\
+    ├── solutions\      <- Put solution notebooks here
+    ├── submissions\    <- Put student notebooks here
+    ├── results\        <- Grading results appear here
+    ├── run_grader.bat  <- Easy run script
+    └── .env            <- API key (keep secret!)
+
+--------------------------------------------
+COST
+--------------------------------------------
+- Uses Anthropic Claude API (pay per use)
+- ~$0.01-0.05 per notebook graded
+- Check usage at: console.anthropic.com
+
+--------------------------------------------
+TROUBLESHOOTING
+--------------------------------------------
+- "No credits" error: Add credits at console.anthropic.com
+- "No exercises found": Notebook needs "Exercise 1", "Exercise 2" headers
+- API errors: Check .env file has valid ANTHROPIC_API_KEY
+
+============================================

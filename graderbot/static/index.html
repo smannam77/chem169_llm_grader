@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GraderBot - LLM-Powered Notebook Grader</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <main class="container">
+        <header>
+            <h1>GraderBot</h1>
+            <p>LLM-powered grading assistant for Jupyter notebooks</p>
+        </header>
+
+        <!-- Tab Navigation -->
+        <nav>
+            <ul>
+                <li><a href="#" class="tab-link active" data-tab="single">Single Grading</a></li>
+                <li><a href="#" class="tab-link" data-tab="batch">Batch Grading</a></li>
+            </ul>
+        </nav>
+
+        <!-- Single Grading Tab -->
+        <section id="single-tab" class="tab-content active">
+            <form id="single-form">
+                <div class="grid">
+                    <div>
+                        <label for="solution-file">
+                            Solution Notebook
+                            <input type="file" id="solution-file" name="solution" accept=".ipynb" required>
+                        </label>
+                        <small>The instructor's solution notebook (.ipynb)</small>
+                    </div>
+                    <div>
+                        <label for="submission-file">
+                            Student Submission
+                            <input type="file" id="submission-file" name="submission" accept=".ipynb" required>
+                        </label>
+                        <small>The student's notebook to grade (.ipynb)</small>
+                    </div>
+                </div>
+
+                <div class="grid">
+                    <div>
+                        <label for="provider">
+                            LLM Provider
+                            <select id="provider" name="provider">
+                                <option value="anthropic">Anthropic (Claude)</option>
+                                <option value="openai">OpenAI (GPT-4)</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div>
+                        <label for="student-id">
+                            Student ID (optional)
+                            <input type="text" id="student-id" name="student_id" placeholder="Auto-detected from filename">
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" id="grade-btn">Grade Notebook</button>
+            </form>
+
+            <!-- Progress -->
+            <div id="single-progress" class="progress-container hidden">
+                <progress></progress>
+                <p>Grading in progress... This may take a minute.</p>
+            </div>
+
+            <!-- Results -->
+            <div id="single-results" class="results-container hidden">
+                <h2>Grading Results</h2>
+
+                <article id="summary-card">
+                    <header>
+                        <strong>Overall Summary</strong>
+                    </header>
+                    <p id="summary-text"></p>
+                </article>
+
+                <div id="exercises-container"></div>
+
+                <div class="download-buttons">
+                    <button id="download-json" class="secondary">Download JSON</button>
+                    <button id="download-txt" class="secondary">Download Report</button>
+                </div>
+            </div>
+
+            <!-- Error -->
+            <div id="single-error" class="error-container hidden">
+                <article class="error-card">
+                    <header>Error</header>
+                    <p id="error-text"></p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Batch Grading Tab -->
+        <section id="batch-tab" class="tab-content hidden">
+            <form id="batch-form">
+                <div class="grid">
+                    <div>
+                        <label for="batch-solution-file">
+                            Solution Notebook
+                            <input type="file" id="batch-solution-file" name="solution" accept=".ipynb" required>
+                        </label>
+                        <small>The instructor's solution notebook (.ipynb)</small>
+                    </div>
+                    <div>
+                        <label for="batch-submissions-files">
+                            Student Submissions
+                            <input type="file" id="batch-submissions-files" name="submissions" accept=".ipynb" multiple required>
+                        </label>
+                        <small>Select multiple student notebooks (.ipynb)</small>
+                    </div>
+                </div>
+
+                <div class="grid">
+                    <div>
+                        <label for="batch-provider">
+                            LLM Provider
+                            <select id="batch-provider" name="provider">
+                                <option value="anthropic">Anthropic (Claude)</option>
+                                <option value="openai">OpenAI (GPT-4)</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div>
+                        <p id="files-selected">No files selected</p>
+                    </div>
+                </div>
+
+                <button type="submit" id="batch-grade-btn">Grade All Notebooks</button>
+            </form>
+
+            <!-- Progress -->
+            <div id="batch-progress" class="progress-container hidden">
+                <progress id="batch-progress-bar" value="0" max="100"></progress>
+                <p id="batch-progress-text">Preparing to grade...</p>
+            </div>
+
+            <!-- Results -->
+            <div id="batch-results" class="results-container hidden">
+                <h2>Batch Grading Results</h2>
+
+                <div class="summary-stats">
+                    <div class="stat">
+                        <span class="stat-value" id="batch-total">0</span>
+                        <span class="stat-label">Total</span>
+                    </div>
+                    <div class="stat success">
+                        <span class="stat-value" id="batch-success">0</span>
+                        <span class="stat-label">Successful</span>
+                    </div>
+                    <div class="stat error">
+                        <span class="stat-value" id="batch-failed">0</span>
+                        <span class="stat-label">Failed</span>
+                    </div>
+                </div>
+
+                <table id="batch-results-table">
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Status</th>
+                            <th>Excellent</th>
+                            <th>OK</th>
+                            <th>Needs Work</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="batch-results-body">
+                    </tbody>
+                </table>
+
+                <div class="download-buttons">
+                    <button id="download-all-zip" class="secondary">Download All Results (ZIP)</button>
+                </div>
+            </div>
+
+            <!-- Error -->
+            <div id="batch-error" class="error-container hidden">
+                <article class="error-card">
+                    <header>Error</header>
+                    <p id="batch-error-text"></p>
+                </article>
+            </div>
+        </section>
+
+        <footer>
+            <p>GraderBot v0.1.0 | Powered by LLMs</p>
+        </footer>
+    </main>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

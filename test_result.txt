@@ -1,0 +1,46 @@
+============================================================
+GRADING REPORT
+============================================================
+
+------------------------------------------------------------
+OVERALL SUMMARY
+------------------------------------------------------------
+The student completed all exercises excellently with correct code implementation and outputs matching the solution. All data loading, analysis, and visualization tasks were executed properly. The student demonstrated good programming practices and provided appropriate interpretations of results. Minor stylistic differences (using matplotlib instead of seaborn) did not affect the quality or correctness of the outputs.
+
+------------------------------------------------------------
+EXERCISE GRADES
+------------------------------------------------------------
+
+Exercise 1: [EXCELLENT]
+----------------------------------------
+Feedback: Student successfully opened and printed the readme.md file with identical output to the solution. The code approach and file path are correct.
+
+
+Exercise 2: [EXCELLENT]
+----------------------------------------
+Feedback: Student correctly loaded the CSV file using pandas and displayed the first 5 rows. The output matches the expected DataFrame structure exactly.
+
+
+Exercise 3: [EXCELLENT]
+----------------------------------------
+Feedback: Student correctly printed column names, used .info() and .describe(), and calculated unique countries (225). The output matches the solution exactly.
+
+
+Exercise 4: [EXCELLENT]
+----------------------------------------
+Feedback: Student successfully created both single-country and multi-country comparison plots. Used matplotlib instead of seaborn but achieved equivalent visualizations with proper titles, labels, and legends.
+
+
+Exercise 5: [EXCELLENT]
+----------------------------------------
+Feedback: Student formulated and answered a clear question about which country had the highest TB deaths in the most recent year. The code correctly identified 'World' with 1218861 deaths in 2023, matching the solution exactly.
+
+
+------------------------------------------------------------
+SUMMARY
+------------------------------------------------------------
+  EXCELLENT:   5/5
+  OK:          0/5
+  NEEDS WORK:  0/5
+
+============================================================

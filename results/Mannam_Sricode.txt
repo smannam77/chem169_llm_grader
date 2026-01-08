@@ -1,0 +1,46 @@
+============================================================
+GRADING REPORT
+============================================================
+
+------------------------------------------------------------
+OVERALL SUMMARY
+------------------------------------------------------------
+The student's notebook demonstrates an excellent understanding of the dataset and successfully completes all the exercises. Their code runs correctly, and the outputs match the expected solutions. The student has shown a strong grasp of data exploration, visualization, and analysis techniques.
+
+------------------------------------------------------------
+EXERCISE GRADES
+------------------------------------------------------------
+
+Exercise 1: [EXCELLENT]
+----------------------------------------
+Feedback: The student's output matches the expected solution output. They successfully printed the contents of the readme.md file.
+
+
+Exercise 2: [EXCELLENT]
+----------------------------------------
+Feedback: The student's output matches the expected solution output. They successfully loaded the tuberculosis-deaths-who.csv dataset into a DataFrame and displayed the first 5 rows.
+
+
+Exercise 3: [EXCELLENT]
+----------------------------------------
+Feedback: The student's output matches the expected solution output. They successfully printed the column names, DataFrame info, and DataFrame description, and correctly identified the number of unique countries in the dataset.
+
+
+Exercise 4: [EXCELLENT]
+----------------------------------------
+Feedback: The student's output matches the expected solution output. They successfully plotted the TB death rates over time for the United States, and then plotted the trends for the United States, India, and China on the same chart.
+
+
+Exercise 5: [EXCELLENT]
+----------------------------------------
+Feedback: The student's output matches the expected solution output. They successfully identified the country with the highest estimated number of TB deaths in the most recent year.
+
+
+------------------------------------------------------------
+SUMMARY
+------------------------------------------------------------
+  EXCELLENT:   5/5
+  OK:          0/5
+  NEEDS WORK:  0/5
+
+============================================================

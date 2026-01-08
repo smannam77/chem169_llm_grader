@@ -1,0 +1,315 @@
+/* GraderBot Custom Styles */
+
+:root {
+    --excellent-color: #22c55e;
+    --excellent-bg: #dcfce7;
+    --ok-color: #eab308;
+    --ok-bg: #fef9c3;
+    --needs-work-color: #ef4444;
+    --needs-work-bg: #fee2e2;
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    color: var(--muted-color);
+}
+
+/* Tab Navigation */
+nav ul {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 0;
+    list-style: none;
+}
+
+.tab-link {
+    padding: 0.5rem 1.5rem;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    background: var(--secondary-background);
+    transition: all 0.2s;
+}
+
+.tab-link:hover {
+    background: var(--primary-hover);
+    color: var(--primary-inverse);
+}
+
+.tab-link.active {
+    background: var(--primary);
+    color: var(--primary-inverse);
+}
+
+/* Tab Content */
+.tab-content {
+    display: block;
+}
+
+.tab-content.hidden {
+    display: none;
+}
+
+/* Progress */
+.progress-container {
+    text-align: center;
+    padding: 2rem;
+}
+
+.progress-container.hidden {
+    display: none;
+}
+
+.progress-container progress {
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Results */
+.results-container {
+    margin-top: 2rem;
+}
+
+.results-container.hidden {
+    display: none;
+}
+
+/* Exercise Cards */
+.exercise-card {
+    margin-bottom: 1rem;
+    border-left: 4px solid var(--muted-border-color);
+    padding: 1rem;
+    background: var(--card-background-color);
+    border-radius: var(--border-radius);
+}
+
+.exercise-card.excellent {
+    border-left-color: var(--excellent-color);
+    background: var(--excellent-bg);
+}
+
+.exercise-card.ok {
+    border-left-color: var(--ok-color);
+    background: var(--ok-bg);
+}
+
+.exercise-card.needs_work {
+    border-left-color: var(--needs-work-color);
+    background: var(--needs-work-bg);
+}
+
+.exercise-card header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    text-align: left;
+}
+
+.exercise-card p {
+    margin-bottom: 0.5rem;
+}
+
+.exercise-card details {
+    margin-top: 0.5rem;
+}
+
+.exercise-card .flags {
+    font-size: 0.875rem;
+    color: var(--muted-color);
+}
+
+/* Rating Badges */
+.rating-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.rating-badge.excellent {
+    background: var(--excellent-color);
+    color: white;
+}
+
+.rating-badge.ok {
+    background: var(--ok-color);
+    color: black;
+}
+
+.rating-badge.needs_work {
+    background: var(--needs-work-color);
+    color: white;
+}
+
+/* Status Badges */
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.status-badge.success {
+    background: var(--excellent-bg);
+    color: var(--excellent-color);
+}
+
+.status-badge.error {
+    background: var(--needs-work-bg);
+    color: var(--needs-work-color);
+}
+
+/* Download Buttons */
+.download-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+/* Error */
+.error-container.hidden {
+    display: none;
+}
+
+.error-card {
+    background: var(--needs-work-bg);
+    border-color: var(--needs-work-color);
+}
+
+.error-card header {
+    color: var(--needs-work-color);
+}
+
+/* Batch Stats */
+.summary-stats {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.stat {
+    text-align: center;
+    padding: 1rem 2rem;
+    background: var(--card-background-color);
+    border-radius: var(--border-radius);
+}
+
+.stat-value {
+    display: block;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--muted-color);
+}
+
+.stat.success .stat-value {
+    color: var(--excellent-color);
+}
+
+.stat.error .stat-value {
+    color: var(--needs-work-color);
+}
+
+/* Table */
+#batch-results-table {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+#batch-results-table button.small {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+}
+
+/* Modal */
+.result-modal {
+    max-width: 800px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: var(--border-radius);
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.result-modal::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.result-modal article {
+    margin: 0;
+}
+
+.result-modal header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.result-modal .close-modal {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    width: auto;
+}
+
+.result-modal .exercise-card {
+    margin-bottom: 0.5rem;
+}
+
+.result-modal footer {
+    text-align: right;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--muted-border-color);
+    color: var(--muted-color);
+}
+
+/* Utility */
+.hidden {
+    display: none !important;
+}
+
+/* Small screens */
+@media (max-width: 768px) {
+    .summary-stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .download-buttons {
+        flex-direction: column;
+    }
+
+    .download-buttons button {
+        width: 100%;
+    }
+}
