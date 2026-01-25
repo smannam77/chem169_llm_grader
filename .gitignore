@@ -48,3 +48,9 @@ htmlcov/
 # Output files
 *.json
 !examples/*.json
+
+# Grading data (keep out of repo - privacy + size)
+assignments/
+submissions/
+solutions/
+results/

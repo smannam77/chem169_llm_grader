@@ -36,8 +36,12 @@ class SolutionExercise:
     exercise_type: str  # 'code' or 'writing'
 
 
-def truncate_text(text: str, max_length: int = 2000) -> str:
-    """Truncate text to max length with indicator."""
+def truncate_text(text: str, max_length: int = 15000) -> str:
+    """Truncate text to max length with indicator.
+
+    Default is 15000 chars to handle students who put multiple
+    exercises in a single cell.
+    """
     if len(text) <= max_length:
         return text
     return text[: max_length - 20] + "\n... [truncated]"

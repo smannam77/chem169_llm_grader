@@ -28,8 +28,12 @@ def parse_route(content: str) -> Route:
     exercises: list[Exercise] = []
 
     # Patterns for exercise headings
+    # Handles various formats:
+    #   ## Exercise 1. Title
+    #   ### **Exercise 1\. Title**
+    #   ### Exercise 1: Title
     exercise_pattern = re.compile(
-        r"^(#{2,4})\s+(?:Exercise\s+)?(\d+[a-z]?(?:\.\d+)?)\s*[:\-]?\s*(.*)$",
+        r"^(#{2,4})\s+\*{0,2}(?:Exercise\s+)?(\d+[a-z]?(?:\.\d+)?)\*{0,2}[\.\\\s:\-]*\*{0,2}\s*(.*)$",
         re.IGNORECASE,
     )
     title_pattern = re.compile(r"^#\s+(.+)$")
@@ -70,9 +74,13 @@ def parse_route(content: str) -> Route:
             exercise_num = exercise_match.group(2)
             exercise_title = exercise_match.group(3).strip() or None
 
+            # Clean up title (remove trailing ** from bold markdown)
+            if exercise_title:
+                exercise_title = exercise_title.rstrip("*").strip()
+
             current_exercise = Exercise(
                 exercise_id=f"Exercise {exercise_num}",
-                title=exercise_title,
+                title=exercise_title or None,
                 instructions="",
             )
             current_content = []
