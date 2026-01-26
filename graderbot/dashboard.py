@@ -687,7 +687,7 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
 
     route_fig.update_layout(
         title=dict(
-            text='<b>Route Health: Send Rates</b><br>Red/yellow routes may need attention (hard content, unclear instructions, or grading issues)',
+            text='<b>Route Health: Send Rates</b><br>Red/yellow = hard content, unclear instructions, or grading issues. Click a route to see details.',
             x=0.5,
             font=dict(size=18)
         ),
@@ -1243,7 +1243,7 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
         <div class="chart-container" style="margin-top: 20px;">
             {route_chart_html}
             <div style="margin-top: 15px; text-align: center;">
-                <span style="color: #666; margin-right: 10px;">Click a tile above or select:</span>
+                <span style="color: #666; margin-right: 10px;">Or select a route:</span>
                 <select id="routeSelector" onchange="if(this.value) showRouteAnalysis(this.value);" style="padding: 8px; font-size: 14px; border-radius: 4px; border: 1px solid #ddd;">
                     <option value="">-- Select Route --</option>
                     {route_options}
