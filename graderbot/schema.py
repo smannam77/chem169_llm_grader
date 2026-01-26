@@ -101,6 +101,10 @@ class Exercise(BaseModel):
         ...,
         description="Full instructions/prompt for the exercise",
     )
+    optional: bool = Field(
+        default=False,
+        description="Whether this exercise is optional (bonus, dyno, extra practice)",
+    )
     subsections: list["Exercise"] = Field(
         default_factory=list,
         description="Sub-exercises (e.g., 1a, 1b)",

@@ -1,5 +1,7 @@
 """Main grader orchestration module."""
 
+from __future__ import annotations
+
 import json
 import re
 from dataclasses import dataclass
@@ -484,3 +486,234 @@ def get_solution_dry_run_output(context: SolutionGradingContext) -> str:
     output.append("=" * 70)
 
     return "\n".join(output)
+
+
+@dataclass
+class TextGradingContext:
+    """Context for grading text file submissions (e.g., git logs)."""
+
+    route: Route
+    submission_text: str
+    route_text: str
+    exercise_ids: list[str]
+    route_id: str | None = None
+    student_id: str | None = None
+
+
+def prepare_text_grading_context(
+    route_path: Path | str,
+    deliverable_path: Path | str,
+    logbook_path: Path | str | None = None,
+    route_id: str | None = None,
+    student_id: str | None = None,
+) -> TextGradingContext:
+    """
+    Prepare context for grading text file submissions.
+
+    Args:
+        route_path: Path to route markdown file
+        deliverable_path: Path to deliverable.txt file
+        logbook_path: Optional path to logbook.txt file
+        route_id: Optional route identifier
+        student_id: Optional student identifier
+
+    Returns:
+        TextGradingContext ready for grading
+    """
+    from .text_view import render_text_submission
+
+    route = parse_route_file(route_path)
+    route_text = format_route_for_prompt(route)
+    exercise_ids = get_exercise_ids(route)
+
+    submission_text = render_text_submission(str(deliverable_path), str(logbook_path) if logbook_path else None)
+
+    return TextGradingContext(
+        route=route,
+        submission_text=submission_text,
+        route_text=route_text,
+        exercise_ids=exercise_ids,
+        route_id=route_id,
+        student_id=student_id,
+    )
+
+
+TEXT_GRADING_SYSTEM_PROMPT = """You are an expert grader for a scientific computing course. Your task is to grade student text file submissions (git logs, reflection answers, etc.) against assignment instructions.
+
+## Grading Criteria
+- **EXCELLENT**: Fully meets requirements with clear evidence of understanding
+- **OK**: Meets basic requirements but may have minor issues or incomplete explanations
+- **NEEDS_WORK**: Missing key requirements or shows misunderstanding
+
+## For Git Log Submissions
+When grading git deliverables, look for:
+1. Valid repository URL (github.com link)
+2. Commit history showing required steps were performed
+3. Proper commit messages describing the work
+4. Evidence of branching/merging if required
+5. Author name/email configured
+
+## For Logbook/Reflection Submissions
+When grading written reflections, evaluate:
+1. Completeness - Did they answer all questions?
+2. Understanding - Do they demonstrate grasp of concepts?
+3. Specificity - Did they provide concrete examples from their experience?
+4. Thoughtfulness - Is there evidence of genuine reflection?
+
+## Important
+- Be fair but rigorous
+- Give credit for partial understanding
+- If something is ambiguous, lean toward giving the student benefit of the doubt
+- Focus on whether they demonstrated learning, not perfection"""
+
+
+def build_text_grading_prompt(
+    route_text: str,
+    submission_text: str,
+    exercise_ids: list[str],
+    route_id: str | None = None,
+    student_id: str | None = None,
+) -> str:
+    """Build the grading prompt for text submissions."""
+    json_schema = """{
+  "schema_version": "1.0",
+  "route_id": "<route identifier or null>",
+  "student_id": "<student identifier or null>",
+  "exercises": [
+    {
+      "exercise_id": "<Exercise N or Part X>",
+      "rating": "EXCELLENT | OK | NEEDS_WORK",
+      "feedback": "<specific feedback>",
+      "flags": ["<optional flags like manual_review>"]
+    }
+  ],
+  "overall_summary": "<brief overall assessment>"
+}"""
+
+    return f"""# Grading Task
+
+Grade the following text submission against the assignment instructions.
+
+## Assignment Instructions
+{route_text}
+
+## Student Submission
+{submission_text}
+
+## Exercises to Grade
+{', '.join(exercise_ids)}
+
+## Output Format
+Return a JSON object matching this schema:
+{json_schema}
+
+Route ID: {route_id or 'null'}
+Student ID: {student_id or 'null'}
+
+Grade each exercise and provide specific feedback based on what you see in their submission."""
+
+
+def grade_text_submission(
+    client: LLMClient,
+    context: TextGradingContext,
+    max_retries: int = 2,
+    temperature: float = 0.0,
+) -> GradingResult:
+    """
+    Grade a text file submission using the LLM.
+
+    Args:
+        client: LLM client to use
+        context: Prepared text grading context
+        max_retries: Maximum retries for JSON repair
+        temperature: Sampling temperature
+
+    Returns:
+        Validated GradingResult
+
+    Raises:
+        GradingError: If grading fails after all retries
+    """
+    user_prompt = build_text_grading_prompt(
+        route_text=context.route_text,
+        submission_text=context.submission_text,
+        exercise_ids=context.exercise_ids,
+        route_id=context.route_id,
+        student_id=context.student_id,
+    )
+
+    response = client.chat(
+        system_prompt=TEXT_GRADING_SYSTEM_PROMPT,
+        user_prompt=user_prompt,
+        temperature=temperature,
+    )
+
+    # Try to parse and validate
+    last_error = None
+    content = response.content
+
+    for attempt in range(max_retries + 1):
+        try:
+            result = parse_and_validate_response(content)
+
+            # Fill in route_id and student_id if not set
+            if context.route_id and not result.route_id:
+                result.route_id = context.route_id
+            if context.student_id and not result.student_id:
+                result.student_id = context.student_id
+
+            return result
+
+        except (json.JSONDecodeError, ValidationError) as e:
+            last_error = e
+            error_msg = str(e)
+
+            if attempt < max_retries:
+                # Try to repair
+                repair_prompt = build_repair_prompt(content, error_msg)
+                repair_response = client.chat(
+                    system_prompt=TEXT_GRADING_SYSTEM_PROMPT,
+                    user_prompt=repair_prompt,
+                    temperature=0.0,
+                )
+                content = repair_response.content
+
+    raise GradingError(
+        f"Failed to get valid grading response after {max_retries + 1} attempts. "
+        f"Last error: {last_error}"
+    )
+
+
+def grade_text_from_paths(
+    client: LLMClient,
+    route_path: Path | str,
+    deliverable_path: Path | str,
+    logbook_path: Path | str | None = None,
+    route_id: str | None = None,
+    student_id: str | None = None,
+    max_retries: int = 2,
+) -> GradingResult:
+    """
+    Convenience function to grade text submission from file paths.
+
+    Args:
+        client: LLM client to use
+        route_path: Path to route markdown file
+        deliverable_path: Path to deliverable.txt
+        logbook_path: Optional path to logbook.txt
+        route_id: Optional route identifier
+        student_id: Optional student identifier
+        max_retries: Maximum retries for JSON repair
+
+    Returns:
+        Validated GradingResult
+    """
+    context = prepare_text_grading_context(
+        route_path=route_path,
+        deliverable_path=deliverable_path,
+        logbook_path=logbook_path,
+        route_id=route_id,
+        student_id=student_id,
+    )
+
+    return grade_text_submission(client, context, max_retries=max_retries)

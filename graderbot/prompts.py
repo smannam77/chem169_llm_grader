@@ -1,5 +1,7 @@
 """Prompt templates for LLM-based grading."""
 
+from __future__ import annotations
+
 import json
 
 from .schema import Exercise, GradingResult, Route
@@ -50,6 +52,12 @@ Use exactly these three rating levels:
    - "possible_plagiarism": Suspiciously sophisticated code without explanations
    - "incomplete": Work appears unfinished
    - "copy_paste": Appears to be copied answers without understanding
+   - "optional_not_attempted": Student did not attempt this optional exercise
+
+7. **Optional Exercises**: Exercises marked with [OPTIONAL] are bonus/extra credit:
+   - If the student attempted it: Grade normally (EXCELLENT, OK, NEEDS_WORK)
+   - If not attempted: Give rating OK with flag "optional_not_attempted"
+   - Do NOT penalize students for skipping optional exercises
 
 ## Output Format
 
@@ -129,6 +137,12 @@ Use exactly these three rating levels:
    - "manual_review": Writing exercises that need human review
    - "possible_plagiarism": Suspiciously sophisticated code without explanations
    - "incomplete": Work appears unfinished
+   - "optional_not_attempted": Student did not attempt this optional exercise
+
+8. **Optional Exercises**: Exercises marked with [OPTIONAL] are bonus/extra credit:
+   - If the student attempted it: Grade normally (EXCELLENT, OK, NEEDS_WORK)
+   - If not attempted: Give rating OK with flag "optional_not_attempted"
+   - Do NOT penalize students for skipping optional exercises
 
 ## Output Format
 

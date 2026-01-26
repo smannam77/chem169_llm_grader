@@ -1,12 +1,23 @@
 """Pluggable LLM client for grading."""
 
+from __future__ import annotations
+
 import json
 import os
+import time
+import random
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Dict, Optional
 
 import httpx
+
+
+# Retry configuration
+MAX_RETRIES = 5
+INITIAL_BACKOFF = 2.0  # seconds
+MAX_BACKOFF = 60.0  # seconds
+BACKOFF_MULTIPLIER = 2.0
 
 
 @dataclass
@@ -88,7 +99,7 @@ class OpenAICompatibleClient(LLMClient):
         user_prompt: str,
         temperature: float = 0.0,
     ) -> LLMResponse:
-        """Send a chat completion request."""
+        """Send a chat completion request with retry logic for rate limits."""
         headers = {
             "Authorization": f"Bearer {self.api_key}",
             "Content-Type": "application/json",
@@ -103,24 +114,45 @@ class OpenAICompatibleClient(LLMClient):
             "temperature": temperature,
         }
 
-        with httpx.Client(timeout=self.timeout) as client:
-            response = client.post(
-                f"{self.base_url}/chat/completions",
-                headers=headers,
-                json=payload,
-            )
-            response.raise_for_status()
-            data = response.json()
+        backoff = INITIAL_BACKOFF
+        last_exception = None
 
-        content = data["choices"][0]["message"]["content"]
-        usage = data.get("usage")
+        for attempt in range(MAX_RETRIES):
+            try:
+                with httpx.Client(timeout=self.timeout) as client:
+                    response = client.post(
+                        f"{self.base_url}/chat/completions",
+                        headers=headers,
+                        json=payload,
+                    )
+                    response.raise_for_status()
+                    data = response.json()
 
-        return LLMResponse(
-            content=content,
-            model=data.get("model", self.model),
-            usage=usage,
-            raw_response=data,
-        )
+                content = data["choices"][0]["message"]["content"]
+                usage = data.get("usage")
+
+                return LLMResponse(
+                    content=content,
+                    model=data.get("model", self.model),
+                    usage=usage,
+                    raw_response=data,
+                )
+
+            except httpx.HTTPStatusError as e:
+                last_exception = e
+                if e.response.status_code == 429:
+                    # Rate limited - apply exponential backoff with jitter
+                    jitter = random.uniform(0, backoff * 0.1)
+                    sleep_time = min(backoff + jitter, MAX_BACKOFF)
+                    print(f"      Rate limited. Retrying in {sleep_time:.1f}s (attempt {attempt + 1}/{MAX_RETRIES})...")
+                    time.sleep(sleep_time)
+                    backoff = min(backoff * BACKOFF_MULTIPLIER, MAX_BACKOFF)
+                else:
+                    # Non-rate-limit error, re-raise immediately
+                    raise
+
+        # If we exhausted all retries, raise the last exception
+        raise last_exception
 
 
 class AnthropicClient(LLMClient):
@@ -162,7 +194,7 @@ class AnthropicClient(LLMClient):
         user_prompt: str,
         temperature: float = 0.0,
     ) -> LLMResponse:
-        """Send a chat completion request."""
+        """Send a chat completion request with retry logic for rate limits."""
         headers = {
             "x-api-key": self.api_key,
             "Content-Type": "application/json",
@@ -177,29 +209,50 @@ class AnthropicClient(LLMClient):
             "max_tokens": self.max_tokens,
         }
 
-        with httpx.Client(timeout=self.timeout) as client:
-            response = client.post(
-                "https://api.anthropic.com/v1/messages",
-                headers=headers,
-                json=payload,
-            )
-            response.raise_for_status()
-            data = response.json()
+        backoff = INITIAL_BACKOFF
+        last_exception = None
 
-        # Extract text from content blocks
-        content = ""
-        for block in data.get("content", []):
-            if block.get("type") == "text":
-                content += block.get("text", "")
+        for attempt in range(MAX_RETRIES):
+            try:
+                with httpx.Client(timeout=self.timeout) as client:
+                    response = client.post(
+                        "https://api.anthropic.com/v1/messages",
+                        headers=headers,
+                        json=payload,
+                    )
+                    response.raise_for_status()
+                    data = response.json()
 
-        usage = data.get("usage")
+                # Extract text from content blocks
+                content = ""
+                for block in data.get("content", []):
+                    if block.get("type") == "text":
+                        content += block.get("text", "")
 
-        return LLMResponse(
-            content=content,
-            model=data.get("model", self.model),
-            usage=usage,
-            raw_response=data,
-        )
+                usage = data.get("usage")
+
+                return LLMResponse(
+                    content=content,
+                    model=data.get("model", self.model),
+                    usage=usage,
+                    raw_response=data,
+                )
+
+            except httpx.HTTPStatusError as e:
+                last_exception = e
+                if e.response.status_code == 429:
+                    # Rate limited - apply exponential backoff with jitter
+                    jitter = random.uniform(0, backoff * 0.1)
+                    sleep_time = min(backoff + jitter, MAX_BACKOFF)
+                    print(f"      Rate limited. Retrying in {sleep_time:.1f}s (attempt {attempt + 1}/{MAX_RETRIES})...")
+                    time.sleep(sleep_time)
+                    backoff = min(backoff * BACKOFF_MULTIPLIER, MAX_BACKOFF)
+                else:
+                    # Non-rate-limit error, re-raise immediately
+                    raise
+
+        # If we exhausted all retries, raise the last exception
+        raise last_exception
 
 
 class MockLLMClient(LLMClient):

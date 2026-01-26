@@ -16,15 +16,87 @@ except ImportError:
 import matplotlib.pyplot as plt
 
 
-def extract_student_name(filename: str) -> str:
-    """Extract student name from submission filename."""
+# Known name aliases for students who submit with inconsistent naming
+NAME_ALIASES = {
+    'kao_yingchieh': 'kao_ying_chieh',
+    'kao_ying chieh': 'kao_ying_chieh',
+}
+
+# Track files with non-standard naming (populated during scan)
+NON_STANDARD_FILES = []
+
+
+def extract_student_name(filename: str, track_non_standard: bool = True) -> str:
+    """Extract student name from submission filename.
+
+    Args:
+        filename: The submission filename
+        track_non_standard: If True, add non-standard files to NON_STANDARD_FILES list
+
+    Returns:
+        Normalized student name or None if cannot be determined
+    """
     # Remove extension
     name = Path(filename).stem
-    # Remove common suffixes like _RID_001_code, _RID_002_code, etc.
-    name = re.sub(r'_RID_?\d+.*$', '', name, flags=re.IGNORECASE)
+    original_name = name
+
+    # Handle "Route_XXX_..._StudentName" format - extract last word as student name
+    if re.match(r'^Route', name, flags=re.IGNORECASE):
+        # Split by underscore and get the last part (should be student name)
+        parts = name.split('_')
+        if len(parts) >= 2:
+            # Last part is likely the student name
+            last_part = parts[-1]
+            # Make sure it's not a number or common word
+            if last_part and not re.match(r'^\d+$', last_part) and last_part.lower() not in ('code', 'notebook', 'ipynb'):
+                name = last_part
+                if track_non_standard:
+                    NON_STANDARD_FILES.append({
+                        'original': filename,
+                        'extracted_name': last_part,
+                        'issue': 'Route-prefixed filename'
+                    })
+            else:
+                return None
+        else:
+            return None
+
+    # Remove common suffixes like _RID_001_code, _R007_code, _RID002_code, _RD_003, _001_code, etc.
+    # Handles: _RID_001, _RID001, _R001, _R_001, _RD_001, _001, etc.
+    name = re.sub(r'_R(?:ID|D)?_?\d+.*$', '', name, flags=re.IGNORECASE)
+    # Also handle bare _001_ patterns (no R prefix)
+    name = re.sub(r'_0\d{2}_.*$', '', name, flags=re.IGNORECASE)
+    # Remove student ID numbers like _A10589679
+    name = re.sub(r'_A\d{7,9}', '', name, flags=re.IGNORECASE)
     name = re.sub(r'_code$', '', name, flags=re.IGNORECASE)
-    # Normalize to lowercase for matching
-    return name.lower().strip()
+
+    # Skip if name still looks like a route/assignment identifier
+    if re.match(r'^(route|rid|r)\d+', name, flags=re.IGNORECASE):
+        return None
+
+    # Skip empty names
+    if not name or len(name) < 2:
+        return None
+
+    # Normalize to lowercase
+    name = name.lower().strip()
+
+    # Normalize separators: replace spaces and hyphens with underscores
+    name = name.replace(' ', '_').replace('-', '_')
+
+    # Remove trailing underscores
+    name = name.rstrip('_')
+
+    # Remove any leftover numeric suffixes like _005 at the end (after RID was stripped)
+    name = re.sub(r'_\d+$', '', name)
+
+    # Collapse multiple underscores
+    name = re.sub(r'_+', '_', name)
+
+    # Apply known aliases
+    name = NAME_ALIASES.get(name, name)
+
+    return name if name else None
 
 
 def scan_submissions(assignments_dir: str = "assignments") -> dict:
@@ -38,6 +110,9 @@ def scan_submissions(assignments_dir: str = "assignments") -> dict:
 
     assignments_path = Path(assignments_dir)
 
+    # Routes that use .txt deliverables instead of .ipynb notebooks
+    TXT_DELIVERABLE_ROUTES = {"RID_006", "RID_008"}
+
     for rid_folder in sorted(assignments_path.glob("RID_*")):
         rid = rid_folder.name  # e.g., "RID_001"
         submissions_dir = rid_folder / "submissions"
@@ -45,10 +120,18 @@ def scan_submissions(assignments_dir: str = "assignments") -> dict:
         if not submissions_dir.exists():
             continue
 
-        for notebook in submissions_dir.glob("*.ipynb"):
-            student = extract_student_name(notebook.name)
-            if student:
-                student_routes[student].add(rid)
+        if rid in TXT_DELIVERABLE_ROUTES:
+            # For Git-based routes, look for *_deliverable.txt files
+            for txt_file in submissions_dir.glob("*_deliverable*.txt"):
+                student = extract_student_name(txt_file.name.replace("_deliverable", ""))
+                if student:
+                    student_routes[student].add(rid)
+        else:
+            # For code routes, look for .ipynb notebooks
+            for notebook in submissions_dir.glob("*.ipynb"):
+                student = extract_student_name(notebook.name)
+                if student:
+                    student_routes[student].add(rid)
 
     return dict(student_routes)
 
@@ -128,13 +211,20 @@ def get_latest_submission_time(assignments_dir: str = "assignments") -> str:
 
 def get_completion_stats(student_routes: dict, assignments_dir: str = "assignments") -> dict:
     """Calculate completion statistics."""
-    total_routes = 6  # Current gym size
+    # Dynamically count routes that have submissions or instructions
+    assignments_path = Path(assignments_dir)
+    route_folders = sorted(assignments_path.glob("RID_*"))
+    total_routes = len(route_folders)
+
+    # Get list of all route IDs
+    all_route_ids = [f.name for f in route_folders]
 
     completions = [len(routes) for routes in student_routes.values()]
 
     return {
         "total_students": len(student_routes),
         "total_routes": total_routes,
+        "all_routes": all_route_ids,
         "completions": completions,
         "avg_completed": sum(completions) / len(completions) if completions else 0,
         "max_completed": max(completions) if completions else 0,
@@ -226,9 +316,9 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
     import json
     from collections import Counter
 
-    stats = get_completion_stats(student_routes)
+    stats = get_completion_stats(student_routes, assignments_dir)
     total_routes = stats["total_routes"]
-    all_routes = [f"RID_{str(i).zfill(3)}" for i in range(1, total_routes + 1)]
+    all_routes = stats.get("all_routes", [f"RID_{str(i).zfill(3)}" for i in range(1, total_routes + 1)])
 
     # Get grading results
     student_grades = scan_grading_results(assignments_dir)
@@ -264,46 +354,40 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
         row=1, col=1
     )
 
-    # --- Right: Violin + Strip plot with student names ---
+    # --- Right: Rank-sorted scatter plot ---
     np.random.seed(42)
 
-    # Add violin plot
-    fig.add_trace(
-        go.Violin(
-            y=completions,
-            box_visible=True,
-            meanline_visible=True,
-            fillcolor='lightblue',
-            opacity=0.6,
-            line_color='steelblue',
-            name='Distribution',
-            side='positive',
-            x0='Students',
-            hoverinfo='skip'
-        ),
-        row=1, col=2
+    # Sort students by completion count (descending), then by name for ties
+    sorted_data = sorted(
+        zip(students, completions),
+        key=lambda x: (-x[1], x[0])  # Sort by completions desc, then name asc
     )
+    sorted_students = [s for s, c in sorted_data]
+    sorted_completions = [c for s, c in sorted_data]
 
-    # Add strip plot (individual points) with jitter
-    jitter = np.random.normal(0, 0.04, len(students))
+    # X-axis is rank (1, 2, 3, ...)
+    ranks = list(range(1, len(sorted_students) + 1))
+
+    # Add jitter to y-axis to separate overlapping points
+    y_jitter = np.array(sorted_completions) + np.random.uniform(-0.3, 0.3, len(sorted_completions))
 
     # Format student names nicely for hover
-    display_names = [name.replace('_', ' ').title() for name in students]
+    display_names = [name.replace('_', ' ').title() for name in sorted_students]
 
     fig.add_trace(
         go.Scatter(
-            x=jitter,
-            y=completions,
+            x=ranks,
+            y=y_jitter,
             mode='markers',
             marker=dict(
                 size=8,
-                color='darkblue',
-                opacity=0.6
+                color='steelblue',
+                opacity=0.7
             ),
             name='Students',
             text=display_names,
-            customdata=[[s, c] for s, c in zip(display_names, completions)],
-            hovertemplate='<b>%{customdata[0]}</b><br>Routes: %{customdata[1]}<extra></extra>'
+            customdata=[[s, c, r] for s, c, r in zip(display_names, sorted_completions, ranks)],
+            hovertemplate='<b>%{customdata[0]}</b><br>Rank: %{customdata[2]}<br>Routes: %{customdata[1]}<extra></extra>'
         ),
         row=1, col=2
     )
@@ -333,7 +417,7 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
     # Update axes
     fig.update_xaxes(title_text="Routes Completed", row=1, col=1)
     fig.update_yaxes(title_text="Number of Students", row=1, col=1)
-    fig.update_xaxes(title_text="", showticklabels=False, row=1, col=2)
+    fig.update_xaxes(title_text="Student Rank", row=1, col=2)
     fig.update_yaxes(title_text="Routes Completed", range=[-0.5, total_routes + 0.5], row=1, col=2)
 
     # Generate the plotly chart HTML
@@ -413,6 +497,56 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
             border: 1px solid #ddd;
             border-radius: 4px;
             width: 300px;
+        }}
+        .search-results {{
+            margin-top: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            display: none;
+        }}
+        .search-results.active {{
+            display: block;
+        }}
+        .search-result-item {{
+            padding: 10px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+            transition: background 0.15s;
+        }}
+        .search-result-item:last-child {{
+            border-bottom: none;
+        }}
+        .search-result-item:hover {{
+            background: #e8f4fc;
+        }}
+        .search-result-item .name {{
+            font-weight: 500;
+        }}
+        .search-result-item .meta {{
+            font-size: 0.85em;
+            color: #666;
+        }}
+        .no-results {{
+            padding: 15px;
+            color: #888;
+            text-align: center;
+            font-style: italic;
+        }}
+        .clear-btn {{
+            padding: 10px 15px;
+            font-size: 14px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }}
+        .clear-btn:hover {{
+            background: #c0392b;
         }}
         .student-info {{
             margin-top: 15px;
@@ -592,10 +726,12 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
             <h3>🔍 Student Lookup</h3>
             <div class="search-row">
                 <input type="text" id="studentSearch" placeholder="Type to search student..." oninput="filterStudents()">
-                <select id="studentSelect" onchange="showStudentInfo()">
+                <button id="clearBtn" class="clear-btn" onclick="clearSearch()" style="display: none;">✕ Clear</button>
+                <select id="studentSelect" onchange="showStudentInfo()" style="display: none;">
                     <option value="">-- Select a student --</option>
                 </select>
             </div>
+            <div id="searchResults" class="search-results"></div>
             <div id="studentInfo" class="student-info">
                 <div class="student-name" id="displayName"></div>
                 <div class="stats-row">
@@ -651,16 +787,67 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
 
         // Filter students based on search input
         function filterStudents() {{
-            const query = document.getElementById('studentSearch').value.toLowerCase();
+            const query = document.getElementById('studentSearch').value.toLowerCase().trim();
+            const resultsDiv = document.getElementById('searchResults');
+
+            if (!query) {{
+                resultsDiv.classList.remove('active');
+                resultsDiv.innerHTML = '';
+                return;
+            }}
+
             const filtered = allStudents.filter(s =>
                 s.toLowerCase().includes(query) ||
                 studentData[s].display_name.toLowerCase().includes(query)
             );
-            populateDropdown(filtered);
-            if (filtered.length === 1) {{
-                document.getElementById('studentSelect').value = filtered[0];
-                showStudentInfo();
+
+            if (filtered.length === 0) {{
+                resultsDiv.innerHTML = '<div class="no-results">No students found</div>';
+                resultsDiv.classList.add('active');
+                return;
             }}
+
+            // Show up to 10 results
+            const toShow = filtered.slice(0, 10);
+            let html = '';
+            for (const s of toShow) {{
+                const data = studentData[s];
+                html += `
+                    <div class="search-result-item" onclick="selectStudent('${{s}}')">
+                        <div class="name">${{data.display_name}}</div>
+                        <div class="meta">${{data.count}}/${{data.total}} routes completed</div>
+                    </div>
+                `;
+            }}
+            if (filtered.length > 10) {{
+                html += `<div class="no-results">${{filtered.length - 10}} more results...</div>`;
+            }}
+            resultsDiv.innerHTML = html;
+            resultsDiv.classList.add('active');
+
+            // Auto-select if exactly one match
+            if (filtered.length === 1) {{
+                selectStudent(filtered[0]);
+            }}
+        }}
+
+        // Select a student from search results
+        function selectStudent(studentKey) {{
+            document.getElementById('studentSelect').value = studentKey;
+            document.getElementById('searchResults').classList.remove('active');
+            document.getElementById('studentSearch').value = studentData[studentKey].display_name;
+            document.getElementById('clearBtn').style.display = 'inline-block';
+            showStudentInfo();
+        }}
+
+        // Clear search and return to landing view
+        function clearSearch() {{
+            document.getElementById('studentSearch').value = '';
+            document.getElementById('studentSelect').value = '';
+            document.getElementById('searchResults').classList.remove('active');
+            document.getElementById('searchResults').innerHTML = '';
+            document.getElementById('studentInfo').classList.remove('active');
+            document.getElementById('clearBtn').style.display = 'none';
         }}
 
         // Show selected student info

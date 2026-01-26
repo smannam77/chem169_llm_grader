@@ -1,7 +1,10 @@
 """Parse route markdown files into structured exercise specifications."""
 
+from __future__ import annotations
+
 import re
 from pathlib import Path
+from typing import Union
 
 from .schema import Exercise, Route
 
@@ -32,10 +35,30 @@ def parse_route(content: str) -> Route:
     #   ## Exercise 1. Title
     #   ### **Exercise 1\. Title**
     #   ### Exercise 1: Title
+    #   # **Exercise 1: Title**
     exercise_pattern = re.compile(
-        r"^(#{2,4})\s+\*{0,2}(?:Exercise\s+)?(\d+[a-z]?(?:\.\d+)?)\*{0,2}[\.\\\s:\-]*\*{0,2}\s*(.*)$",
+        r"^(#{1,4})\s+\*{0,2}(?:Exercise\s+)?(\d+[a-z]?(?:\.\d+)?)\*{0,2}[\.\\\s:\-]*\*{0,2}\s*(.*)$",
         re.IGNORECASE,
     )
+
+    # Pattern for Part-based exercises (e.g., "## **Part A — Title**")
+    part_pattern = re.compile(
+        r"^(#{1,4})\s+\*{0,2}Part\s+([A-Za-z])\s*[\—\-–:\.]*\s*\*{0,2}\s*(.*)$",
+        re.IGNORECASE,
+    )
+
+    # Keywords that indicate an optional exercise
+    optional_keywords = re.compile(
+        r"\b(optional|bonus|dyno|extra\s+practice|anchor\s+challenge)\b",
+        re.IGNORECASE,
+    )
+
+    # Pattern for standalone optional sections (e.g., "### **Optional Hold (extra practice)**")
+    optional_section_pattern = re.compile(
+        r"^(#{1,4})\s+\*{0,2}(Optional\s+Hold|The\s+Dyno|Bonus\s+Hold|Anchor\s+Challenge)[^\*]*\*{0,2}\s*(.*)$",
+        re.IGNORECASE,
+    )
+
     title_pattern = re.compile(r"^#\s+(.+)$")
 
     current_exercise: Exercise | None = None
@@ -58,9 +81,14 @@ def parse_route(content: str) -> Route:
             in_preamble = True
             continue
 
-        # Check for exercise heading
+        # Check for exercise heading (e.g., "## Exercise 1")
         exercise_match = exercise_pattern.match(line)
-        if exercise_match:
+        # Check for part heading (e.g., "## **Part A — Title**")
+        part_match = part_pattern.match(line)
+        # Check for standalone optional section (e.g., "### **Optional Hold**")
+        optional_section_match = optional_section_pattern.match(line)
+
+        if exercise_match or part_match or optional_section_match:
             in_preamble = False
 
             # Finalize previous exercise
@@ -70,18 +98,38 @@ def parse_route(content: str) -> Route:
                 # Only keep preamble if we haven't started exercises
                 pass
 
-            heading_level = len(exercise_match.group(1))
-            exercise_num = exercise_match.group(2)
-            exercise_title = exercise_match.group(3).strip() or None
+            if exercise_match:
+                heading_level = len(exercise_match.group(1))
+                exercise_num = exercise_match.group(2)
+                exercise_title = exercise_match.group(3).strip() or None
+                exercise_id = f"Exercise {exercise_num}"
+                # Check if optional based on title/header keywords
+                full_header = line + " " + (exercise_title or "")
+                is_optional = bool(optional_keywords.search(full_header))
+            elif part_match:
+                heading_level = len(part_match.group(1))
+                part_letter = part_match.group(2).upper()
+                exercise_title = part_match.group(3).strip() or None
+                exercise_id = f"Part {part_letter}"
+                # Check if optional based on title/header keywords
+                full_header = line + " " + (exercise_title or "")
+                is_optional = bool(optional_keywords.search(full_header))
+            else:  # optional_section_match
+                heading_level = len(optional_section_match.group(1))
+                section_name = optional_section_match.group(2).strip()
+                exercise_title = optional_section_match.group(3).strip() or section_name
+                exercise_id = section_name.replace(" ", "_")
+                is_optional = True  # Always optional
 
             # Clean up title (remove trailing ** from bold markdown)
             if exercise_title:
                 exercise_title = exercise_title.rstrip("*").strip()
 
             current_exercise = Exercise(
-                exercise_id=f"Exercise {exercise_num}",
+                exercise_id=exercise_id,
                 title=exercise_title or None,
                 instructions="",
+                optional=is_optional,
             )
             current_content = []
             continue
@@ -153,7 +201,8 @@ def format_route_for_prompt(route: Route) -> str:
         parts.append(f"{route.preamble}\n")
 
     for exercise in route.exercises:
-        parts.append(f"## {exercise.exercise_id}")
+        optional_marker = " [OPTIONAL]" if exercise.optional else ""
+        parts.append(f"## {exercise.exercise_id}{optional_marker}")
         if exercise.title:
             parts.append(f": {exercise.title}")
         parts.append("\n")

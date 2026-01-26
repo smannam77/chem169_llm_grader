@@ -54,3 +54,17 @@ assignments/
 submissions/
 solutions/
 results/
+
+# Temporary/log files
+nohup.out
+*.out
+*.sh
+!run_tests.sh
+
+# Local dashboard copies
+dashboard.html
+dashboard_v2.html
+dashboard.png
+
+# macOS
+.DS_Store
