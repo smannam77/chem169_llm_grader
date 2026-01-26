@@ -384,6 +384,42 @@ def print_summary(student_routes: dict):
         print(f"  {n} routes: {count:3d} students {bar}")
 
 
+def get_route_stats(student_routes: dict, student_grades: dict, all_routes: list) -> dict:
+    """
+    Calculate per-route submission and send statistics.
+
+    Returns:
+        dict: {route_id: {'submitted': int, 'sent': int, 'not_sent': int, 'send_rate': float}}
+    """
+    route_stats = {rid: {'submitted': 0, 'sent': 0, 'not_sent': 0} for rid in all_routes}
+
+    # Count submissions per route
+    for student, routes in student_routes.items():
+        for rid in routes:
+            if rid in route_stats:
+                route_stats[rid]['submitted'] += 1
+
+    # Count sends per route
+    for student, grades in student_grades.items():
+        for rid, grade_info in grades.items():
+            if rid not in route_stats:
+                continue
+            exercises = grade_info.get('exercises', [])
+            if is_soft_send(exercises):
+                route_stats[rid]['sent'] += 1
+            else:
+                route_stats[rid]['not_sent'] += 1
+
+    # Calculate send rate
+    for rid, stats in route_stats.items():
+        if stats['submitted'] > 0:
+            stats['send_rate'] = stats['sent'] / stats['submitted'] * 100
+        else:
+            stats['send_rate'] = 0.0
+
+    return route_stats
+
+
 def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboard.html", assignments_dir: str = "assignments"):
     """Create interactive HTML dashboard with plotly."""
     if not HAS_PLOTLY:
@@ -402,6 +438,9 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
 
     # Calculate soft sends per student
     soft_sends = count_soft_sends(student_grades)
+
+    # Calculate per-route statistics
+    route_stats = get_route_stats(student_routes, student_grades, all_routes)
 
     # Prepare data with student names
     students = list(student_routes.keys())
@@ -581,6 +620,85 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
 
     # Generate the plotly chart HTML
     chart_html = fig.to_html(full_html=False, include_plotlyjs='cdn')
+
+    # --- Route Analysis Chart (Heatmap Tiles) ---
+    # Create a heatmap grid showing send rate per route
+    import math
+
+    route_ids = sorted(route_stats.keys())
+    n_routes = len(route_ids)
+
+    # Dynamic grid sizing - aim for roughly square, max 10 columns
+    n_cols = min(10, max(5, int(math.ceil(math.sqrt(n_routes)))))
+    n_rows = math.ceil(n_routes / n_cols)
+
+    # Build grid data (bottom to top so RID_001 is top-left)
+    z = []  # send rates
+    text = []  # display text
+    hover_text = []  # hover info
+
+    for row in range(n_rows - 1, -1, -1):  # reverse so row 0 is at top visually
+        row_z = []
+        row_text = []
+        row_hover = []
+        for col in range(n_cols):
+            idx = row * n_cols + col
+            if idx < n_routes:
+                rid = route_ids[idx]
+                rate = route_stats[rid]['send_rate']
+                sent = route_stats[rid]['sent']
+                submitted = route_stats[rid]['submitted']
+                not_sent = route_stats[rid]['not_sent']
+                row_z.append(rate)
+                row_text.append(f'{rid.replace("RID_", "")}<br>{rate:.0f}%')
+                row_hover.append(f'<b>{rid}</b><br>Send Rate: {rate:.0f}%<br>Sent: {sent}/{submitted}<br>Not Sent: {not_sent}')
+            else:
+                row_z.append(None)
+                row_text.append('')
+                row_hover.append('')
+        z.append(row_z)
+        text.append(row_text)
+        hover_text.append(row_hover)
+
+    route_fig = go.Figure(data=go.Heatmap(
+        z=z,
+        text=text,
+        texttemplate='%{text}',
+        textfont=dict(size=14, color='white'),
+        hovertext=hover_text,
+        hovertemplate='%{hovertext}<extra></extra>',
+        colorscale=[
+            [0, '#dc3545'],      # red at 0%
+            [0.5, '#ffc107'],    # yellow at 50%
+            [0.8, '#28a745'],    # green at 80%
+            [1, '#155724']       # dark green at 100%
+        ],
+        zmin=0,
+        zmax=100,
+        showscale=True,
+        colorbar=dict(
+            title='Send Rate %',
+            ticksuffix='%',
+            x=1.02
+        ),
+        xgap=3,
+        ygap=3
+    ))
+
+    route_fig.update_layout(
+        title=dict(
+            text='<b>Route Health: Send Rates</b><br>Red/yellow routes may need attention (hard content, unclear instructions, or grading issues)',
+            x=0.5,
+            font=dict(size=18)
+        ),
+        height=max(300, n_rows * 80 + 100),
+        width=1000,
+        template='plotly_white',
+        xaxis=dict(showticklabels=False, showgrid=False, zeroline=False),
+        yaxis=dict(showticklabels=False, showgrid=False, zeroline=False)
+    )
+
+    route_chart_html = route_fig.to_html(full_html=False, include_plotlyjs=False)
 
     # Prepare student data for JavaScript
     student_data = {}
@@ -954,6 +1072,9 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
         </div>
         <div class="chart-container">
             {chart_html}
+        </div>
+        <div class="chart-container" style="margin-top: 20px;">
+            {route_chart_html}
         </div>
     </div>
 
