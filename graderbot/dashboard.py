@@ -698,7 +698,62 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
         yaxis=dict(showticklabels=False, showgrid=False, zeroline=False)
     )
 
-    route_chart_html = route_fig.to_html(full_html=False, include_plotlyjs=False)
+    route_chart_html = route_fig.to_html(full_html=False, include_plotlyjs=False, div_id='routeHeatmap')
+
+    # --- Generate Route Analysis Data ---
+    # Import route analysis module for detailed feedback
+    from graderbot.route_analysis import collect_route_feedback, get_common_issues
+
+    route_analysis_data = {}
+    for rid in route_ids:
+        feedback = collect_route_feedback(rid, assignments_dir)
+
+        # Skip routes with no results or errors
+        if 'error' in feedback or feedback.get('total_submissions', 0) == 0:
+            route_analysis_data[rid] = {
+                'total_submissions': 0,
+                'send_rate': 0,
+                'sent': 0,
+                'not_sent': 0,
+                'exercise_success': {},
+                'issues': {}
+            }
+            continue
+
+        issues = get_common_issues(feedback, min_occurrences=2)
+
+        # Calculate exercise success rates
+        exercise_success = {}
+        for ex_id, stats_data in feedback.get('stats', {}).items():
+            total_ex = stats_data['excellent'] + stats_data['ok'] + stats_data['needs_work']
+            if total_ex > 0:
+                ok_plus = stats_data['excellent'] + stats_data['ok']
+                exercise_success[ex_id] = {
+                    'rate': round(ok_plus / total_ex * 100),
+                    'excellent': stats_data['excellent'],
+                    'ok': stats_data['ok'],
+                    'needs_work': stats_data['needs_work']
+                }
+
+        # Format issues for display
+        formatted_issues = {}
+        for ex_id, issue_data in issues.items():
+            formatted_issues[ex_id] = {
+                'count': issue_data['count'],
+                'percentage': round(issue_data['percentage']),
+                'samples': issue_data['sample_rationales'][:3]  # Top 3 examples
+            }
+
+        route_analysis_data[rid] = {
+            'total_submissions': feedback.get('total_submissions', 0),
+            'send_rate': route_stats[rid]['send_rate'],
+            'sent': route_stats[rid]['sent'],
+            'not_sent': route_stats[rid]['not_sent'],
+            'exercise_success': exercise_success,
+            'issues': formatted_issues
+        }
+
+    route_analysis_json = json.dumps(route_analysis_data)
 
     # Prepare student data for JavaScript
     student_data = {}
@@ -744,6 +799,12 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
 
     student_json = json.dumps(student_data)
     sorted_students_json = json.dumps(sorted(students))
+
+    # Generate route selector options
+    route_options = '\n'.join([
+        f'<option value="{rid}">{rid} ({route_stats[rid]["send_rate"]:.0f}% sent)</option>'
+        for rid in route_ids
+    ])
 
     # Create full HTML with search functionality
     html_content = f'''<!DOCTYPE html>
@@ -915,6 +976,112 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }}
+        /* Route Analysis Panel */
+        .route-analysis-panel {{
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            margin-top: 20px;
+            border: 2px solid #3498db;
+        }}
+        .route-analysis-header {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }}
+        .route-analysis-header h3 {{
+            margin: 0;
+            color: #2c3e50;
+        }}
+        .close-btn {{
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 12px;
+            cursor: pointer;
+            font-size: 14px;
+        }}
+        .close-btn:hover {{
+            background: #c0392b;
+        }}
+        .route-stats-row {{
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }}
+        .route-stat-box {{
+            background: #f8f9fa;
+            padding: 12px 20px;
+            border-radius: 6px;
+            text-align: center;
+            flex: 1;
+        }}
+        .route-stat-number {{
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #3498db;
+        }}
+        .route-stat-label {{
+            color: #666;
+            font-size: 0.85em;
+        }}
+        .exercise-bar {{
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }}
+        .exercise-bar-label {{
+            width: 100px;
+            font-weight: 500;
+            flex-shrink: 0;
+        }}
+        .exercise-bar-track {{
+            flex: 1;
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 0 10px;
+        }}
+        .exercise-bar-fill {{
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }}
+        .exercise-bar-value {{
+            width: 50px;
+            text-align: right;
+            font-weight: 500;
+        }}
+        .issue-card {{
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            margin-bottom: 12px;
+            border-radius: 0 6px 6px 0;
+        }}
+        .issue-card.severe {{
+            background: #ffebee;
+            border-left-color: #dc3545;
+        }}
+        .issue-header {{
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }}
+        .issue-samples {{
+            font-size: 0.9em;
+            color: #555;
+        }}
+        .issue-samples li {{
+            margin-bottom: 6px;
+        }}
         /* Grading feedback styles */
         .grades-section {{
             margin-top: 20px;
@@ -1075,12 +1242,50 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
         </div>
         <div class="chart-container" style="margin-top: 20px;">
             {route_chart_html}
+            <div style="margin-top: 15px; text-align: center;">
+                <span style="color: #666; margin-right: 10px;">Click a tile above or select:</span>
+                <select id="routeSelector" onchange="if(this.value) showRouteAnalysis(this.value);" style="padding: 8px; font-size: 14px; border-radius: 4px; border: 1px solid #ddd;">
+                    <option value="">-- Select Route --</option>
+                    {route_options}
+                </select>
+            </div>
+        </div>
+        <div id="routeAnalysisPanel" class="route-analysis-panel" style="display: none;">
+            <div class="route-analysis-header">
+                <h3 id="routeAnalysisTitle">Route Analysis</h3>
+                <button onclick="closeRouteAnalysis()" class="close-btn">✕</button>
+            </div>
+            <div class="route-analysis-body">
+                <div class="route-stats-row">
+                    <div class="route-stat-box">
+                        <div class="route-stat-number" id="raSubmissions">0</div>
+                        <div class="route-stat-label">Submissions</div>
+                    </div>
+                    <div class="route-stat-box">
+                        <div class="route-stat-number" id="raSent" style="color: #28a745;">0</div>
+                        <div class="route-stat-label">Sent</div>
+                    </div>
+                    <div class="route-stat-box">
+                        <div class="route-stat-number" id="raNotSent" style="color: #dc3545;">0</div>
+                        <div class="route-stat-label">Not Sent</div>
+                    </div>
+                    <div class="route-stat-box">
+                        <div class="route-stat-number" id="raSendRate">0%</div>
+                        <div class="route-stat-label">Send Rate</div>
+                    </div>
+                </div>
+                <h4>Exercise Success Rates</h4>
+                <div id="exerciseSuccessRates"></div>
+                <h4>Common Issues</h4>
+                <div id="commonIssues"></div>
+            </div>
         </div>
     </div>
 
     <script>
         const studentData = {student_json};
         const allStudents = {sorted_students_json};
+        const routeAnalysisData = {route_analysis_json};
 
         // Populate dropdown on load
         function populateDropdown(students) {{
@@ -1264,8 +1469,92 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
             icon.classList.toggle('rotated');
         }}
 
+        // --- Route Analysis Functions ---
+        function showRouteAnalysis(routeId) {{
+            const data = routeAnalysisData[routeId];
+            if (!data) return;
+
+            const panel = document.getElementById('routeAnalysisPanel');
+            document.getElementById('routeAnalysisTitle').textContent = `Route Analysis: ${{routeId}}`;
+            document.getElementById('raSubmissions').textContent = data.total_submissions;
+            document.getElementById('raSent').textContent = data.sent;
+            document.getElementById('raNotSent').textContent = data.not_sent;
+            document.getElementById('raSendRate').textContent = Math.round(data.send_rate) + '%';
+
+            // Render exercise success rates
+            let exerciseHtml = '';
+            const exercises = Object.entries(data.exercise_success).sort((a, b) => a[0].localeCompare(b[0]));
+            for (const [exId, exData] of exercises) {{
+                const rate = exData.rate;
+                const color = rate >= 80 ? '#28a745' : (rate >= 50 ? '#ffc107' : '#dc3545');
+                exerciseHtml += `
+                    <div class="exercise-bar">
+                        <span class="exercise-bar-label">${{exId.replace('Exercise ', 'Ex ')}}</span>
+                        <div class="exercise-bar-track">
+                            <div class="exercise-bar-fill" style="width: ${{rate}}%; background: ${{color}};"></div>
+                        </div>
+                        <span class="exercise-bar-value">${{rate}}%</span>
+                    </div>
+                `;
+            }}
+            document.getElementById('exerciseSuccessRates').innerHTML = exerciseHtml || '<em>No exercise data</em>';
+
+            // Render common issues
+            let issuesHtml = '';
+            const issues = Object.entries(data.issues).sort((a, b) => b[1].count - a[1].count);
+            if (issues.length === 0) {{
+                issuesHtml = '<p style="color: #28a745;"><strong>No significant issues found - this route has excellent send rates!</strong></p>';
+            }} else {{
+                for (const [exId, issueData] of issues) {{
+                    const severe = issueData.percentage >= 30;
+                    issuesHtml += `
+                        <div class="issue-card ${{severe ? 'severe' : ''}}">
+                            <div class="issue-header">
+                                <span>${{exId}}</span>
+                                <span>${{issueData.count}} students (${{issueData.percentage}}%)</span>
+                            </div>
+                            <ul class="issue-samples">
+                                ${{issueData.samples.map(s => `<li>${{s.substring(0, 150)}}${{s.length > 150 ? '...' : ''}}</li>`).join('')}}
+                            </ul>
+                        </div>
+                    `;
+                }}
+            }}
+            document.getElementById('commonIssues').innerHTML = issuesHtml;
+
+            panel.style.display = 'block';
+            panel.scrollIntoView({{ behavior: 'smooth', block: 'start' }});
+        }}
+
+        function closeRouteAnalysis() {{
+            document.getElementById('routeAnalysisPanel').style.display = 'none';
+        }}
+
+        // Hook into plotly heatmap clicks
+        function setupRouteClickHandler() {{
+            const routeChart = document.getElementById('routeHeatmap');
+            if (routeChart) {{
+                routeChart.on('plotly_click', function(data) {{
+                    if (data.points && data.points[0]) {{
+                        const text = data.points[0].text || '';
+                        const match = text.match(/R(\\d+)/);
+                        if (match) {{
+                            const routeId = 'RID_' + match[1];
+                            showRouteAnalysis(routeId);
+                        }}
+                    }}
+                }});
+                console.log('Route click handler attached');
+            }} else {{
+                console.log('Route chart not found, retrying...');
+                setTimeout(setupRouteClickHandler, 500);
+            }}
+        }}
+
         // Initialize
         populateDropdown(allStudents);
+        // Setup route click handler after plotly loads
+        setTimeout(setupRouteClickHandler, 500);
     </script>
 </body>
 </html>'''
