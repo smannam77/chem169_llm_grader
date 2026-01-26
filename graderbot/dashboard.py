@@ -408,9 +408,13 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
     completions = [len(routes) for routes in student_routes.values()]
     sends = [soft_sends.get(s, 0) for s in students]
 
-    # Calculate stats (median)
+    # Calculate stats (median and percentiles)
     median_submitted = float(np.median(completions)) if completions else 0
     median_sent = float(np.median(sends)) if sends else 0
+    p25_submitted = float(np.percentile(completions, 25)) if completions else 0
+    p75_submitted = float(np.percentile(completions, 75)) if completions else 0
+    p25_sent = float(np.percentile(sends, 25)) if sends else 0
+    p75_sent = float(np.percentile(sends, 75)) if sends else 0
 
     # Create 2x2 figure with subplots
     fig = make_subplots(
@@ -517,25 +521,50 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
         row=2, col=2
     )
 
-    # Add median lines to scatter plots
+    # Add percentile lines to scatter plots
+    # 25th percentile (dotted, lighter)
+    fig.add_hline(y=p25_submitted, line_dash="dot", line_color="orange",
+                  annotation_text=f"25th={p25_submitted:.0f}",
+                  annotation_position="bottom right", row=2, col=1)
+    fig.add_hline(y=p25_sent, line_dash="dot", line_color="orange",
+                  annotation_text=f"25th={p25_sent:.0f}",
+                  annotation_position="bottom right", row=2, col=2)
+
+    # Median (dashed, red)
     fig.add_hline(y=median_submitted, line_dash="dash", line_color="red",
-                  annotation_text=f"median={median_submitted:.0f}",
+                  annotation_text=f"50th={median_submitted:.0f}",
                   annotation_position="top right", row=2, col=1)
     fig.add_hline(y=median_sent, line_dash="dash", line_color="red",
-                  annotation_text=f"median={median_sent:.0f}",
+                  annotation_text=f"50th={median_sent:.0f}",
+                  annotation_position="top right", row=2, col=2)
+
+    # 75th percentile (dotted, lighter)
+    fig.add_hline(y=p75_submitted, line_dash="dot", line_color="orange",
+                  annotation_text=f"75th={p75_submitted:.0f}",
+                  annotation_position="top right", row=2, col=1)
+    fig.add_hline(y=p75_sent, line_dash="dot", line_color="orange",
+                  annotation_text=f"75th={p75_sent:.0f}",
                   annotation_position="top right", row=2, col=2)
 
     # Update layout
     fig.update_layout(
         title=dict(
-            text=f"<b>Route Completion Dashboard</b><br><sub>n={stats['total_students']} students | \"Sent\" = 80%+ exercises rated OK or better | Updated: {stats['last_updated']}</sub>",
-            x=0.5
+            text=f"<b>Route Completion Dashboard</b><br>n={stats['total_students']} students | \"Sent\" = 80%+ exercises OK or better | Updated: {stats['last_updated']}",
+            x=0.5,
+            y=0.98,
+            font=dict(size=20)
         ),
         showlegend=False,
-        height=700,
+        height=750,
         width=1000,
+        margin=dict(t=100),
         template='plotly_white'
     )
+
+    # Update subplot title positions to avoid overlap
+    for annotation in fig['layout']['annotations']:
+        if 'Distribution' in annotation['text'] or 'Student Rank' in annotation['text']:
+            annotation['y'] = annotation['y'] - 0.02
 
     # Update axes for 2x2 grid
     # Row 1: Histograms
