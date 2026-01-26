@@ -589,20 +589,37 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
         completed = sorted(list(routes))
         missing = [r for r in all_routes if r not in routes]
 
-        # Include grading data if available
+        # Include grading data and calculate send status for each route
         grades = {}
+        sent_routes = []  # Routes that qualify as "sent" (80%+ OK)
+        not_sent_routes = []  # Submitted but not sent
+
         if student in student_grades:
             for rid, grade_info in student_grades[student].items():
+                exercises = grade_info.get("exercises", [])
                 grades[rid] = {
-                    "exercises": grade_info.get("exercises", []),
+                    "exercises": exercises,
                     "overall_summary": grade_info.get("overall_summary", ""),
                 }
+                # Check if this route is a "send"
+                if is_soft_send(exercises):
+                    sent_routes.append(rid)
+                else:
+                    not_sent_routes.append(rid)
+
+        # Routes completed but not graded yet count as "not sent"
+        for rid in completed:
+            if rid not in sent_routes and rid not in not_sent_routes:
+                not_sent_routes.append(rid)
 
         student_data[student] = {
             "display_name": display_name,
             "completed": completed,
             "missing": missing,
+            "sent": sorted(sent_routes),
+            "not_sent": sorted(not_sent_routes),
             "count": len(routes),
+            "sent_count": len(sent_routes),
             "total": total_routes,
             "grades": grades,
         }
@@ -762,9 +779,13 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
             border-radius: 4px;
             font-size: 0.9em;
         }}
-        .route-completed {{
+        .route-sent {{
             background: #d4edda;
             color: #155724;
+        }}
+        .route-not-sent {{
+            background: #fff3cd;
+            color: #856404;
         }}
         .route-missing {{
             background: #f8d7da;
@@ -896,7 +917,11 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
                 <div class="stats-row">
                     <div class="stat-box">
                         <div class="stat-number" id="completedCount">0</div>
-                        <div class="stat-label">Completed</div>
+                        <div class="stat-label">Submitted</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number" id="sentCount" style="color: #28a745;">0</div>
+                        <div class="stat-label">Sent</div>
                     </div>
                     <div class="stat-box">
                         <div class="stat-number" id="missingCount">0</div>
@@ -909,11 +934,15 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
                 </div>
                 <div class="routes-section">
                     <div class="routes-list">
-                        <h4>✅ Completed Routes</h4>
-                        <div id="completedRoutes"></div>
+                        <h4>✅ Sent (80%+ OK)</h4>
+                        <div id="sentRoutes"></div>
                     </div>
                     <div class="routes-list">
-                        <h4>❌ Missing Routes</h4>
+                        <h4>⚠️ Submitted (needs work)</h4>
+                        <div id="notSentRoutes"></div>
+                    </div>
+                    <div class="routes-list">
+                        <h4>❌ Missing</h4>
                         <div id="missingRoutes"></div>
                     </div>
                 </div>
@@ -1022,19 +1051,25 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
             const data = studentData[selected];
             document.getElementById('displayName').textContent = data.display_name;
             document.getElementById('completedCount').textContent = data.count;
+            document.getElementById('sentCount').textContent = data.sent_count;
             document.getElementById('missingCount').textContent = data.missing.length;
             document.getElementById('percentComplete').textContent =
                 Math.round((data.count / data.total) * 100) + '%';
 
-            // Render completed routes
-            document.getElementById('completedRoutes').innerHTML = data.completed
-                .map(r => `<span class="route-tag route-completed">${{r}}</span>`)
+            // Render sent routes (green - 80%+ OK)
+            document.getElementById('sentRoutes').innerHTML = data.sent
+                .map(r => `<span class="route-tag route-sent">${{r}}</span>`)
+                .join('') || '<em>None yet</em>';
+
+            // Render not-sent routes (yellow - submitted but needs work)
+            document.getElementById('notSentRoutes').innerHTML = data.not_sent
+                .map(r => `<span class="route-tag route-not-sent">${{r}}</span>`)
                 .join('') || '<em>None</em>';
 
             // Render missing routes
             document.getElementById('missingRoutes').innerHTML = data.missing
                 .map(r => `<span class="route-tag route-missing">${{r}}</span>`)
-                .join('') || '<em>All complete! 🎉</em>';
+                .join('') || '<em>All complete!</em>';
 
             // Render grading feedback
             renderGrades(data);
