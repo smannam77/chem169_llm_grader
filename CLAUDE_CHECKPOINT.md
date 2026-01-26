@@ -1,115 +1,142 @@
 # Claude Code Checkpoint - Chem169 LLM Grader
 
-**Last Updated:** 2026-01-25 (overnight batch run started)
+**Last Updated:** 2026-01-26
 
 ## Project Overview
 
-This is an LLM-powered grading tool for CHEM169 course Jupyter notebook assignments. It parses assignment instructions ("routes"), extracts exercises, and uses LLMs to grade student submissions.
+This is an LLM-powered grading tool for CHEM169 course Jupyter notebook assignments. It parses assignment instructions ("routes"), extracts exercises, and uses LLMs (OpenAI GPT-4o or Anthropic Claude) to grade student submissions.
 
-## Current State
+## Current State: ALL GRADING COMPLETE
 
-### Grading Progress
+### Grading Summary
 
-| Route | Status | Notes |
-|-------|--------|-------|
-| RID_001 | IN PROGRESS | Running overnight with Anthropic (~31/81 when left) |
-| RID_002 | COMPLETED | 72/72 successful |
-| RID_003 | PENDING | Queued for overnight run |
-| RID_004 | PENDING | Queued for overnight run |
-| RID_005 | PENDING | Queued for overnight run |
-| RID_006 | SKIPPED | Uses .txt deliverables (git log), not notebooks |
-| RID_007 | PENDING | Queued for overnight run |
-| RID_008 | SKIPPED | Uses .txt deliverables, not notebooks |
-| RID_009 | PENDING | Queued for overnight run |
+| Route | Type | Graded | Status |
+|-------|------|--------|--------|
+| RID_001 | Notebooks | 81/81 | ✅ Complete |
+| RID_002 | Notebooks | 72/72 | ✅ Complete |
+| RID_003 | Notebooks | 80/80 | ✅ Complete |
+| RID_004 | Notebooks | 75/75 | ✅ Complete |
+| RID_005 | Notebooks | 73/73 | ✅ Complete |
+| RID_006 | Text (.txt) | 73/74 | ✅ Complete |
+| RID_007 | Notebooks | 56/56 | ✅ Complete |
+| RID_008 | Text (.txt) | 32/36 | ✅ Complete |
+| RID_009 | Notebooks | 29/29 | ✅ Complete |
 
-### Overnight Batch Script
+**Total: ~571 submissions graded**
 
-A script `run_overnight.sh` was created to run all pending routes sequentially using Anthropic. Check if it completed by looking at:
-- `nohup.out` for logs
-- Each route's `results/summary.json` for completion status
+### Generated Outputs
 
-## Key Code Changes Made This Session
+- **Dashboard:** `docs/index.html` (also `dashboard.html` locally)
+- **Student Reports:** `assignments/RID_XXX/results/*_grade.txt` (574 reports)
+- **JSON Results:** `assignments/RID_XXX/results/*_grade.json`
+- **Summaries:** `assignments/RID_XXX/results/summary.json`
 
-### 1. Route Parser Fix (`graderbot/route_parser.py`)
-- Changed regex from `#{2,4}` to `#{1,4}` to detect single `#` headers
-- Added Part A/B/C/D pattern for RID_002 format
-- Added optional exercise detection (bonus, dyno, extra practice, anchor challenge)
+### GitHub Pages
 
-### 2. Retry Logic (`graderbot/llm_client.py`)
-- Added exponential backoff retry for 429 rate limit errors
-- Config: MAX_RETRIES=5, INITIAL_BACKOFF=2s, MAX_BACKOFF=60s
+- **Status:** Waiting for smannam77 to enable (requires admin access)
+- **URL (once enabled):** https://smannam77.github.io/chem169_llm_grader/
+- **Settings:** Branch `main`, folder `/docs`
 
-### 3. Python 3.9 Compatibility
-- Added `from __future__ import annotations` to all files using `str | None` syntax:
-  - `llm_client.py`, `route_parser.py`, `grader.py`, `notebook_view.py`
-  - `prompts.py`, `report.py`, `web.py`
+## Key Features Implemented
 
-### 4. Optional Exercise Handling (`graderbot/schema.py`, `graderbot/prompts.py`)
-- Added `optional: bool` field to Exercise schema
-- Added grading instructions for optional exercises (don't penalize if not attempted)
+### 1. Route Parser (`graderbot/route_parser.py`)
+- Detects `# Exercise N`, `## Exercise N`, `### Part A/B/C/D` formats
+- Detects optional exercises (bonus, dyno, extra practice, anchor challenge)
+- Works with single `#` headers (changed from `#{2,4}` to `#{1,4}`)
 
-### 5. Non-standard Filename Tracking (`graderbot/dashboard.py`)
-- `extract_student_name()` handles Route-prefixed files (e.g., `Route_002_ColabWarmUp_Tiwary`)
-- `NON_STANDARD_FILES` list tracks oddly-named submissions
+### 2. Text File Grading (`graderbot/text_view.py`)
+- Added `batch-text` CLI command for .txt submissions (RID_006, RID_008)
+- Grades git log deliverables and logbook reflections
+- Custom system prompt for evaluating git workflows
+
+### 3. Retry Logic (`graderbot/llm_client.py`)
+- Exponential backoff for 429 rate limit errors
+- MAX_RETRIES=5, INITIAL_BACKOFF=2s, MAX_BACKOFF=60s
+
+### 4. Resume Support (`graderbot/cli.py`)
+- Both `batch` and `batch-text` skip already-graded submissions
+- Safe to interrupt and restart - won't re-grade existing results
+
+### 5. Python 3.9 Compatibility
+- `from __future__ import annotations` in all modules
 
 ## API Keys
 
-Both are configured in `.env`:
-- `OPENAI_API_KEY` - GPT-4o (fast, but hit rate limits with parallel jobs)
-- `ANTHROPIC_API_KEY` - Claude Sonnet 4 (slower but reliable, $50 credit added)
+Configured in `.env` (not committed to git):
+```
+OPENAI_API_KEY=sk-proj-...
+ANTHROPIC_API_KEY=sk-ant-...
+```
 
 ## Commands Reference
 
 ```bash
-# Grade single notebook
-source .env && /usr/bin/python3 -m graderbot.cli grade \
-  --route assignments/RID_XXX/instructions.md \
-  --notebook "path/to/notebook.ipynb" \
-  --out "path/to/output.json" \
-  --provider anthropic
-
-# Batch grade a route
+# Grade notebooks (batch)
 source .env && /usr/bin/python3 -m graderbot.cli batch \
   --route assignments/RID_XXX/instructions.md \
   --submissions assignments/RID_XXX/submissions \
   --out assignments/RID_XXX/results \
   --provider anthropic
 
-# Parse route to see exercises
+# Grade text files (batch) - for RID_006, RID_008
+source .env && /usr/bin/python3 -m graderbot.cli batch-text \
+  --route assignments/RID_XXX/instructions.md \
+  --submissions assignments/RID_XXX/submissions \
+  --out assignments/RID_XXX/results \
+  --provider anthropic
+
+# Generate dashboard
+/usr/bin/python3 -m graderbot.dashboard
+
+# Generate student report from JSON
+/usr/bin/python3 -m graderbot.report assignments/RID_XXX/results/StudentName_grade.json
+
+# Parse route to see detected exercises
 /usr/bin/python3 -m graderbot.cli parse-route assignments/RID_XXX/instructions.md
 ```
 
-## Next Steps (When You Resume)
+## GitHub CLI
 
-1. **Check overnight results:**
-   ```bash
-   cat nohup.out | tail -100
-   ls -la assignments/RID_*/results/summary.json
-   ```
+Installed at `~/bin/gh` (authenticated). Useful commands:
+```bash
+~/bin/gh auth status
+~/bin/gh api repos/smannam77/chem169_llm_grader
+```
 
-2. **Verify completion for each route:**
-   ```bash
-   for dir in assignments/RID_*/results; do
-     echo "=== $dir ==="
-     cat "$dir/summary.json" 2>/dev/null | python3 -c "import sys,json; d=json.load(sys.stdin); print(f'Success: {d[\"successful\"]}/{d[\"total\"]}')" 2>/dev/null || echo "Not complete"
-   done
-   ```
+## File Structure
 
-3. **If any failed, re-run:**
-   ```bash
-   source .env  # Load API keys from .env file
-   /usr/bin/python3 -m graderbot.cli batch --route assignments/RID_XXX/instructions.md --submissions assignments/RID_XXX/submissions --out assignments/RID_XXX/results --provider anthropic
-   ```
+```
+chem169_llm_grader/
+├── graderbot/
+│   ├── cli.py          # Main CLI (grade, batch, batch-text, etc.)
+│   ├── grader.py       # Grading logic
+│   ├── llm_client.py   # OpenAI/Anthropic clients with retry
+│   ├── route_parser.py # Exercise extraction from markdown
+│   ├── text_view.py    # Text file submission handling
+│   ├── dashboard.py    # Statistics and visualization
+│   ├── report.py       # Human-readable report generation
+│   └── schema.py       # Pydantic models
+├── assignments/
+│   └── RID_XXX/
+│       ├── instructions.md
+│       ├── submissions/
+│       └── results/
+├── docs/
+│   └── index.html      # Dashboard for GitHub Pages
+├── .env                # API keys (not in git)
+└── CLAUDE_CHECKPOINT.md # This file
+```
 
-4. **Generate dashboard** (once all grading complete):
-   ```bash
-   /usr/bin/python3 -m graderbot.dashboard
-   ```
+## Potential Next Steps
 
-5. **RID_006 and RID_008** need a different approach - they grade git logs (.txt files), not notebooks. The current grader doesn't support this.
+1. **Enable GitHub Pages** - Need smannam77 to enable in repo settings
+2. **Aggregate statistics** - Cross-route analysis of student performance
+3. **Identify struggling students** - Flag students with multiple NEEDS_WORK ratings
+4. **Export to CSV** - For importing into course gradebook
+5. **Add more routes** - RID_010, RID_011, RID_012 when available
 
 ## Known Issues
 
-- OpenAI rate limits when running multiple routes in parallel
-- RID_006/RID_008 use text file deliverables, not supported yet
-- Some students have non-standard filenames (tracked in dashboard.py)
+- Some students have non-standard filenames (tracked in `NON_STANDARD_FILES` list)
+- 4 students missing deliverables in RID_008
+- 1 student missing deliverable in RID_006
