@@ -172,6 +172,47 @@ def scan_submissions(assignments_dir: str = "assignments") -> dict:
     return dict(student_routes)
 
 
+def is_soft_send(exercises: list, threshold: float = 0.8) -> bool:
+    """
+    Check if a route submission qualifies as a "soft send".
+
+    A soft send means >= threshold (default 80%) of exercises are rated EXCELLENT or OK.
+
+    Args:
+        exercises: List of exercise dicts with 'rating' keys
+        threshold: Minimum fraction of OK+ ratings (default 0.8)
+
+    Returns:
+        True if the route is a soft send, False otherwise
+    """
+    if not exercises:
+        return False
+
+    good_ratings = sum(1 for ex in exercises if ex.get('rating') in ('EXCELLENT', 'OK'))
+    return (good_ratings / len(exercises)) >= threshold
+
+
+def count_soft_sends(student_grades: dict) -> dict:
+    """
+    Count the number of "soft sends" per student.
+
+    Args:
+        student_grades: Dict of {student_name: {rid: grade_info}}
+
+    Returns:
+        Dict of {student_name: number_of_soft_sends}
+    """
+    soft_sends = {}
+    for student, routes in student_grades.items():
+        count = 0
+        for rid, grade_info in routes.items():
+            exercises = grade_info.get('exercises', [])
+            if is_soft_send(exercises):
+                count += 1
+        soft_sends[student] = count
+    return soft_sends
+
+
 def scan_grading_results(assignments_dir: str = "assignments") -> dict:
     """
     Scan all grading result JSON files.
@@ -359,33 +400,53 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
     # Get grading results
     student_grades = scan_grading_results(assignments_dir)
 
+    # Calculate soft sends per student
+    soft_sends = count_soft_sends(student_grades)
+
     # Prepare data with student names
     students = list(student_routes.keys())
     completions = [len(routes) for routes in student_routes.values()]
+    sends = [soft_sends.get(s, 0) for s in students]
 
     # Create figure with subplots
     fig = make_subplots(
         rows=1, cols=2,
         subplot_titles=(
-            f"Distribution of Routes Completed (Gym: {total_routes} routes)",
+            f"Submitted vs Sent (Gym: {total_routes} routes)",
             f"Student Progress ({len(students)} students)"
         ),
         column_widths=[0.5, 0.5]
     )
 
-    # --- Left: Histogram ---
-    dist = Counter(completions)
+    # --- Left: Grouped bar chart (Submissions vs Sends) ---
+    dist_submitted = Counter(completions)
+    dist_sent = Counter(sends)
     x_hist = list(range(total_routes + 1))
-    y_hist = [dist.get(n, 0) for n in x_hist]
+    y_submitted = [dist_submitted.get(n, 0) for n in x_hist]
+    y_sent = [dist_sent.get(n, 0) for n in x_hist]
 
+    # Submitted bars (blue)
     fig.add_trace(
         go.Bar(
             x=x_hist,
-            y=y_hist,
+            y=y_submitted,
             marker_color='steelblue',
             opacity=0.7,
-            name='Students',
-            hovertemplate='%{y} students completed %{x} routes<extra></extra>'
+            name='Submitted',
+            hovertemplate='%{y} students submitted %{x} routes<extra></extra>'
+        ),
+        row=1, col=1
+    )
+
+    # Sent bars (green)
+    fig.add_trace(
+        go.Bar(
+            x=x_hist,
+            y=y_sent,
+            marker_color='seagreen',
+            opacity=0.7,
+            name='Sent (80%+ OK)',
+            hovertemplate='%{y} students sent %{x} routes<extra></extra>'
         ),
         row=1, col=1
     )
@@ -438,20 +499,31 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
         row=1, col=2
     )
 
+    # Calculate send stats
+    avg_sends = sum(sends) / len(sends) if sends else 0
+
     # Update layout
     fig.update_layout(
         title=dict(
-            text=f"<b>Route Completion Dashboard</b><br><sub>n={stats['total_students']} students | μ={stats['avg_completed']:.1f} routes | range={stats['min_completed']}-{stats['max_completed']} | Last updated: {stats['last_updated']}</sub>",
+            text=f"<b>Route Completion Dashboard</b><br><sub>n={stats['total_students']} | Submitted: μ={stats['avg_completed']:.1f} | Sent: μ={avg_sends:.1f} | \"Sent\" = 80%+ exercises OK or better | Updated: {stats['last_updated']}</sub>",
             x=0.5
         ),
-        showlegend=False,
+        showlegend=True,
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="center",
+            x=0.25
+        ),
+        barmode='group',
         height=500,
-        width=1000,
+        width=1100,
         template='plotly_white'
     )
 
     # Update axes
-    fig.update_xaxes(title_text="Routes Completed", row=1, col=1)
+    fig.update_xaxes(title_text="Routes", row=1, col=1)
     fig.update_yaxes(title_text="Number of Students", row=1, col=1)
     fig.update_xaxes(title_text="Student Rank", row=1, col=2)
     fig.update_yaxes(title_text="Routes Completed", range=[-0.5, total_routes + 0.5], row=1, col=2)
