@@ -47,6 +47,13 @@ NAME_ALIASES = {
     'pineda': 'pineda_leo',
 }
 
+# Students not enrolled (exclude from dashboard)
+EXCLUDED_STUDENTS = {
+    'wagner_eli',
+    'schaap_tamar',
+    'cruz_jade',
+}
+
 # Track files with non-standard naming (populated during scan)
 NON_STANDARD_FILES = []
 
@@ -120,6 +127,10 @@ def extract_student_name(filename: str, track_non_standard: bool = True) -> str:
 
     # Apply known aliases
     name = NAME_ALIASES.get(name, name)
+
+    # Skip excluded students (not enrolled)
+    if name in EXCLUDED_STUDENTS:
+        return None
 
     return name if name else None
 
