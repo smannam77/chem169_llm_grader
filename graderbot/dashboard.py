@@ -18,8 +18,33 @@ import matplotlib.pyplot as plt
 
 # Known name aliases for students who submit with inconsistent naming
 NAME_ALIASES = {
-    'kao_yingchieh': 'kao_ying_chieh',
-    'kao_ying chieh': 'kao_ying_chieh',
+    # Kao variations
+    'kao_yingchieh': 'kao_ying',
+    'kao_ying chieh': 'kao_ying',
+    'kao_ying_chieh': 'kao_ying',
+    # Tsai variations
+    'tsai_i_shan': 'tsai_i',
+    'tsai_i-shan': 'tsai_i',
+    # Jaramillo typo
+    'jaramilo_jonathan': 'jaramillo_jonathan',
+    # Gupta typo
+    'gupa_siddhartha': 'gupta_siddhartha',
+    # Hossain variations
+    'md_saddam_hossain': 'hossain_mdsaddam',
+    'md_saddam': 'hossain_mdsaddam',
+    'saddam_hossain': 'hossain_mdsaddam',
+    # Xinyi Shang trailing underscore
+    'xinyi_shang_': 'xinyi_shang',
+    # First/Last name swapped
+    'jinyi_zhang': 'zhang_jinyi',
+    'jingru_zhao': 'zhao_jingru',
+    'anya_weeranarawat': 'weeranarawat_anya',
+    'heyang_haoye': 'haoye_heyang',
+    'tito_tapia': 'tapia_tito',
+    # Single-word names from Route_XXX patterns
+    'tiwary': 'tiwary_ayush',
+    'huang': 'huang_terry',
+    'pineda': 'pineda_leo',
 }
 
 # Track files with non-standard naming (populated during scan)
