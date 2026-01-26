@@ -408,125 +408,147 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
     completions = [len(routes) for routes in student_routes.values()]
     sends = [soft_sends.get(s, 0) for s in students]
 
-    # Create figure with subplots
+    # Calculate stats (median)
+    median_submitted = float(np.median(completions)) if completions else 0
+    median_sent = float(np.median(sends)) if sends else 0
+
+    # Create 2x2 figure with subplots
     fig = make_subplots(
-        rows=1, cols=2,
+        rows=2, cols=2,
         subplot_titles=(
-            f"Submitted vs Sent (Gym: {total_routes} routes)",
-            f"Student Progress ({len(students)} students)"
+            f"Submitted Distribution (median={median_submitted:.0f})",
+            f"Sent Distribution (median={median_sent:.0f})",
+            f"Submitted by Student Rank",
+            f"Sent by Student Rank"
         ),
-        column_widths=[0.5, 0.5]
+        vertical_spacing=0.12,
+        horizontal_spacing=0.08
     )
 
-    # --- Left: Grouped bar chart (Submissions vs Sends) ---
+    # --- Histograms ---
     dist_submitted = Counter(completions)
     dist_sent = Counter(sends)
     x_hist = list(range(total_routes + 1))
     y_submitted = [dist_submitted.get(n, 0) for n in x_hist]
     y_sent = [dist_sent.get(n, 0) for n in x_hist]
 
-    # Submitted bars (blue)
+    # Top-left: Submitted histogram (blue)
     fig.add_trace(
         go.Bar(
             x=x_hist,
             y=y_submitted,
             marker_color='steelblue',
-            opacity=0.7,
+            opacity=0.8,
             name='Submitted',
+            showlegend=False,
             hovertemplate='%{y} students submitted %{x} routes<extra></extra>'
         ),
         row=1, col=1
     )
 
-    # Sent bars (green)
+    # Top-right: Sent histogram (green)
     fig.add_trace(
         go.Bar(
             x=x_hist,
             y=y_sent,
             marker_color='seagreen',
-            opacity=0.7,
-            name='Sent (80%+ OK)',
+            opacity=0.8,
+            name='Sent',
+            showlegend=False,
             hovertemplate='%{y} students sent %{x} routes<extra></extra>'
         ),
-        row=1, col=1
+        row=1, col=2
     )
 
-    # --- Right: Rank-sorted scatter plot ---
+    # --- Scatter plots ---
     np.random.seed(42)
 
     # Sort students by completion count (descending), then by name for ties
-    sorted_data = sorted(
-        zip(students, completions),
-        key=lambda x: (-x[1], x[0])  # Sort by completions desc, then name asc
+    sorted_by_submitted = sorted(
+        zip(students, completions, sends),
+        key=lambda x: (-x[1], x[0])
     )
-    sorted_students = [s for s, c in sorted_data]
-    sorted_completions = [c for s, c in sorted_data]
+    sorted_by_sent = sorted(
+        zip(students, completions, sends),
+        key=lambda x: (-x[2], x[0])
+    )
 
-    # X-axis is rank (1, 2, 3, ...)
-    ranks = list(range(1, len(sorted_students) + 1))
-
-    # Add jitter to y-axis to separate overlapping points
-    y_jitter = np.array(sorted_completions) + np.random.uniform(-0.3, 0.3, len(sorted_completions))
+    # Ranks
+    ranks = list(range(1, len(students) + 1))
 
     # Format student names nicely for hover
-    display_names = [name.replace('_', ' ').title() for name in sorted_students]
+    display_names_sub = [name.replace('_', ' ').title() for name, _, _ in sorted_by_submitted]
+    completions_sorted = [c for _, c, _ in sorted_by_submitted]
 
+    display_names_sent = [name.replace('_', ' ').title() for name, _, _ in sorted_by_sent]
+    sends_sorted = [s for _, _, s in sorted_by_sent]
+
+    # Add jitter
+    y_jitter_sub = np.array(completions_sorted) + np.random.uniform(-0.25, 0.25, len(completions_sorted))
+    y_jitter_sent = np.array(sends_sorted) + np.random.uniform(-0.25, 0.25, len(sends_sorted))
+
+    # Bottom-left: Submitted scatter (blue)
     fig.add_trace(
         go.Scatter(
             x=ranks,
-            y=y_jitter,
+            y=y_jitter_sub,
             mode='markers',
-            marker=dict(
-                size=8,
-                color='steelblue',
-                opacity=0.7
-            ),
-            name='Students',
-            text=display_names,
-            customdata=[[s, c, r] for s, c, r in zip(display_names, sorted_completions, ranks)],
-            hovertemplate='<b>%{customdata[0]}</b><br>Rank: %{customdata[2]}<br>Routes: %{customdata[1]}<extra></extra>'
+            marker=dict(size=7, color='steelblue', opacity=0.7),
+            name='Submitted',
+            showlegend=False,
+            customdata=[[s, c, r] for s, c, r in zip(display_names_sub, completions_sorted, ranks)],
+            hovertemplate='<b>%{customdata[0]}</b><br>Rank: %{customdata[2]}<br>Submitted: %{customdata[1]}<extra></extra>'
         ),
-        row=1, col=2
+        row=2, col=1
     )
 
-    # Add mean line
-    fig.add_hline(
-        y=stats['avg_completed'],
-        line_dash="dash",
-        line_color="red",
-        annotation_text=f"Mean: {stats['avg_completed']:.1f}",
-        annotation_position="top right",
-        row=1, col=2
+    # Bottom-right: Sent scatter (green)
+    fig.add_trace(
+        go.Scatter(
+            x=ranks,
+            y=y_jitter_sent,
+            mode='markers',
+            marker=dict(size=7, color='seagreen', opacity=0.7),
+            name='Sent',
+            showlegend=False,
+            customdata=[[s, c, r] for s, c, r in zip(display_names_sent, sends_sorted, ranks)],
+            hovertemplate='<b>%{customdata[0]}</b><br>Rank: %{customdata[2]}<br>Sent: %{customdata[1]}<extra></extra>'
+        ),
+        row=2, col=2
     )
 
-    # Calculate send stats
-    avg_sends = sum(sends) / len(sends) if sends else 0
+    # Add median lines to scatter plots
+    fig.add_hline(y=median_submitted, line_dash="dash", line_color="red",
+                  annotation_text=f"median={median_submitted:.0f}",
+                  annotation_position="top right", row=2, col=1)
+    fig.add_hline(y=median_sent, line_dash="dash", line_color="red",
+                  annotation_text=f"median={median_sent:.0f}",
+                  annotation_position="top right", row=2, col=2)
 
     # Update layout
     fig.update_layout(
         title=dict(
-            text=f"<b>Route Completion Dashboard</b><br><sub>n={stats['total_students']} | Submitted: μ={stats['avg_completed']:.1f} | Sent: μ={avg_sends:.1f} | \"Sent\" = 80%+ exercises OK or better | Updated: {stats['last_updated']}</sub>",
+            text=f"<b>Route Completion Dashboard</b><br><sub>n={stats['total_students']} students | \"Sent\" = 80%+ exercises rated OK or better | Updated: {stats['last_updated']}</sub>",
             x=0.5
         ),
-        showlegend=True,
-        legend=dict(
-            orientation="h",
-            yanchor="bottom",
-            y=1.02,
-            xanchor="center",
-            x=0.25
-        ),
-        barmode='group',
-        height=500,
-        width=1100,
+        showlegend=False,
+        height=700,
+        width=1000,
         template='plotly_white'
     )
 
-    # Update axes
+    # Update axes for 2x2 grid
+    # Row 1: Histograms
     fig.update_xaxes(title_text="Routes", row=1, col=1)
-    fig.update_yaxes(title_text="Number of Students", row=1, col=1)
-    fig.update_xaxes(title_text="Student Rank", row=1, col=2)
-    fig.update_yaxes(title_text="Routes Completed", range=[-0.5, total_routes + 0.5], row=1, col=2)
+    fig.update_xaxes(title_text="Routes", row=1, col=2)
+    fig.update_yaxes(title_text="# Students", row=1, col=1)
+    fig.update_yaxes(title_text="# Students", row=1, col=2)
+
+    # Row 2: Scatter plots
+    fig.update_xaxes(title_text="Student Rank", row=2, col=1)
+    fig.update_xaxes(title_text="Student Rank", row=2, col=2)
+    fig.update_yaxes(title_text="Routes", range=[-0.5, total_routes + 0.5], row=2, col=1)
+    fig.update_yaxes(title_text="Routes", range=[-0.5, total_routes + 0.5], row=2, col=2)
 
     # Generate the plotly chart HTML
     chart_html = fig.to_html(full_html=False, include_plotlyjs='cdn')
