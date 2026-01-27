@@ -60,6 +60,7 @@ nohup.out
 *.out
 *.sh
 !run_tests.sh
+!sync_instructions.sh
 
 # Local dashboard copies
 dashboard.html

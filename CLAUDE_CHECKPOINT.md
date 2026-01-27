@@ -201,15 +201,21 @@ google_form_based_submissions/
 - Various routes: docx, rtf submissions instead of txt
 - Need Canvas announcement about correct formats
 
-## Repo Sync Issue (TODO)
+## Repo Sync (SOLVED)
 
-**Problem:** Route instructions exist in TWO places:
-1. Grader repo: `/Users/ajinich/Documents/repos/chem169_llm_grader/assignments/RID_XXX/instructions.md`
-2. Portal repo: `/Users/ajinich/Documents/repos/climbing-gym-app`
+**Portal is source of truth** for route instructions.
 
-**Solution:** Portal repo should be source of truth. Grader syncs instructions from portal.
+| Repo | Path |
+|------|------|
+| Portal (source) | `/Users/ajinich/Documents/repos/climbing-gym-app/content/routes/R001_*.md` |
+| Grader (synced) | `/Users/ajinich/Documents/repos/chem169_llm_grader/assignments/RID_001/instructions.md` |
 
-**Action needed:** Set up sync mechanism between repos.
+**Sync command:**
+```bash
+./sync_instructions.sh
+```
+
+Run this after updating any route instructions in the portal repo.
 
 ## rclone Setup
 
