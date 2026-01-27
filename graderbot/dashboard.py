@@ -54,6 +54,12 @@ EXCLUDED_STUDENTS = {
     'cruz_jade',
 }
 
+# Routes that get a "free pass" - always count as sent regardless of grade
+# (Use for routes with confusing instructions where students shouldn't be penalized)
+FREE_PASS_ROUTES = {
+    'RID_007',  # Instructions were unclear, students submitted wrong format
+}
+
 # Track files with non-standard naming (populated during scan)
 NON_STANDARD_FILES = []
 
@@ -93,9 +99,9 @@ def extract_student_name(filename: str, track_non_standard: bool = True) -> str:
         else:
             return None
 
-    # Remove common suffixes like _RID_001_code, _R007_code, _RID002_code, _RD_003, _001_code, etc.
-    # Handles: _RID_001, _RID001, _R001, _R_001, _RD_001, _001, etc.
-    name = re.sub(r'_R(?:ID|D)?_?\d+.*$', '', name, flags=re.IGNORECASE)
+    # Remove common suffixes like _RID_001_code, _R007_code, _RID002_code, _RD_003, _Route_001, _001_code, etc.
+    # Handles: _RID_001, _RID001, _R001, _R_001, _RD_001, _Route_001, _001, etc.
+    name = re.sub(r'_(?:R(?:ID|D|oute)?_?\d+|Route_?\d+).*$', '', name, flags=re.IGNORECASE)
     # Also handle bare _001_ patterns (no R prefix)
     name = re.sub(r'_0\d{2}_.*$', '', name, flags=re.IGNORECASE)
     # Remove student ID numbers like _A10589679
@@ -172,19 +178,25 @@ def scan_submissions(assignments_dir: str = "assignments") -> dict:
     return dict(student_routes)
 
 
-def is_soft_send(exercises: list, threshold: float = 0.8) -> bool:
+def is_soft_send(exercises: list, threshold: float = 0.8, route_id: str = None) -> bool:
     """
     Check if a route submission qualifies as a "soft send".
 
     A soft send means >= threshold (default 80%) of exercises are rated EXCELLENT or OK.
+    Routes in FREE_PASS_ROUTES always return True (free pass for confusing instructions).
 
     Args:
         exercises: List of exercise dicts with 'rating' keys
         threshold: Minimum fraction of OK+ ratings (default 0.8)
+        route_id: Optional route ID to check for free pass
 
     Returns:
         True if the route is a soft send, False otherwise
     """
+    # Free pass routes always count as sent
+    if route_id and route_id in FREE_PASS_ROUTES:
+        return True
+
     if not exercises:
         return False
 
@@ -207,7 +219,7 @@ def count_soft_sends(student_grades: dict) -> dict:
         count = 0
         for rid, grade_info in routes.items():
             exercises = grade_info.get('exercises', [])
-            if is_soft_send(exercises):
+            if is_soft_send(exercises, route_id=rid):
                 count += 1
         soft_sends[student] = count
     return soft_sends
@@ -393,19 +405,14 @@ def get_route_stats(student_routes: dict, student_grades: dict, all_routes: list
     """
     route_stats = {rid: {'submitted': 0, 'sent': 0, 'not_sent': 0} for rid in all_routes}
 
-    # Count submissions per route
-    for student, routes in student_routes.items():
-        for rid in routes:
-            if rid in route_stats:
-                route_stats[rid]['submitted'] += 1
-
-    # Count sends per route
+    # Count from grading results (ensures submitted = sent + not_sent)
     for student, grades in student_grades.items():
         for rid, grade_info in grades.items():
             if rid not in route_stats:
                 continue
+            route_stats[rid]['submitted'] += 1
             exercises = grade_info.get('exercises', [])
-            if is_soft_send(exercises):
+            if is_soft_send(exercises, route_id=rid):
                 route_stats[rid]['sent'] += 1
             else:
                 route_stats[rid]['not_sent'] += 1
@@ -716,7 +723,8 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
                 'sent': 0,
                 'not_sent': 0,
                 'exercise_success': {},
-                'issues': {}
+                'issues': {},
+                'free_pass': rid in FREE_PASS_ROUTES
             }
             continue
 
@@ -744,13 +752,15 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
                 'samples': issue_data['sample_rationales'][:3]  # Top 3 examples
             }
 
+        # Use route_stats for all counts (ensures consistency)
         route_analysis_data[rid] = {
-            'total_submissions': feedback.get('total_submissions', 0),
+            'total_submissions': route_stats[rid]['submitted'],
             'send_rate': route_stats[rid]['send_rate'],
             'sent': route_stats[rid]['sent'],
             'not_sent': route_stats[rid]['not_sent'],
             'exercise_success': exercise_success,
-            'issues': formatted_issues
+            'issues': formatted_issues,
+            'free_pass': rid in FREE_PASS_ROUTES
         }
 
     route_analysis_json = json.dumps(route_analysis_data)
@@ -775,7 +785,7 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
                     "overall_summary": grade_info.get("overall_summary", ""),
                 }
                 # Check if this route is a "send"
-                if is_soft_send(exercises):
+                if is_soft_send(exercises, route_id=rid):
                     sent_routes.append(rid)
                 else:
                     not_sent_routes.append(rid)
@@ -1186,6 +1196,39 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
     </style>
 </head>
 <body>
+    <!-- Password Gate -->
+    <div id="loginOverlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f5f5f5; z-index: 9999; display: flex; align-items: center; justify-content: center;">
+        <div style="background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); text-align: center; max-width: 400px;">
+            <h2 style="margin-top: 0; color: #333;">🧗 Chem169 Dashboard</h2>
+            <p style="color: #666;">Enter the course password to view the dashboard.</p>
+            <input type="password" id="passwordInput" placeholder="Password"
+                   style="width: 100%; padding: 12px; font-size: 16px; border: 2px solid #ddd; border-radius: 6px; margin: 10px 0; box-sizing: border-box;"
+                   onkeypress="if(event.key==='Enter') checkPassword()">
+            <button onclick="checkPassword()"
+                    style="width: 100%; padding: 12px; font-size: 16px; background: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer; margin-top: 10px;">
+                Enter
+            </button>
+            <p id="loginError" style="color: #dc3545; margin-top: 10px; display: none;">Incorrect password. Try again.</p>
+        </div>
+    </div>
+    <script>
+        const DASHBOARD_PASSWORD = 'Chem169269!!!';
+        function checkPassword() {{
+            const input = document.getElementById('passwordInput').value;
+            if (input === DASHBOARD_PASSWORD) {{
+                sessionStorage.setItem('chem169_authenticated', 'true');
+                document.getElementById('loginOverlay').style.display = 'none';
+            }} else {{
+                document.getElementById('loginError').style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+            }}
+        }}
+        // Check if already authenticated
+        if (sessionStorage.getItem('chem169_authenticated') === 'true') {{
+            document.getElementById('loginOverlay').style.display = 'none';
+        }}
+    </script>
+
     <div class="container">
         <div class="search-panel">
             <h3>🔍 Student Lookup</h3>
@@ -1273,6 +1316,9 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
                         <div class="route-stat-number" id="raSendRate">0%</div>
                         <div class="route-stat-label">Send Rate</div>
                     </div>
+                </div>
+                <div id="freePassBanner" style="display: none; background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 12px 16px; margin: 16px 0; color: #856404;">
+                    <strong>⚠️ Free Pass Route:</strong> This route had confusing instructions, so all submissions count as "sent" regardless of actual grades. The exercise success rates below reflect actual performance, but students are not penalized.
                 </div>
                 <h4>Exercise Success Rates</h4>
                 <div id="exerciseSuccessRates"></div>
@@ -1480,6 +1526,9 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
             document.getElementById('raSent').textContent = data.sent;
             document.getElementById('raNotSent').textContent = data.not_sent;
             document.getElementById('raSendRate').textContent = Math.round(data.send_rate) + '%';
+
+            // Show/hide free pass banner
+            document.getElementById('freePassBanner').style.display = data.free_pass ? 'block' : 'none';
 
             // Render exercise success rates
             let exerciseHtml = '';
