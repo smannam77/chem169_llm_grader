@@ -1,12 +1,91 @@
 # Claude Code Checkpoint - Chem169 LLM Grader
 
-**Last Updated:** 2026-01-26
+**Last Updated:** 2026-01-26 (evening)
 
 ## Project Overview
 
 This is an LLM-powered grading tool for CHEM169 course Jupyter notebook assignments. It parses assignment instructions ("routes"), extracts exercises, and uses LLMs (OpenAI GPT-4o or Anthropic Claude) to grade student submissions.
 
-## Current State: ALL GRADING COMPLETE + DASHBOARD LIVE
+---
+
+## 🚨 IMMEDIATE NEXT STEP: GRADE NEW SUBMISSIONS
+
+**Status:** Submissions synced from Google Drive → local. Ready to grade ~50 new submissions.
+
+### What needs to be done:
+
+1. **Load environment variables:**
+   ```bash
+   set -a && source .env && set +a
+   ```
+
+2. **Grade notebook routes (one by one to monitor progress):**
+   ```bash
+   # R001 - 12 ungraded
+   /usr/bin/python3 -m graderbot.cli batch --route assignments/RID_001/instructions.md --submissions assignments/RID_001/submissions --out assignments/RID_001/results --provider anthropic
+
+   # R002 - 10 ungraded
+   /usr/bin/python3 -m graderbot.cli batch --route assignments/RID_002/instructions.md --submissions assignments/RID_002/submissions --out assignments/RID_002/results --provider anthropic
+
+   # R003 - 1 ungraded
+   /usr/bin/python3 -m graderbot.cli batch --route assignments/RID_003/instructions.md --submissions assignments/RID_003/submissions --out assignments/RID_003/results --provider anthropic
+
+   # R004 - 1 ungraded
+   /usr/bin/python3 -m graderbot.cli batch --route assignments/RID_004/instructions.md --submissions assignments/RID_004/submissions --out assignments/RID_004/results --provider anthropic
+
+   # R009 - 10 ungraded
+   /usr/bin/python3 -m graderbot.cli batch --route assignments/RID_009/instructions.md --submissions assignments/RID_009/submissions --out assignments/RID_009/results --provider anthropic
+
+   # R012 - 1 ungraded
+   /usr/bin/python3 -m graderbot.cli batch --route assignments/RID_012/instructions.md --submissions assignments/RID_012/submissions --out assignments/RID_012/results --provider anthropic
+   ```
+
+3. **Grade text route (R008 - 12 ungraded):**
+   ```bash
+   /usr/bin/python3 -m graderbot.cli batch-text \
+     --route assignments/RID_008/instructions.md \
+     --submissions assignments/RID_008/submissions \
+     --out assignments/RID_008/results \
+     --provider anthropic
+   ```
+
+   **Skip R005, R006, R007** - already complete or free pass.
+
+4. **Regenerate dashboard:**
+   ```bash
+   /usr/bin/python3 -m graderbot.dashboard
+   ```
+
+5. **Push to GitHub Pages** (optional):
+   ```bash
+   git add docs/index.html && git commit -m "Update dashboard" && git push
+   ```
+
+### Accurate grading status (as of 2026-01-26 evening):
+| Route | Type | Submitted | Graded | Ungraded |
+|-------|------|-----------|--------|----------|
+| RID_001 | Notebooks | 95 | 83 | **12** |
+| RID_002 | Notebooks | 83 | 73 | **10** |
+| RID_003 | Notebooks | 82 | 81 | **1** |
+| RID_004 | Notebooks | 77 | 76 | **1** |
+| RID_005 | Notebooks | 73 | 74 | 0 ✅ |
+| RID_006 | Text | 73 | 74 | 0 ✅ |
+| RID_007 | - | - | - | **FREE PASS** |
+| RID_008 | Text | 47 | 35 | **12** |
+| RID_009 | Notebooks | 40 | 30 | **10** |
+| RID_012 | Notebooks | 1 | 0 | **1** |
+
+**Total ungraded: ~47 submissions**
+
+**Estimated time:** 30-45 minutes (grader auto-skips already-graded files)
+
+**IMPORTANT:** Dashboard shows inconsistent numbers because of ungraded submissions. Grade first, then regenerate dashboard - numbers will match.
+
+**Note:** R007 is a free pass - all students get credit regardless of submission. Code change in `dashboard.py` handles this via `FREE_PASS_ROUTES` constant.
+
+---
+
+## Current State: SUBMISSIONS SYNCED, READY TO GRADE
 
 ### Grading Summary
 
@@ -168,21 +247,16 @@ Identified 9 students needing outreach:
 
 See `low_completion_students.csv` for details.
 
-## Google Form Migration (IN PROGRESS)
+## Google Form Migration ✅ COMPLETE
 
-Migrating from shared Google Drive folders to Google Forms for submissions.
+Migrated from shared Google Drive folders to Google Forms for submissions.
 
-**Completed:**
-- R001, R002: Forms created, files consolidated
-- R003, R004, R005: Forms created and tested
-- R006: Form created (asks for .txt deliverable + logbook, no .ipynb)
+**All routes now have forms created and tested:**
+- R001, R002, R003, R004, R005: Notebook + logbook
+- R006, R007, R008: Text deliverable + logbook (git-based routes)
+- R009, R012: Notebook + logbook
 
-**In Progress:**
-- R007: Instructions updated (now asks for git log deliverable like R006)
-- R006/R007 forms need testing
-
-**Pending:**
-- R008, R009, R012: Need forms created
+**Portal updated:** All route `.md` files now link to their Google Forms.
 
 **Form folder structure:**
 ```
@@ -232,15 +306,37 @@ gdrive:TheJinichLab/teaching/Chem169/Chem169_269_v2/04_Submissions/
 
 ## Potential Next Steps
 
-1. **Complete form migration** - R007, R008, R009, R012
-2. **Sync repos** - Portal as source of truth for instructions
-3. **Re-grade R001/R002** - New submissions came in (97 and 104 respectively)
-4. **Canvas announcement** - Correct file formats (.ipynb, .txt only)
-5. **Handle wrong format submissions** - Contact students with PDF/docx to resubmit
+1. ~~**Complete form migration**~~ ✅ DONE
+2. ~~**Sync repos**~~ ✅ DONE (use `./sync_instructions.sh`)
+3. ~~**Sync new submissions**~~ ✅ DONE (2026-01-26 evening)
+4. **🚨 Grade new submissions** ← YOU ARE HERE (~50 new, ~20-40 min)
+5. **Regenerate dashboard** - Update with new grades
+6. **Canvas announcement** - Correct file formats (.ipynb, .txt only)
+7. **Handle wrong format submissions** - Contact students with PDF/docx to resubmit
+
+## Storage Usage (as of 2026-01-26)
+
+**Total assignments folder: 58 MB** (10 routes, ~1,300 files)
+
+| Route | Size | Notes |
+|-------|------|-------|
+| RID_001 | 20 MB | Large notebooks with outputs |
+| RID_009 | 17 MB | Large notebooks with outputs |
+| Others | <6 MB each | Text routes are tiny (<1 MB) |
+
+**Projections:** 100 routes → ~580 MB, still manageable on MacBook.
+
+## R007 Free Pass (IMPLEMENTED)
+
+R007 had confusing instructions (originally asked for .ipynb, then changed to .txt deliverable). Students submitted wrong formats through no fault of their own.
+
+**Decision:** All R007 submissions count as "sent" regardless of actual grade.
+
+**Implementation:** Added `FREE_PASS_ROUTES = {'RID_007'}` in `dashboard.py`. The `is_soft_send()` function now returns `True` for any route in this set.
 
 ## Known Issues
 
 - Plotly heatmap click events not working reliably (dropdown selector as fallback)
 - Some students submit with names swapped (handled by NAME_ALIASES)
 - Google Forms appends " - Name" to filenames (need to handle in extract_student_name)
-- R007 had 46% send rate due to unclear instructions (now fixed)
+- ~~R007 had 46% send rate due to unclear instructions~~ → Now free pass (see above)
