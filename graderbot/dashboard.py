@@ -650,7 +650,7 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
                 submitted = route_stats[rid]['submitted']
                 not_sent = route_stats[rid]['not_sent']
                 row_z.append(rate)
-                row_text.append(f'R{rid.replace("RID_", "")}<br>{rate:.0f}%')
+                row_text.append(f'R{rid.replace("RID_", "")}<br>{rate:.0f}%<br>n={submitted}')
                 row_hover.append(f'<b>{rid}</b><br>Send Rate: {rate:.0f}%<br>Sent: {sent}/{submitted}<br>Not Sent: {not_sent}')
             else:
                 row_z.append(None)
