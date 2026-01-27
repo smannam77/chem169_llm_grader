@@ -797,10 +797,14 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
         completed = sorted(list(completed_set))
         missing = [r for r in all_routes if r not in completed_set]
 
-        # Routes completed but not graded yet count as "not sent"
+        # Routes completed but not graded yet
         for rid in completed:
             if rid not in sent_routes and rid not in not_sent_routes:
-                not_sent_routes.append(rid)
+                # FREE_PASS routes count as sent even without grades
+                if rid in FREE_PASS_ROUTES:
+                    sent_routes.append(rid)
+                else:
+                    not_sent_routes.append(rid)
 
         student_data[student] = {
             "display_name": display_name,
