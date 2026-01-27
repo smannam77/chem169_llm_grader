@@ -769,8 +769,9 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
     student_data = {}
     for student, routes in student_routes.items():
         display_name = student.replace('_', ' ').title()
-        completed = sorted(list(routes))
-        missing = [r for r in all_routes if r not in routes]
+
+        # Start with routes from submissions
+        completed_set = set(routes)
 
         # Include grading data and calculate send status for each route
         grades = {}
@@ -779,6 +780,9 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
 
         if student in student_grades:
             for rid, grade_info in student_grades[student].items():
+                # If we have grades, they completed it (even if wrong file format)
+                completed_set.add(rid)
+
                 exercises = grade_info.get("exercises", [])
                 grades[rid] = {
                     "exercises": exercises,
@@ -789,6 +793,9 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
                     sent_routes.append(rid)
                 else:
                     not_sent_routes.append(rid)
+
+        completed = sorted(list(completed_set))
+        missing = [r for r in all_routes if r not in completed_set]
 
         # Routes completed but not graded yet count as "not sent"
         for rid in completed:
@@ -801,7 +808,7 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
             "missing": missing,
             "sent": sorted(sent_routes),
             "not_sent": sorted(not_sent_routes),
-            "count": len(routes),
+            "count": len(completed_set),
             "sent_count": len(sent_routes),
             "total": total_routes,
             "grades": grades,
