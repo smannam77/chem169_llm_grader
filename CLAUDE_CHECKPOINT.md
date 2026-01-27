@@ -168,15 +168,73 @@ Identified 9 students needing outreach:
 
 See `low_completion_students.csv` for details.
 
+## Google Form Migration (IN PROGRESS)
+
+Migrating from shared Google Drive folders to Google Forms for submissions.
+
+**Completed:**
+- R001, R002: Forms created, files consolidated
+- R003, R004, R005: Forms created and tested
+- R006: Form created (asks for .txt deliverable + logbook, no .ipynb)
+
+**In Progress:**
+- R007: Instructions updated (now asks for git log deliverable like R006)
+- R006/R007 forms need testing
+
+**Pending:**
+- R008, R009, R012: Need forms created
+
+**Form folder structure:**
+```
+google_form_based_submissions/
+├── R001_Submission_File_responses/
+│   ├── Notebook File (.ipynb) (File responses)/
+│   └── Logbook File (.txt) (File responses)/
+├── R006_submissions (File responses)/
+│   ├── Deliverable file (.txt) (File responses)/   # git log output
+│   └── Logbook File (.txt) (File responses)/
+...
+```
+
+**File format issues found:**
+- R002: 19 PDF notebooks (18%) - students confused
+- Various routes: docx, rtf submissions instead of txt
+- Need Canvas announcement about correct formats
+
+## Repo Sync Issue (TODO)
+
+**Problem:** Route instructions exist in TWO places:
+1. Grader repo: `/Users/ajinich/Documents/repos/chem169_llm_grader/assignments/RID_XXX/instructions.md`
+2. Portal repo: `/Users/ajinich/Documents/repos/climbing-gym-app`
+
+**Solution:** Portal repo should be source of truth. Grader syncs instructions from portal.
+
+**Action needed:** Set up sync mechanism between repos.
+
+## rclone Setup
+
+Installed at `~/bin/rclone`, configured with `gdrive:` remote.
+
+**Key paths:**
+```
+gdrive:TheJinichLab/teaching/Chem169/Chem169_269_v2/04_Submissions/
+├── google_form_based_submissions/    # NEW form-based submissions
+├── RID_003_submission/               # OLD shared folders (to be deprecated)
+├── RID_004_submission/
+...
+```
+
 ## Potential Next Steps
 
-1. **Fix RID_007** - Add clearer instructions for showing git commands/output
-2. **Grade RID_010-012** - When submissions come in
-3. **Export grades to CSV** - For course gradebook import
-4. **Add LLM summaries to dashboard** - Pre-generate route analysis with AI insights
+1. **Complete form migration** - R007, R008, R009, R012
+2. **Sync repos** - Portal as source of truth for instructions
+3. **Re-grade R001/R002** - New submissions came in (97 and 104 respectively)
+4. **Canvas announcement** - Correct file formats (.ipynb, .txt only)
+5. **Handle wrong format submissions** - Contact students with PDF/docx to resubmit
 
 ## Known Issues
 
 - Plotly heatmap click events not working reliably (dropdown selector as fallback)
 - Some students submit with names swapped (handled by NAME_ALIASES)
-- RID_010, RID_011, RID_012 have instructions but no submissions yet
+- Google Forms appends " - Name" to filenames (need to handle in extract_student_name)
+- R007 had 46% send rate due to unclear instructions (now fixed)
