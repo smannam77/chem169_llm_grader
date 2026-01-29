@@ -17,7 +17,7 @@ You are expected to engage seriously and make good-faith progress.
 | **Time** | 12:30 PM - 1:50 PM (80 minutes) |
 | **Location** | Regular classroom |
 | **Tools allowed** | Laptop, internet, any AI assistant (Gemini, ChatGPT, Claude, etc.), notes, previous routes |
-| **Not allowed** | Collaboration with other students. This is individual work. |
+| **Collaboration** | You may discuss approaches and help each other — that's encouraged. Your submissions (notebooks + transcript) must reflect your own individual work. |
 
 Routes will be released at **12:30 sharp**. All submissions are due by **1:50 PM**.
 
@@ -216,7 +216,7 @@ A: No. Just one route for Part 2. Pick whichever one you want.
 A: That's fine. We're grading the process, not the outcome.
 
 **Q: Can I work with other students?**
-A: No. This is individual work. You may use AI tools and any online resources, but the work must be your own.
+A: Yes — you can discuss approaches, share tips, and help each other. That's part of the climbing culture. Your submissions (notebooks + transcript) must be your own individual work.
 
 **Q: Is the midterm harder than regular routes?**
 A: The difficulty range is similar to what you've seen. Some easy, some medium, some hard. No trick questions.
