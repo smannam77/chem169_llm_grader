@@ -66,7 +66,7 @@ def find_submission_pair(submissions_dir: str, student_pattern: str) -> tuple[st
 
         # Check if this file belongs to the student
         if pattern_lower in name_lower or name_lower.startswith(pattern_lower.split('_')[0]):
-            if 'deliverable' in name_lower:
+            if 'deliverable' in name_lower or 'text_submission' in name_lower or 'submission_file' in name_lower:
                 deliverable = str(f)
             elif 'logbook' in name_lower:
                 logbook = str(f)
@@ -111,7 +111,7 @@ def list_text_submissions(submissions_dir: str) -> list[dict]:
         if student_key not in students:
             students[student_key] = {'student': student_key, 'deliverable': None, 'logbook': None}
 
-        if 'deliverable' in name_lower:
+        if 'deliverable' in name_lower or 'text_submission' in name_lower or 'submission_file' in name_lower:
             students[student_key]['deliverable'] = str(f)
         elif 'logbook' in name_lower:
             students[student_key]['logbook'] = str(f)
