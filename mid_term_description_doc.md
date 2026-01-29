@@ -42,24 +42,37 @@ This is designed like a climbing competition: **there are more routes than anyon
 
 Each route is worth points based on difficulty:
 
-| Difficulty | Points per route sent |
+| Difficulty | Points if sent | Points if attempted but not sent |
+|---|---|---|
+| Easy | 1 point | 0.5 points |
+| Medium | 2 points | 1 point |
+| Hard | 3 points | 1.5 points |
+
+- **Sent** = same criteria as all quarter (80%+ exercises rated OK or better)
+- **Attempted but not sent** = you submitted a notebook with real work, but didn't hit the 80% threshold. You still get **half credit**.
+- **Not attempted** = 0 points
+
+#### Examples
+
+| What you do | Points |
 |---|---|
-| Easy | 1 point |
-| Medium | 2 points |
-| Hard | 3 points |
+| Send 4 easy + 2 medium + 1 hard | 4 + 4 + 3 = **11 pts** |
+| Send 3 easy + 3 medium | 3 + 6 = **9 pts** |
+| Send 2 easy + 1 medium, attempt 3 more easy | 2 + 2 + 1.5 = **5.5 pts** |
+| Send 1 easy, attempt 2 medium | 1 + 2 = **3 pts** |
 
-A route is **"sent"** using the same criteria as all quarter: 80%+ of exercises rated OK or better.
+#### Grade thresholds (Part 1)
 
-Partial attempts earn **partial credit** (submitted but not fully sent = some credit).
+| Grade | Points |
+|---|---|
+| A | ≥ 10 |
+| B | ≥ 7 |
+| C | ≥ 4 |
+| D | ≥ 1 |
 
-**Grade thresholds will be published before midterm day** once routes are finalized. The general idea:
+Part 2 (Process Snapshot) can nudge your grade up within a range, but Part 1 carries the primary weight.
 
-- **A range**: Strong performance across multiple routes, including some medium/hard
-- **B range**: Solid performance on several routes
-- **C range**: Meaningful attempts on a few routes
-- **D range**: Minimal engagement
-
-> The exact point cutoffs will be shared with you before the exam. No surprises.
+> You can do the math yourself. No surprises.
 
 ---
 
@@ -201,7 +214,7 @@ We are **not** grading:
 ## FAQ
 
 **Q: How many routes do I need to complete for an A?**
-A: Exact thresholds will be published before midterm day. Generally: strong engagement across several routes, including some medium or hard ones.
+A: You need ≥ 10 points. For example: send 4 easy + 2 medium + 1 hard = 11 points. See the scoring table above for full details.
 
 **Q: Can I use any AI tool?**
 A: Yes. Gemini, ChatGPT, Claude, Copilot, or any other AI assistant. Use whatever you're comfortable with.
