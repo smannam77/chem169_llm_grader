@@ -35,6 +35,8 @@ NAME_ALIASES = {
     'saddam_hossain': 'hossain_mdsaddam',
     # Xinyi Shang trailing underscore
     'xinyi_shang_': 'xinyi_shang',
+    # Srikumaran RID_R004 filename leaves trailing _rid
+    'srikumaran_sarayu_rid': 'srikumaran_sarayu',
     # First/Last name swapped
     'jinyi_zhang': 'zhang_jinyi',
     'jingru_zhao': 'zhao_jingru',
