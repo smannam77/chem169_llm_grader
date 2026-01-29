@@ -28,7 +28,9 @@ During class, a set of **midterm routes** will be released. You will work on the
 
 ### What will be released
 
-- **~20 routes** covering topics from the quarter
+- **~20 short routes** covering topics from the quarter
+- These are **boulder problems, not top-rope routes** — each one has 1-3 exercises, not 8
+- Expected median time per route: **5-10 minutes**
 - Routes have **difficulty ratings**: Easy, Medium, Hard
 - You may work on **any subset** in any order
 
