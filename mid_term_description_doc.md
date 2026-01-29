@@ -1,5 +1,7 @@
 # Chem 169 Midterm: Comp Day + Process Snapshot
 
+**Format: Bouldering competition.** Many short routes are released at once. You collect points by sending as many as you can in the time allowed. Harder routes are worth more points.
+
 This midterm has **two components**. Together, they assess **your ability to work through problems** and **how you use AI tools while doing so**.
 
 You are **not expected to complete everything perfectly**.
