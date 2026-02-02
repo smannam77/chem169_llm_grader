@@ -33,10 +33,19 @@ NAME_ALIASES = {
     'md_saddam_hossain': 'hossain_mdsaddam',
     'md_saddam': 'hossain_mdsaddam',
     'saddam_hossain': 'hossain_mdsaddam',
-    # Xinyi Shang trailing underscore
+    # Xinyi Shang variations (Google account says "minji shang", submits as Xinyi_Shang)
     'xinyi_shang_': 'xinyi_shang',
-    # Srikumaran RID_R004 filename leaves trailing _rid
+    'shang_xinyi': 'xinyi_shang',
+    'shang_xinyi_rid_xyz_code_minji_shang': 'xinyi_shang',
+    # RID_RXXX filename pattern leaves trailing _rid
     'srikumaran_sarayu_rid': 'srikumaran_sarayu',
+    'spock_lilian_rid': 'spock_lilian',
+    # Deliverable filename mistaken for student name
+    'deliverable_rid': 'lee_minji',
+    # Route-prefix extraction artifact
+    'pham_richie_pham': 'pham_richie',
+    # Weeranarawat typo (missing 'a')
+    'weeranarwat_anya': 'weeranarawat_anya',
     # First/Last name swapped
     'jinyi_zhang': 'zhang_jinyi',
     'jingru_zhao': 'zhao_jingru',
