@@ -188,6 +188,17 @@ def scan_submissions(assignments_dir: str = "assignments") -> dict:
                     student = extract_student_name(clean_name)
                     if student:
                         student_routes[student].add(rid)
+            # For FREE_PASS text routes, also check for .ipynb (students may submit wrong format)
+            if rid in FREE_PASS_ROUTES:
+                for notebook in submissions_dir.glob("*.ipynb"):
+                    name_lower = notebook.name.lower()
+                    if 'deliverable' in name_lower:
+                        clean_name = notebook.name
+                        for tag in ['_deliverable']:
+                            clean_name = re.sub(re.escape(tag), '', clean_name, flags=re.IGNORECASE)
+                        student = extract_student_name(clean_name)
+                        if student:
+                            student_routes[student].add(rid)
         else:
             # For code routes, look for .ipynb notebooks
             for notebook in submissions_dir.glob("*.ipynb"):
