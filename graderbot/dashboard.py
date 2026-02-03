@@ -22,9 +22,9 @@ NAME_ALIASES = {
     'kao_yingchieh': 'kao_ying',
     'kao_ying chieh': 'kao_ying',
     'kao_ying_chieh': 'kao_ying',
-    # Tsai variations
-    'tsai_i_shan': 'tsai_i',
-    'tsai_i-shan': 'tsai_i',
+    # Tsai variations (canonical: tsai_i_shan -> displays as "Tsai I Shan")
+    'tsai_i': 'tsai_i_shan',
+    'tsai_i-shan': 'tsai_i_shan',
     # Jaramillo typo
     'jaramilo_jonathan': 'jaramillo_jonathan',
     # Gupta typo
