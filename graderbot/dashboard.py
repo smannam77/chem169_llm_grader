@@ -164,7 +164,7 @@ def scan_submissions(assignments_dir: str = "assignments") -> dict:
     assignments_path = Path(assignments_dir)
 
     # Routes that use .txt deliverables instead of .ipynb notebooks
-    TXT_DELIVERABLE_ROUTES = {"RID_006", "RID_008"}
+    TXT_DELIVERABLE_ROUTES = {"RID_006", "RID_007", "RID_008", "RID_013"}
 
     for rid_folder in sorted(assignments_path.glob("RID_*")):
         rid = rid_folder.name  # e.g., "RID_001"
@@ -174,11 +174,16 @@ def scan_submissions(assignments_dir: str = "assignments") -> dict:
             continue
 
         if rid in TXT_DELIVERABLE_ROUTES:
-            # For Git-based routes, look for *_deliverable.txt files
-            for txt_file in submissions_dir.glob("*_deliverable*.txt"):
-                student = extract_student_name(txt_file.name.replace("_deliverable", ""))
-                if student:
-                    student_routes[student].add(rid)
+            # For text routes, look for deliverable/text_submission .txt files
+            for txt_file in submissions_dir.glob("*.txt"):
+                name_lower = txt_file.name.lower()
+                if 'deliverable' in name_lower or 'text_submission' in name_lower or 'submission_file' in name_lower:
+                    clean_name = txt_file.name
+                    for tag in ['_deliverable', '_text_submission', '_submission_file']:
+                        clean_name = clean_name.replace(tag, '')
+                    student = extract_student_name(clean_name)
+                    if student:
+                        student_routes[student].add(rid)
         else:
             # For code routes, look for .ipynb notebooks
             for notebook in submissions_dir.glob("*.ipynb"):
@@ -215,23 +220,43 @@ def is_soft_send(exercises: list, threshold: float = 0.8, route_id: str = None) 
     return (good_ratings / len(exercises)) >= threshold
 
 
-def count_soft_sends(student_grades: dict) -> dict:
+def count_soft_sends(student_grades: dict, student_routes: dict = None) -> dict:
     """
     Count the number of "soft sends" per student.
 
     Args:
         student_grades: Dict of {student_name: {rid: grade_info}}
+        student_routes: Optional dict of {student_name: set of RIDs submitted}
+                        Used to count FREE_PASS routes that have submissions but no grade JSONs.
 
     Returns:
         Dict of {student_name: number_of_soft_sends}
     """
     soft_sends = {}
-    for student, routes in student_grades.items():
+
+    # Get all students from both sources
+    all_students = set(student_grades.keys())
+    if student_routes:
+        all_students.update(student_routes.keys())
+
+    for student in all_students:
         count = 0
-        for rid, grade_info in routes.items():
-            exercises = grade_info.get('exercises', [])
-            if is_soft_send(exercises, route_id=rid):
-                count += 1
+        counted_rids = set()
+
+        # Count from grading results
+        if student in student_grades:
+            for rid, grade_info in student_grades[student].items():
+                counted_rids.add(rid)
+                exercises = grade_info.get('exercises', [])
+                if is_soft_send(exercises, route_id=rid):
+                    count += 1
+
+        # Count FREE_PASS routes from submissions that aren't in grading results
+        if student_routes and student in student_routes:
+            for rid in student_routes[student]:
+                if rid not in counted_rids and rid in FREE_PASS_ROUTES:
+                    count += 1
+
         soft_sends[student] = count
     return soft_sends
 
@@ -416,17 +441,28 @@ def get_route_stats(student_routes: dict, student_grades: dict, all_routes: list
     """
     route_stats = {rid: {'submitted': 0, 'sent': 0, 'not_sent': 0} for rid in all_routes}
 
+    # Track which (student, route) pairs we've counted from grades
+    counted = set()
+
     # Count from grading results (ensures submitted = sent + not_sent)
     for student, grades in student_grades.items():
         for rid, grade_info in grades.items():
             if rid not in route_stats:
                 continue
+            counted.add((student, rid))
             route_stats[rid]['submitted'] += 1
             exercises = grade_info.get('exercises', [])
             if is_soft_send(exercises, route_id=rid):
                 route_stats[rid]['sent'] += 1
             else:
                 route_stats[rid]['not_sent'] += 1
+
+    # For FREE_PASS routes, also count students who submitted but weren't graded
+    for student, routes in student_routes.items():
+        for rid in routes:
+            if rid in FREE_PASS_ROUTES and (student, rid) not in counted and rid in route_stats:
+                route_stats[rid]['submitted'] += 1
+                route_stats[rid]['sent'] += 1  # FREE_PASS = auto-sent
 
     # Calculate send rate
     for rid, stats in route_stats.items():
@@ -454,8 +490,16 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
     # Get grading results
     student_grades = scan_grading_results(assignments_dir)
 
-    # Calculate soft sends per student
-    soft_sends = count_soft_sends(student_grades)
+    # Merge student_grades routes into student_routes so "submitted" reflects both sources
+    # (A student who was graded for a route clearly submitted it, even if scan_submissions missed it)
+    for student, grades in student_grades.items():
+        if student not in student_routes:
+            student_routes[student] = set()
+        for rid in grades:
+            student_routes[student].add(rid)
+
+    # Calculate soft sends per student (pass student_routes for FREE_PASS fallback)
+    soft_sends = count_soft_sends(student_grades, student_routes)
 
     # Calculate per-route statistics
     route_stats = get_route_stats(student_routes, student_grades, all_routes)
