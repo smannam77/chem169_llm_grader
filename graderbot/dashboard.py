@@ -56,6 +56,8 @@ NAME_ALIASES = {
     'tiwary': 'tiwary_ayush',
     'huang': 'huang_terry',
     'pineda': 'pineda_leo',
+    # Filename artifact: Ma-Richard_name_RID_007_deliverable
+    'ma_richard_name': 'ma_richard',
 }
 
 # Students not enrolled (exclude from dashboard)
@@ -63,6 +65,8 @@ EXCLUDED_STUDENTS = {
     'wagner_eli',
     'schaap_tamar',
     'cruz_jade',
+    'test_student',   # Adrian's own test submissions
+    'deliverable',    # Bare filename artifact from deliverable_RID_XXX files
 }
 
 # Routes that get a "free pass" - always count as sent regardless of grade
@@ -180,7 +184,7 @@ def scan_submissions(assignments_dir: str = "assignments") -> dict:
                 if 'deliverable' in name_lower or 'text_submission' in name_lower or 'submission_file' in name_lower:
                     clean_name = txt_file.name
                     for tag in ['_deliverable', '_text_submission', '_submission_file']:
-                        clean_name = clean_name.replace(tag, '')
+                        clean_name = re.sub(re.escape(tag), '', clean_name, flags=re.IGNORECASE)
                     student = extract_student_name(clean_name)
                     if student:
                         student_routes[student].add(rid)
