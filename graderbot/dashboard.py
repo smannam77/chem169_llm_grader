@@ -178,16 +178,17 @@ def scan_submissions(assignments_dir: str = "assignments") -> dict:
             continue
 
         if rid in TXT_DELIVERABLE_ROUTES:
-            # For text routes, look for deliverable/text_submission .txt files
-            for txt_file in submissions_dir.glob("*.txt"):
-                name_lower = txt_file.name.lower()
-                if 'deliverable' in name_lower or 'text_submission' in name_lower or 'submission_file' in name_lower:
-                    clean_name = txt_file.name
-                    for tag in ['_deliverable', '_text_submission', '_submission_file']:
-                        clean_name = re.sub(re.escape(tag), '', clean_name, flags=re.IGNORECASE)
-                    student = extract_student_name(clean_name)
-                    if student:
-                        student_routes[student].add(rid)
+            # For text routes, look for deliverable/text_submission .txt or .docx files
+            for ext in ['*.txt', '*.docx']:
+                for txt_file in submissions_dir.glob(ext):
+                    name_lower = txt_file.name.lower()
+                    if 'deliverable' in name_lower or 'text_submission' in name_lower or 'submission_file' in name_lower or 'text' in name_lower:
+                        clean_name = txt_file.name
+                        for tag in ['_deliverable', '_text_submission', '_submission_file', '_text']:
+                            clean_name = re.sub(re.escape(tag), '', clean_name, flags=re.IGNORECASE)
+                        student = extract_student_name(clean_name)
+                        if student:
+                            student_routes[student].add(rid)
             # For FREE_PASS text routes, also check for .ipynb (students may submit wrong format)
             if rid in FREE_PASS_ROUTES:
                 for notebook in submissions_dir.glob("*.ipynb"):
