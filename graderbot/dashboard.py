@@ -58,6 +58,21 @@ NAME_ALIASES = {
     'pineda': 'pineda_leo',
     # Filename artifact: Ma-Richard_name_RID_007_deliverable
     'ma_richard_name': 'ma_richard',
+    # Midterm naming issues (filenames with RID_MO2, MT1, etc.)
+    'alvarado_isacc_rid_mo2_code_isacc_a': 'alvarado_isacc',
+    'alvarado_isacc_rid_mo3_code_isacc_a': 'alvarado_isacc',
+    'alvarado_isacc_rid_mo3_code_isacc_alvarado': 'alvarado_isacc',
+    'anonich_ryan_mt1': 'anonich_ryan',
+    'anonich_ryan_mt1_001_code': 'anonich_ryan',
+    'anonich_ryan_mt1_003_code': 'anonich_ryan',
+    # Swapped first/last name
+    'abdulghani_binnafisah': 'binnafisah_abdulghani',
+    # Jaramillo typo variant (double l missing)
+    'jaramllo_jonathan': 'jaramillo_jonathan',
+    # Saldivar middle name included in filename
+    'saldivar_garcia': 'saldivar_alexis',
+    # Trailing _rid artifacts from midterm filenames
+    'pham_richie_rid': 'pham_richie',
 }
 
 # Students not enrolled (exclude from dashboard)
@@ -67,6 +82,8 @@ EXCLUDED_STUDENTS = {
     'cruz_jade',
     'test_student',   # Adrian's own test submissions
     'deliverable',    # Bare filename artifact from deliverable_RID_XXX files
+    'm3_brenda_o.',   # Unknown midterm submission - cannot identify student
+    'm3',             # Bare "M3 -" filename artifact
 }
 
 # Routes that get a "free pass" - always count as sent regardless of grade
@@ -115,8 +132,10 @@ def extract_student_name(filename: str, track_non_standard: bool = True) -> str:
             return None
 
     # Remove common suffixes like _RID_001_code, _R007_code, _RID002_code, _RD_003, _Route_001, _001_code, etc.
-    # Handles: _RID_001, _RID001, _R001, _R_001, _RD_001, _Route_001, _001, etc.
-    name = re.sub(r'_(?:R(?:ID|D|oute)?_?\d+|Route_?\d+).*$', '', name, flags=re.IGNORECASE)
+    # Also handles midterms: _MID_001, _M001, _M1, _M01, _RID_M001, _MT1, _MO2, _RID_MO2, etc.
+    # Handles: _RID_001, _RID001, _R001, _R_001, _RD_001, _Route_001, _001, _MID_001, _M1, _M01, _RID_M001,
+    #          _MT1, _MT_001 (midterm T variant), _MO1, _RID_MO2 (letter O instead of zero), etc.
+    name = re.sub(r'_(?:R(?:ID|D|oute)?_?(?:M(?:ID|T|O)?)?_?\d+|Route_?\d+|M(?:ID|T|O)?_?\d+).*$', '', name, flags=re.IGNORECASE)
     # Also handle bare _001_ patterns (no R prefix)
     name = re.sub(r'_0\d{2}_.*$', '', name, flags=re.IGNORECASE)
     # Remove student ID numbers like _A10589679
@@ -170,8 +189,10 @@ def scan_submissions(assignments_dir: str = "assignments") -> dict:
     # Routes that use .txt deliverables instead of .ipynb notebooks
     TXT_DELIVERABLE_ROUTES = {"RID_006", "RID_007", "RID_008", "RID_013"}
 
-    for rid_folder in sorted(assignments_path.glob("RID_*")):
-        rid = rid_folder.name  # e.g., "RID_001"
+    # Include both RID_* and MID_* folders
+    all_route_folders = sorted(list(assignments_path.glob("RID_*")) + list(assignments_path.glob("MID_*")))
+    for rid_folder in all_route_folders:
+        rid = rid_folder.name  # e.g., "RID_001" or "MID_001"
         submissions_dir = rid_folder / "submissions"
 
         if not submissions_dir.exists():
@@ -290,8 +311,10 @@ def scan_grading_results(assignments_dir: str = "assignments") -> dict:
     student_grades = defaultdict(dict)
     assignments_path = Path(assignments_dir)
 
-    for rid_folder in sorted(assignments_path.glob("RID_*")):
-        rid = rid_folder.name  # e.g., "RID_001"
+    # Include both RID_* and MID_* folders
+    all_route_folders = sorted(list(assignments_path.glob("RID_*")) + list(assignments_path.glob("MID_*")))
+    for rid_folder in all_route_folders:
+        rid = rid_folder.name  # e.g., "RID_001" or "MID_001"
         results_dir = rid_folder / "results"
 
         if not results_dir.exists():
@@ -339,10 +362,12 @@ def get_latest_submission_time(assignments_dir: str = "assignments") -> str:
     assignments_path = Path(assignments_dir)
     latest_time = None
 
-    for notebook in assignments_path.glob("RID_*/submissions/*.ipynb"):
-        mtime = notebook.stat().st_mtime
-        if latest_time is None or mtime > latest_time:
-            latest_time = mtime
+    # Include both RID_* and MID_* folders
+    for pattern in ["RID_*/submissions/*.ipynb", "MID_*/submissions/*.ipynb"]:
+        for notebook in assignments_path.glob(pattern):
+            mtime = notebook.stat().st_mtime
+            if latest_time is None or mtime > latest_time:
+                latest_time = mtime
 
     if latest_time:
         dt = datetime.fromtimestamp(latest_time)
@@ -354,7 +379,8 @@ def get_completion_stats(student_routes: dict, assignments_dir: str = "assignmen
     """Calculate completion statistics."""
     # Dynamically count routes that have submissions or instructions
     assignments_path = Path(assignments_dir)
-    route_folders = sorted(assignments_path.glob("RID_*"))
+    # Include both RID_* and MID_* folders
+    route_folders = sorted(list(assignments_path.glob("RID_*")) + list(assignments_path.glob("MID_*")))
     total_routes = len(route_folders)
 
     # Get list of all route IDs
@@ -618,7 +644,7 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
             name='Submitted',
             showlegend=False,
             customdata=[[s, c, r] for s, c, r in zip(display_names_sub, completions_sorted, ranks)],
-            hovertemplate='<b>%{customdata[0]}</b><br>Rank: %{customdata[2]}<br>Submitted: %{customdata[1]}<extra></extra>'
+            hovertemplate='Rank: %{customdata[2]}<br>Submitted: %{customdata[1]}<extra></extra>'
         ),
         row=2, col=1
     )
@@ -633,7 +659,7 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
             name='Sent',
             showlegend=False,
             customdata=[[s, c, r] for s, c, r in zip(display_names_sent, sends_sorted, ranks)],
-            hovertemplate='<b>%{customdata[0]}</b><br>Rank: %{customdata[2]}<br>Sent: %{customdata[1]}<extra></extra>'
+            hovertemplate='Rank: %{customdata[2]}<br>Sent: %{customdata[1]}<extra></extra>'
         ),
         row=2, col=2
     )
@@ -703,7 +729,10 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
     # Create a heatmap grid showing send rate per route
     import math
 
-    route_ids = sorted(route_stats.keys())
+    # Sort so RID routes come first (by number), then MID routes at the end
+    rid_routes = sorted([r for r in route_stats.keys() if r.startswith('RID_')])
+    mid_routes = sorted([r for r in route_stats.keys() if r.startswith('MID_')])
+    route_ids = rid_routes + mid_routes
     n_routes = len(route_ids)
 
     # Dynamic grid sizing - aim for roughly square, max 10 columns
@@ -728,7 +757,12 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
                 submitted = route_stats[rid]['submitted']
                 not_sent = route_stats[rid]['not_sent']
                 row_z.append(rate)
-                row_text.append(f'R{rid.replace("RID_", "")}<br>{rate:.0f}%<br>n={submitted}')
+                # Format label: RID_001 -> R001, MID_001 -> M1
+                if rid.startswith('MID_'):
+                    label = 'M' + str(int(rid.replace('MID_', '')))
+                else:
+                    label = 'R' + rid.replace('RID_', '')
+                row_text.append(f'{label}<br>{rate:.0f}%<br>n={submitted}')
                 row_hover.append(f'<b>{rid}</b><br>Send Rate: {rate:.0f}%<br>Sent: {sent}/{submitted}<br>Not Sent: {not_sent}')
             else:
                 row_z.append(None)
