@@ -115,9 +115,8 @@ def extract_student_name(filename: str, track_non_standard: bool = True) -> str:
             return None
 
     # Remove common suffixes like _RID_001_code, _R007_code, _RID002_code, _RD_003, _Route_001, _001_code, etc.
-    # Also handles midterms: _MID_001, _M001, _M1, _M01, _RID_M001, etc.
-    # Handles: _RID_001, _RID001, _R001, _R_001, _RD_001, _Route_001, _001, _MID_001, _M1, _M01, _RID_M001, etc.
-    name = re.sub(r'_(?:R(?:ID|D|oute)?_?(?:M(?:ID)?)?_?\d+|Route_?\d+|M(?:ID)?_?\d+).*$', '', name, flags=re.IGNORECASE)
+    # Handles: _RID_001, _RID001, _R001, _R_001, _RD_001, _Route_001, _001, etc.
+    name = re.sub(r'_(?:R(?:ID|D|oute)?_?\d+|Route_?\d+).*$', '', name, flags=re.IGNORECASE)
     # Also handle bare _001_ patterns (no R prefix)
     name = re.sub(r'_0\d{2}_.*$', '', name, flags=re.IGNORECASE)
     # Remove student ID numbers like _A10589679
@@ -171,10 +170,8 @@ def scan_submissions(assignments_dir: str = "assignments") -> dict:
     # Routes that use .txt deliverables instead of .ipynb notebooks
     TXT_DELIVERABLE_ROUTES = {"RID_006", "RID_007", "RID_008", "RID_013"}
 
-    # Include both RID_* and MID_* folders
-    all_route_folders = sorted(list(assignments_path.glob("RID_*")) + list(assignments_path.glob("MID_*")))
-    for rid_folder in all_route_folders:
-        rid = rid_folder.name  # e.g., "RID_001" or "MID_001"
+    for rid_folder in sorted(assignments_path.glob("RID_*")):
+        rid = rid_folder.name  # e.g., "RID_001"
         submissions_dir = rid_folder / "submissions"
 
         if not submissions_dir.exists():
@@ -293,10 +290,8 @@ def scan_grading_results(assignments_dir: str = "assignments") -> dict:
     student_grades = defaultdict(dict)
     assignments_path = Path(assignments_dir)
 
-    # Include both RID_* and MID_* folders
-    all_route_folders = sorted(list(assignments_path.glob("RID_*")) + list(assignments_path.glob("MID_*")))
-    for rid_folder in all_route_folders:
-        rid = rid_folder.name  # e.g., "RID_001" or "MID_001"
+    for rid_folder in sorted(assignments_path.glob("RID_*")):
+        rid = rid_folder.name  # e.g., "RID_001"
         results_dir = rid_folder / "results"
 
         if not results_dir.exists():
@@ -344,12 +339,10 @@ def get_latest_submission_time(assignments_dir: str = "assignments") -> str:
     assignments_path = Path(assignments_dir)
     latest_time = None
 
-    # Include both RID_* and MID_* folders
-    for pattern in ["RID_*/submissions/*.ipynb", "MID_*/submissions/*.ipynb"]:
-        for notebook in assignments_path.glob(pattern):
-            mtime = notebook.stat().st_mtime
-            if latest_time is None or mtime > latest_time:
-                latest_time = mtime
+    for notebook in assignments_path.glob("RID_*/submissions/*.ipynb"):
+        mtime = notebook.stat().st_mtime
+        if latest_time is None or mtime > latest_time:
+            latest_time = mtime
 
     if latest_time:
         dt = datetime.fromtimestamp(latest_time)
@@ -361,8 +354,7 @@ def get_completion_stats(student_routes: dict, assignments_dir: str = "assignmen
     """Calculate completion statistics."""
     # Dynamically count routes that have submissions or instructions
     assignments_path = Path(assignments_dir)
-    # Include both RID_* and MID_* folders
-    route_folders = sorted(list(assignments_path.glob("RID_*")) + list(assignments_path.glob("MID_*")))
+    route_folders = sorted(assignments_path.glob("RID_*"))
     total_routes = len(route_folders)
 
     # Get list of all route IDs
