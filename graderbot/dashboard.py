@@ -1587,16 +1587,21 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
                 const needsWork = exercises.filter(e => e.rating === 'NEEDS_WORK').length;
                 const total = exercises.length;
 
+                // Auto-expand routes that need work so students see feedback immediately
+                const autoExpand = needsWork > 0;
+                const expandedClass = autoExpand ? 'expanded' : '';
+                const rotatedClass = autoExpand ? 'rotated' : '';
+
                 html += `
                     <div class="route-grade-card">
                         <div class="route-grade-header" onclick="toggleGradeCard(this)">
                             <span>${{rid}}</span>
                             <span>
                                 <span class="grade-summary-badge">${{excellent}}/${{total}} Excellent</span>
-                                <span class="expand-icon">▼</span>
+                                <span class="expand-icon ${{rotatedClass}}">▼</span>
                             </span>
                         </div>
-                        <div class="route-grade-body">
+                        <div class="route-grade-body ${{expandedClass}}">
                 `;
 
                 for (const ex of exercises) {{
