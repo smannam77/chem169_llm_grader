@@ -320,7 +320,10 @@ def scan_grading_results(assignments_dir: str = "assignments") -> dict:
         if not results_dir.exists():
             continue
 
-        for json_file in results_dir.glob("*_grade.json"):
+        # Sort grade files by modification time (newest last) so v2/resubmits take precedence
+        grade_files = sorted(results_dir.glob("*_grade.json"), key=lambda f: f.stat().st_mtime)
+
+        for json_file in grade_files:
             try:
                 with open(json_file, 'r', encoding='utf-8') as f:
                     data = json.load(f)
@@ -346,6 +349,7 @@ def scan_grading_results(assignments_dir: str = "assignments") -> dict:
                         'flags': ex.get('flags', []),
                     })
 
+                # Overwrite with newer grade (files sorted oldest to newest)
                 student_grades[student][rid] = grade_info
 
             except (json.JSONDecodeError, IOError) as e:
