@@ -5,6 +5,26 @@ from __future__ import annotations
 from pathlib import Path
 
 
+def extract_text_from_docx(file_path: str) -> str:
+    """Extract text content from a .docx file."""
+    try:
+        import docx
+        doc = docx.Document(file_path)
+        paragraphs = [para.text for para in doc.paragraphs]
+        return "\n".join(paragraphs)
+    except Exception as e:
+        return f"ERROR: Could not extract text from docx: {e}"
+
+
+def read_text_file(file_path: str) -> str:
+    """Read text from a file, handling both .txt and .docx formats."""
+    path = Path(file_path)
+    if path.suffix.lower() == '.docx':
+        return extract_text_from_docx(file_path)
+    else:
+        return path.read_text(encoding='utf-8', errors='replace')
+
+
 def render_text_submission(deliverable_path: str, logbook_path: str | None = None) -> str:
     """
     Render text submission files for LLM grading.
@@ -24,7 +44,7 @@ def render_text_submission(deliverable_path: str, logbook_path: str | None = Non
         output_parts.append("=" * 60)
         output_parts.append("DELIVERABLE FILE")
         output_parts.append("=" * 60)
-        output_parts.append(deliverable.read_text(encoding='utf-8', errors='replace'))
+        output_parts.append(read_text_file(deliverable_path))
     else:
         output_parts.append(f"ERROR: Deliverable file not found: {deliverable_path}")
 
@@ -36,7 +56,7 @@ def render_text_submission(deliverable_path: str, logbook_path: str | None = Non
             output_parts.append("=" * 60)
             output_parts.append("LOGBOOK FILE")
             output_parts.append("=" * 60)
-            output_parts.append(logbook.read_text(encoding='utf-8', errors='replace'))
+            output_parts.append(read_text_file(logbook_path))
         else:
             output_parts.append(f"\nNOTE: Logbook file not found: {logbook_path}")
 
@@ -90,7 +110,7 @@ def list_text_submissions(submissions_dir: str) -> list[dict]:
     students = {}
 
     for f in submissions.iterdir():
-        if not f.is_file() or not f.suffix.lower() == '.txt':
+        if not f.is_file() or f.suffix.lower() not in ('.txt', '.docx'):
             continue
 
         name = f.stem
