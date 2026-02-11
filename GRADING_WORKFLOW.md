@@ -33,10 +33,25 @@ This syncs from two locations:
 
 **Note**: Google Form folders have "File responses" subfolders that get flattened automatically.
 
-### 2. Grade New Submissions
+### 2. Grade New Submissions (including resubmissions)
+
+The grading script automatically detects:
+- New files (including `_v2` resubmissions)
+- Changed files (same name, different content)
 
 ```bash
 python3 scripts/sync_and_grade.py --grade-only
+```
+
+**For text routes** (not handled by sync_and_grade.py), run batch-text which will skip already-graded files unless you delete the old grade:
+
+```bash
+# Regrade all text submissions for a route
+python3 -m graderbot.cli batch-text \
+  -r assignments/RID_007/instructions.md \
+  -i assignments/RID_007/submissions \
+  -o assignments/RID_007/results \
+  --route-id RID_007 --provider openai
 ```
 
 Or grade specific routes manually:
@@ -116,8 +131,19 @@ with open('notebook_stripped.ipynb', 'w') as f: json.dump(nb, f)
 Route was submitted but not graded. Run grading for that route.
 
 ### Resubmissions (v2) not reflected
-1. Ensure sync pulled the latest files
-2. Dashboard uses newest grade file by mtime - regrade to update
+
+The grading script detects resubmissions two ways:
+- **Same filename, new content**: Detected via hash change → auto-regrades
+- **New filename** (e.g., `_v2.ipynb`): Detected as new file → auto-grades
+
+The dashboard uses the **newest grade file by mtime**, so v2 grades automatically take precedence.
+
+If a v2 still isn't showing:
+1. Check sync pulled the file: `ls assignments/RID_XXX/submissions/*v2*`
+2. Check if graded: `ls assignments/RID_XXX/results/*student*`
+3. Force regrade by deleting old grade file and re-running
+
+**Note**: `sync_and_grade.py` only handles `.ipynb` files. For text route resubmissions (RID_006, 007, 008, 013), manually run `batch-text` which will regrade all submissions
 
 ### Student name not matching
 Check `NAME_ALIASES` in `dashboard.py` for known aliases.
