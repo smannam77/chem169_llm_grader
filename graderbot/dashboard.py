@@ -199,26 +199,19 @@ def scan_submissions(assignments_dir: str = "assignments") -> dict:
             continue
 
         if rid in TXT_DELIVERABLE_ROUTES:
-            # For text routes, look for deliverable/text_submission .txt or .docx files
-            for ext in ['*.txt', '*.docx']:
-                for txt_file in submissions_dir.glob(ext):
-                    name_lower = txt_file.name.lower()
-                    if 'deliverable' in name_lower or 'text_submission' in name_lower or 'submission_file' in name_lower or 'text' in name_lower:
-                        clean_name = txt_file.name
-                        for tag in ['_deliverable', '_text_submission', '_submission_file', '_text']:
+            # For text routes, look for deliverable/text_submission/code .txt/.docx/.ipynb files
+            for ext in ['*.txt', '*.docx', '*.ipynb']:
+                for f in submissions_dir.glob(ext):
+                    name_lower = f.name.lower()
+                    # Skip logbook files
+                    if 'logbook' in name_lower:
+                        continue
+                    # Accept files with deliverable, text_submission, or code in name
+                    if 'deliverable' in name_lower or 'text_submission' in name_lower or 'submission_file' in name_lower or '_code' in name_lower:
+                        clean_name = f.name
+                        for tag in ['_deliverable', '_text_submission', '_submission_file', '_code']:
                             clean_name = re.sub(re.escape(tag), '', clean_name, flags=re.IGNORECASE)
                         student = extract_student_name(clean_name)
-                        if student:
-                            student_routes[student].add(rid)
-            # For FREE_PASS text routes, be lenient - accept ANY submission file
-            # (students may not follow naming conventions or submit wrong format)
-            if rid in FREE_PASS_ROUTES:
-                for ext in ['*.ipynb', '*.txt', '*.docx']:
-                    for f in submissions_dir.glob(ext):
-                        # Skip logbook files
-                        if 'logbook' in f.name.lower():
-                            continue
-                        student = extract_student_name(f.name)
                         if student:
                             student_routes[student].add(rid)
         else:
