@@ -545,10 +545,21 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
     # Calculate per-route statistics
     route_stats = get_route_stats(student_routes, student_grades, all_routes)
 
-    # Prepare data with student names
+    # Filter to only regular routes (RID_*) for distributions - exclude midterms (MID_*)
+    regular_routes = [r for r in all_routes if r.startswith('RID_')]
+    total_regular_routes = len(regular_routes)
+
+    # Prepare data with student names - only count regular routes for distributions
     students = list(student_routes.keys())
-    completions = [len(routes) for routes in student_routes.values()]
-    sends = [soft_sends.get(s, 0) for s in students]
+    completions = [len([r for r in routes if r.startswith('RID_')]) for routes in student_routes.values()]
+    sends = [sum(1 for rid, grade in student_grades.get(s, {}).items()
+                 if rid.startswith('RID_') and is_soft_send(grade.get('exercises', []), route_id=rid))
+             for s in students]
+    # Add FREE_PASS routes to sends count
+    for i, s in enumerate(students):
+        for rid in student_routes.get(s, set()):
+            if rid in FREE_PASS_ROUTES and rid.startswith('RID_') and rid not in student_grades.get(s, {}):
+                sends[i] += 1
 
     # Calculate stats (median and percentiles)
     median_submitted = float(np.median(completions)) if completions else 0
@@ -571,10 +582,10 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
         horizontal_spacing=0.08
     )
 
-    # --- Histograms ---
+    # --- Histograms (regular routes only, excludes midterms) ---
     dist_submitted = Counter(completions)
     dist_sent = Counter(sends)
-    x_hist = list(range(total_routes + 1))
+    x_hist = list(range(total_regular_routes + 1))
     y_submitted = [dist_submitted.get(n, 0) for n in x_hist]
     y_sent = [dist_sent.get(n, 0) for n in x_hist]
 
