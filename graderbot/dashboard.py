@@ -340,6 +340,8 @@ def scan_grading_results(assignments_dir: str = "assignments") -> dict:
                         'rating': ex.get('rating', 'UNKNOWN'),
                         'rationale': ex.get('rationale', ''),
                         'flags': ex.get('flags', []),
+                        'missing_or_wrong': ex.get('missing_or_wrong', []),
+                        'evidence': ex.get('evidence', []),
                     })
 
                 # Overwrite with newer grade (files sorted oldest to newest)
@@ -878,7 +880,8 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
         # Include grading data and calculate send status for each route
         grades = {}
         sent_routes = []  # Routes that qualify as "sent" (80%+ OK)
-        not_sent_routes = []  # Submitted but not sent
+        not_sent_routes = []  # Submitted but didn't meet threshold
+        awaiting_grading = []  # Submitted but not yet graded
 
         if student in student_grades:
             for rid, grade_info in student_grades[student].items():
@@ -906,7 +909,8 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
                 if rid in FREE_PASS_ROUTES:
                     sent_routes.append(rid)
                 else:
-                    not_sent_routes.append(rid)
+                    # Not graded yet - awaiting grading (not "needs work")
+                    awaiting_grading.append(rid)
 
         student_data[student] = {
             "display_name": display_name,
@@ -914,6 +918,7 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
             "missing": missing,
             "sent": sorted(sent_routes),
             "not_sent": sorted(not_sent_routes),
+            "awaiting_grading": sorted(awaiting_grading),
             "count": len(completed_set),
             "sent_count": len(sent_routes),
             "total": total_routes,
@@ -1089,6 +1094,10 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
             background: #fff3cd;
             color: #856404;
         }}
+        .route-awaiting {{
+            background: #e2e3e5;
+            color: #383d41;
+        }}
         .route-missing {{
             background: #f8d7da;
             color: #721c24;
@@ -1243,13 +1252,15 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
             display: block;
         }}
         .exercise-row {{
-            display: flex;
-            align-items: center;
             padding: 8px 0;
             border-bottom: 1px solid #f0f0f0;
         }}
         .exercise-row:last-child {{
             border-bottom: none;
+        }}
+        .exercise-row-header {{
+            display: flex;
+            align-items: center;
         }}
         .exercise-id {{
             font-weight: 500;
@@ -1280,6 +1291,22 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
             color: #666;
             font-size: 0.9em;
             flex-grow: 1;
+        }}
+        .missing-items {{
+            background: #fff3cd;
+            border-left: 3px solid #ffc107;
+            padding: 8px 12px;
+            margin-top: 8px;
+            margin-left: 20px;
+            font-size: 0.9em;
+        }}
+        .missing-items ul {{
+            margin: 5px 0 0 0;
+            padding-left: 20px;
+        }}
+        .missing-items li {{
+            color: #856404;
+            margin-bottom: 3px;
         }}
         .overall-summary {{
             margin-top: 15px;
@@ -1381,6 +1408,10 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
                     <div class="routes-list">
                         <h4>⚠️ Submitted (needs work)</h4>
                         <div id="notSentRoutes"></div>
+                    </div>
+                    <div class="routes-list">
+                        <h4>⏳ Awaiting grading</h4>
+                        <div id="awaitingGradingRoutes"></div>
                     </div>
                     <div class="routes-list">
                         <h4>❌ Missing</h4>
@@ -1551,6 +1582,11 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
                 .map(r => `<span class="route-tag route-not-sent">${{r}}</span>`)
                 .join('') || '<em>None</em>';
 
+            // Render awaiting grading routes (gray - submitted but not yet graded)
+            document.getElementById('awaitingGradingRoutes').innerHTML = (data.awaiting_grading || [])
+                .map(r => `<span class="route-tag route-awaiting">${{r}}</span>`)
+                .join('') || '<em>None</em>';
+
             // Render missing routes
             document.getElementById('missingRoutes').innerHTML = data.missing
                 .map(r => `<span class="route-tag route-missing">${{r}}</span>`)
@@ -1584,10 +1620,9 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
                 const needsWork = exercises.filter(e => e.rating === 'NEEDS_WORK').length;
                 const total = exercises.length;
 
-                // Auto-expand routes that need work so students see feedback immediately
-                const autoExpand = needsWork > 0;
-                const expandedClass = autoExpand ? 'expanded' : '';
-                const rotatedClass = autoExpand ? 'rotated' : '';
+                // All routes collapsed by default
+                const expandedClass = '';
+                const rotatedClass = '';
 
                 html += `
                     <div class="route-grade-card">
@@ -1603,11 +1638,28 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
 
                 for (const ex of exercises) {{
                     const ratingClass = 'rating-' + ex.rating.toLowerCase();
+                    let feedbackHtml = '';
+
+                    // Show missing_or_wrong items for NEEDS_WORK exercises
+                    if (ex.rating === 'NEEDS_WORK' && ex.missing_or_wrong && ex.missing_or_wrong.length > 0) {{
+                        feedbackHtml = `
+                            <div class="missing-items">
+                                <strong>What to fix:</strong>
+                                <ul>
+                                    ${{ex.missing_or_wrong.map(item => `<li>${{item}}</li>`).join('')}}
+                                </ul>
+                            </div>
+                        `;
+                    }}
+
                     html += `
                         <div class="exercise-row">
-                            <span class="exercise-id">${{ex.exercise_id}}</span>
-                            <span class="exercise-rating ${{ratingClass}}">${{ex.rating}}</span>
-                            <span class="exercise-rationale">${{ex.rationale || ''}}</span>
+                            <div class="exercise-row-header">
+                                <span class="exercise-id">${{ex.exercise_id}}</span>
+                                <span class="exercise-rating ${{ratingClass}}">${{ex.rating}}</span>
+                                <span class="exercise-rationale">${{ex.rationale || ''}}</span>
+                            </div>
+                            ${{feedbackHtml}}
                         </div>
                     `;
                 }}
