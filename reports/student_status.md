@@ -47,10 +47,10 @@ Deadline: Feb 6, 2026 at 00:15 AM
 | Frank Tania | MID_001 | Feb 10 16:46 | Accepted (excused) |
 | Frank Tania | MID_003 | Feb 10 16:47 | Accepted (excused) |
 
-### Rejected Late Submissions (not counted)
-Grade files moved to `results/rejected_late/`:
-- Thumati Praharshitha M2 (9 hours late, unexcused)
-- Bachant Megan M3 (4 days late, unexcused)
+### Unexcused Late Submissions (not counted)
+Files moved to `unexcused_late/` folders:
+- Thumati Praharshitha M2 (9 hours late)
+- Bachant Megan M3 (4 days late)
 
 ---
 

@@ -1,6 +1,6 @@
-# Template: Rejected Late Submission
+# Template: Unexcused Late Submission
 
-**Use for:** Students whose unexcused late submissions were not accepted
+**Use for:** Students whose late submissions were not pre-approved and cannot be counted
 
 **Current students:**
 - Thumati Praharshitha (M2 submitted Feb 6 09:06 - 9 hours late)
