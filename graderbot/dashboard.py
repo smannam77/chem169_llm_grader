@@ -95,6 +95,22 @@ FREE_PASS_ROUTES = {
 # Track files with non-standard naming (populated during scan)
 NON_STANDARD_FILES = []
 
+# Patterns to redact from grading evidence (student accidentally exposed tokens, etc.)
+SENSITIVE_PATTERNS = [
+    (r'ghp_[A-Za-z0-9]{36}', '[GITHUB_TOKEN_REDACTED]'),  # GitHub Personal Access Token
+    (r'github_pat_[A-Za-z0-9_]{82}', '[GITHUB_TOKEN_REDACTED]'),  # GitHub Fine-grained PAT
+    (r'gho_[A-Za-z0-9]{36}', '[GITHUB_TOKEN_REDACTED]'),  # GitHub OAuth token
+]
+
+
+def sanitize_text(text: str) -> str:
+    """Remove sensitive information like tokens from text."""
+    if not text:
+        return text
+    for pattern, replacement in SENSITIVE_PATTERNS:
+        text = re.sub(pattern, replacement, text)
+    return text
+
 
 def extract_student_name(filename: str, track_non_standard: bool = True) -> str:
     """Extract student name from submission filename.
@@ -250,6 +266,33 @@ def is_soft_send(exercises: list, threshold: float = 0.8, route_id: str = None) 
     return (good_ratings / len(exercises)) >= threshold
 
 
+def scan_unexcused_late(assignments_dir: str = "assignments") -> dict:
+    """
+    Scan unexcused_late folders to find late submissions that weren't counted.
+
+    Returns:
+        dict: {student_name: [list of route IDs with unexcused late submissions]}
+    """
+    from collections import defaultdict
+
+    unexcused = defaultdict(list)
+    assignments_path = Path(assignments_dir)
+
+    for rid_folder in sorted(list(assignments_path.glob("RID_*")) + list(assignments_path.glob("MID_*"))):
+        rid = rid_folder.name
+        late_dir = rid_folder / "submissions" / "unexcused_late"
+
+        if not late_dir.exists():
+            continue
+
+        for f in late_dir.glob("*.ipynb"):
+            student = extract_student_name(f.name)
+            if student:
+                unexcused[student].append(rid)
+
+    return dict(unexcused)
+
+
 def count_soft_sends(student_grades: dict, student_routes: dict = None) -> dict:
     """
     Count the number of "soft sends" per student.
@@ -331,17 +374,26 @@ def scan_grading_results(assignments_dir: str = "assignments") -> dict:
                 grade_info = {
                     'route_id': rid,
                     'exercises': [],
-                    'overall_summary': data.get('overall_summary', ''),
+                    'overall_summary': sanitize_text(data.get('overall_summary', '')),
                 }
 
                 for ex in exercises:
+                    # Sanitize evidence excerpts (students may have exposed tokens)
+                    evidence = ex.get('evidence', [])
+                    sanitized_evidence = []
+                    for ev in evidence:
+                        sanitized_ev = dict(ev)
+                        if 'excerpt' in sanitized_ev:
+                            sanitized_ev['excerpt'] = sanitize_text(sanitized_ev['excerpt'])
+                        sanitized_evidence.append(sanitized_ev)
+
                     grade_info['exercises'].append({
                         'exercise_id': ex.get('exercise_id', ''),
                         'rating': ex.get('rating', 'UNKNOWN'),
-                        'rationale': ex.get('rationale', ''),
+                        'rationale': sanitize_text(ex.get('rationale', '')),
                         'flags': ex.get('flags', []),
                         'missing_or_wrong': ex.get('missing_or_wrong', []),
-                        'evidence': ex.get('evidence', []),
+                        'evidence': sanitized_evidence,
                     })
 
                 # Overwrite with newer grade (files sorted oldest to newest)
@@ -530,6 +582,9 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
 
     # Get grading results
     student_grades = scan_grading_results(assignments_dir)
+
+    # Get unexcused late submissions
+    unexcused_late = scan_unexcused_late(assignments_dir)
 
     # Merge student_grades routes into student_routes so "submitted" reflects both sources
     # (A student who was graded for a route clearly submitted it, even if scan_submissions missed it)
@@ -936,6 +991,15 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
         midterm_not_sent = [r for r in not_sent_routes if r.startswith('MID_')]
         midterm_awaiting = [r for r in awaiting_grading if r.startswith('MID_')]
 
+        # Get unexcused late submissions for this student
+        student_unexcused = unexcused_late.get(student, [])
+        regular_unexcused = [r for r in student_unexcused if r.startswith('RID_')]
+        midterm_unexcused = [r for r in student_unexcused if r.startswith('MID_')]
+
+        # Remove unexcused late from missing (they submitted, just late)
+        regular_missing = [r for r in regular_missing if r not in regular_unexcused]
+        midterm_missing = [r for r in midterm_missing if r not in midterm_unexcused]
+
         student_data[student] = {
             "display_name": display_name,
             "completed": completed,
@@ -943,6 +1007,7 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
             "sent": sorted(sent_routes),
             "not_sent": sorted(not_sent_routes),
             "awaiting_grading": sorted(awaiting_grading),
+            "unexcused_late": sorted(student_unexcused),
             "count": len(completed_set),
             "sent_count": len(sent_routes),
             "total": total_routes,
@@ -953,6 +1018,7 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
             "regular_sent": sorted(regular_sent),
             "regular_not_sent": sorted(regular_not_sent),
             "regular_awaiting": sorted(regular_awaiting),
+            "regular_unexcused": sorted(regular_unexcused),
             "regular_count": len(regular_completed),
             "regular_sent_count": len(regular_sent),
             "regular_total": len([r for r in all_routes if r.startswith('RID_')]),
@@ -962,6 +1028,7 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
             "midterm_sent": sorted(midterm_sent),
             "midterm_not_sent": sorted(midterm_not_sent),
             "midterm_awaiting": sorted(midterm_awaiting),
+            "midterm_unexcused": sorted(midterm_unexcused),
             "midterm_count": len(midterm_completed),
             "midterm_sent_count": len(midterm_sent),
             "midterm_total": len([r for r in all_routes if r.startswith('MID_')]),
@@ -1143,6 +1210,11 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
         .route-missing {{
             background: #f8d7da;
             color: #721c24;
+        }}
+        .route-unexcused {{
+            background: #d6d8db;
+            color: #1b1e21;
+            border: 1px dashed #6c757d;
         }}
         .chart-container {{
             background: white;
@@ -1501,6 +1573,10 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
                         <div id="midtermAwaitingRoutes"></div>
                     </div>
                     <div class="routes-list">
+                        <h4>🚫 Unexcused late</h4>
+                        <div id="midtermUnexcusedRoutes"></div>
+                    </div>
+                    <div class="routes-list">
                         <h4>❌ Missing</h4>
                         <div id="midtermMissingRoutes"></div>
                     </div>
@@ -1708,6 +1784,9 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
             document.getElementById('midtermMissingRoutes').innerHTML = (data.midterm_missing || [])
                 .map(r => `<span class="route-tag route-missing">${{r}}</span>`)
                 .join('') || '<em>All complete!</em>';
+            document.getElementById('midtermUnexcusedRoutes').innerHTML = (data.midterm_unexcused || [])
+                .map(r => `<span class="route-tag route-unexcused">${{r}}</span>`)
+                .join('') || '<em>None</em>';
 
             // Render grading feedback
             renderGrades(data);
