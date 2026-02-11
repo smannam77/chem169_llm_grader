@@ -1,42 +1,36 @@
 # Student Status Report
-Generated: 2026-02-11 04:45
+Generated: 2026-02-11 05:15
 Filtered by official Canvas roster (83 students)
-
-## Bottom 10 by Route Completion
-
-| Routes | Student |
-|--------|---------|
-| 5 | Choi Charles |
-| 7 | Garduno Fernando |
-| 8 | Tapia Tito |
-| 8 | Patel Dhiren |
-| 8 | Frank Tania |
-| 9 | Ouyang Christina |
-| 9 | Pineda Leo |
-| 9 | Bachant Megan |
-| 9 | Anonich Ryan |
-| 9 | Saldivar Alexis |
 
 ## Students Without 2+ Sent Midterms
 
 Required: 2 of 3 midterms must be SENT (80%+ OK)
 
-| Student | Submitted | Sent | Status |
-|---------|-----------|------|--------|
-| Choi Charles | None | None | 🔴 Critical |
-| Anonich Ryan | MID_001, MID_003 | MID_003 | 🟡 Needs 1 more |
-| Bachant Megan | MID_001 | MID_001 | 🟡 Needs 1 more |
-| Garduno Fernando | MID_003 | MID_003 | 🟡 Needs 1 more |
-| Hossain Mdsaddam | MID_001, MID_002 | MID_002 | 🟡 Needs 1 more |
-| Ontiveros Avery | MID_001, MID_002 | MID_001 | 🟡 Needs 1 more |
-| Patel Dhiren | MID_001, MID_003 | MID_003 | 🟡 Needs 1 more |
-| Pineda Leo | MID_001 | MID_001 | 🟡 Needs 1 more |
-| Saldivar Alexis | MID_001, MID_002 | MID_002 | 🟡 Needs 1 more |
+### Critical (0 SENT midterms)
 
-**Total: 9 students need attention (roster-filtered)**
+| Student | Submitted | Sent | Notes |
+|---------|-----------|------|-------|
+| Charles Choi | None | None | No submissions at all |
+| Zixing Liu | None | None | **MIA** - no submissions anywhere |
+| Brenda Ochoa | M3 only | None | M3 = 67% (not sent) |
 
-### Recently Resolved (excused late submissions)
-- **Frank Tania**: M1 + M3 submitted late (Feb 10), both SENT - now has 2 midterms
+### Needs 1 More (1 SENT midterm)
+
+| Student | Submitted | Sent | Notes |
+|---------|-----------|------|-------|
+| Ryan Anonich | M1, M3 | M3 | M1 needs work |
+| Megan Bachant | M1 | M1 | Needs to submit M2 or M3 |
+| Fernando Garduno | M3 | M3 | Needs to submit M1 or M2 |
+| Md Hossain | M1, M2 | M2 | M1 needs work |
+| Richard Ma | M1, M2, M3 | M3 | M1, M2 need work |
+| Avery Ontiveros | M1, M2 | M1 | M2 needs work |
+| Dhiren Patel | M1, M3 | M3 | M1 needs work |
+| Leo Pineda | M1 | M1 | Needs to submit M2 or M3 |
+| Alexis Saldivar | M1, M2 | M2 | M1 needs work |
+
+**Total: 12 students need attention**
+- 3 Critical (0 sent)
+- 9 Need 1 more
 
 ---
 
@@ -53,10 +47,6 @@ Deadline: Feb 6, 2026 at 00:15 AM
 | Frank Tania | MID_001 | Feb 10 16:46 | Accepted (excused) |
 | Frank Tania | MID_003 | Feb 10 16:47 | Accepted (excused) |
 
-### Excused Late Submissions
-- Valerie Escobedo (submitted M3 on Feb 5 23:46 - actually on time!)
-- Tania Frank (M1, M3 submitted Feb 10 - excused)
-
 ### Rejected Late Submissions (not counted)
 Grade files moved to `results/rejected_late/`:
 - Thumati Praharshitha M2 (9 hours late, unexcused)
@@ -64,7 +54,26 @@ Grade files moved to `results/rejected_late/`:
 
 ---
 
-### Excluded from report (not on official roster)
-- Huang Terry
-- Kuang Yixuan
-- Quan Weike
+## Bottom 10 by Route Completion
+
+| Routes | Student |
+|--------|---------|
+| 0 | Liu Zixing |
+| 5 | Choi Charles |
+| 7 | Garduno Fernando |
+| 8 | Tapia Tito |
+| 8 | Patel Dhiren |
+| 8 | Frank Tania |
+| 9 | Ouyang Christina |
+| 9 | Pineda Leo |
+| 9 | Bachant Megan |
+| 9 | Anonich Ryan |
+
+---
+
+## Verification Checklist
+Before pushing, verify against portal:
+- [ ] Choi Charles: 0 midterms submitted
+- [ ] Liu Zixing: 0 submissions anywhere (MIA)
+- [ ] Ochoa Brenda: M3 submitted, not sent (67%)
+- [ ] Ma Richard: 3 submitted, only M3 sent

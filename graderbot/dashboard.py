@@ -923,6 +923,19 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
                     # Not graded yet - awaiting grading (not "needs work")
                     awaiting_grading.append(rid)
 
+        # Separate regular routes (RID_*) from midterms (MID_*)
+        regular_completed = [r for r in completed if r.startswith('RID_')]
+        regular_missing = [r for r in missing if r.startswith('RID_')]
+        regular_sent = [r for r in sent_routes if r.startswith('RID_')]
+        regular_not_sent = [r for r in not_sent_routes if r.startswith('RID_')]
+        regular_awaiting = [r for r in awaiting_grading if r.startswith('RID_')]
+
+        midterm_completed = [r for r in completed if r.startswith('MID_')]
+        midterm_missing = [r for r in missing if r.startswith('MID_')]
+        midterm_sent = [r for r in sent_routes if r.startswith('MID_')]
+        midterm_not_sent = [r for r in not_sent_routes if r.startswith('MID_')]
+        midterm_awaiting = [r for r in awaiting_grading if r.startswith('MID_')]
+
         student_data[student] = {
             "display_name": display_name,
             "completed": completed,
@@ -934,6 +947,24 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
             "sent_count": len(sent_routes),
             "total": total_routes,
             "grades": grades,
+            # Separated regular routes
+            "regular_completed": sorted(regular_completed),
+            "regular_missing": sorted(regular_missing),
+            "regular_sent": sorted(regular_sent),
+            "regular_not_sent": sorted(regular_not_sent),
+            "regular_awaiting": sorted(regular_awaiting),
+            "regular_count": len(regular_completed),
+            "regular_sent_count": len(regular_sent),
+            "regular_total": len([r for r in all_routes if r.startswith('RID_')]),
+            # Separated midterms
+            "midterm_completed": sorted(midterm_completed),
+            "midterm_missing": sorted(midterm_missing),
+            "midterm_sent": sorted(midterm_sent),
+            "midterm_not_sent": sorted(midterm_not_sent),
+            "midterm_awaiting": sorted(midterm_awaiting),
+            "midterm_count": len(midterm_completed),
+            "midterm_sent_count": len(midterm_sent),
+            "midterm_total": len([r for r in all_routes if r.startswith('MID_')]),
         }
 
     student_json = json.dumps(student_data)
@@ -1393,40 +1424,85 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
             <div id="searchResults" class="search-results"></div>
             <div id="studentInfo" class="student-info">
                 <div class="student-name" id="displayName"></div>
+                <!-- Regular Routes Section -->
+                <div class="section-header" style="margin-top: 15px; padding: 8px 12px; background: #e3f2fd; border-radius: 6px;">
+                    <strong>📚 Regular Routes</strong>
+                </div>
                 <div class="stats-row">
                     <div class="stat-box">
-                        <div class="stat-number" id="completedCount">0</div>
+                        <div class="stat-number" id="regularCompletedCount">0</div>
                         <div class="stat-label">Submitted</div>
                     </div>
                     <div class="stat-box">
-                        <div class="stat-number" id="sentCount" style="color: #28a745;">0</div>
+                        <div class="stat-number" id="regularSentCount" style="color: #28a745;">0</div>
                         <div class="stat-label">Sent</div>
                     </div>
                     <div class="stat-box">
-                        <div class="stat-number" id="missingCount">0</div>
+                        <div class="stat-number" id="regularMissingCount">0</div>
                         <div class="stat-label">Missing</div>
                     </div>
                     <div class="stat-box">
-                        <div class="stat-number" id="percentComplete">0%</div>
+                        <div class="stat-number" id="regularPercentComplete">0%</div>
                         <div class="stat-label">Progress</div>
                     </div>
                 </div>
                 <div class="routes-section">
                     <div class="routes-list">
                         <h4>✅ Sent (80%+ OK)</h4>
-                        <div id="sentRoutes"></div>
+                        <div id="regularSentRoutes"></div>
                     </div>
                     <div class="routes-list">
-                        <h4>⚠️ Submitted (needs work)</h4>
-                        <div id="notSentRoutes"></div>
+                        <h4>⚠️ Needs work</h4>
+                        <div id="regularNotSentRoutes"></div>
                     </div>
                     <div class="routes-list">
                         <h4>⏳ Awaiting grading</h4>
-                        <div id="awaitingGradingRoutes"></div>
+                        <div id="regularAwaitingRoutes"></div>
                     </div>
                     <div class="routes-list">
                         <h4>❌ Missing</h4>
-                        <div id="missingRoutes"></div>
+                        <div id="regularMissingRoutes"></div>
+                    </div>
+                </div>
+
+                <!-- Midterm Routes Section -->
+                <div class="section-header" style="margin-top: 20px; padding: 8px 12px; background: #fff3e0; border-radius: 6px;">
+                    <strong>📝 Midterms</strong> <span style="font-weight: normal; color: #666;">(need 2 of 3 sent)</span>
+                </div>
+                <div class="stats-row">
+                    <div class="stat-box">
+                        <div class="stat-number" id="midtermCompletedCount">0</div>
+                        <div class="stat-label">Submitted</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number" id="midtermSentCount" style="color: #28a745;">0</div>
+                        <div class="stat-label">Sent</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number" id="midtermMissingCount">0</div>
+                        <div class="stat-label">Missing</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number" id="midtermStatus">-</div>
+                        <div class="stat-label">Status</div>
+                    </div>
+                </div>
+                <div class="routes-section">
+                    <div class="routes-list">
+                        <h4>✅ Sent</h4>
+                        <div id="midtermSentRoutes"></div>
+                    </div>
+                    <div class="routes-list">
+                        <h4>⚠️ Needs work</h4>
+                        <div id="midtermNotSentRoutes"></div>
+                    </div>
+                    <div class="routes-list">
+                        <h4>⏳ Awaiting</h4>
+                        <div id="midtermAwaitingRoutes"></div>
+                    </div>
+                    <div class="routes-list">
+                        <h4>❌ Missing</h4>
+                        <div id="midtermMissingRoutes"></div>
                     </div>
                 </div>
                 <div class="grades-section">
@@ -1577,29 +1653,59 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
 
             const data = studentData[selected];
             document.getElementById('displayName').textContent = data.display_name;
-            document.getElementById('completedCount').textContent = data.count;
-            document.getElementById('sentCount').textContent = data.sent_count;
-            document.getElementById('missingCount').textContent = data.missing.length;
-            document.getElementById('percentComplete').textContent =
-                Math.round((data.count / data.total) * 100) + '%';
 
-            // Render sent routes (green - 80%+ OK)
-            document.getElementById('sentRoutes').innerHTML = data.sent
+            // Regular Routes Stats
+            document.getElementById('regularCompletedCount').textContent = data.regular_count || 0;
+            document.getElementById('regularSentCount').textContent = data.regular_sent_count || 0;
+            document.getElementById('regularMissingCount').textContent = (data.regular_missing || []).length;
+            document.getElementById('regularPercentComplete').textContent =
+                Math.round(((data.regular_count || 0) / (data.regular_total || 1)) * 100) + '%';
+
+            // Regular Routes Lists
+            document.getElementById('regularSentRoutes').innerHTML = (data.regular_sent || [])
                 .map(r => `<span class="route-tag route-sent">${{r}}</span>`)
                 .join('') || '<em>None yet</em>';
-
-            // Render not-sent routes (yellow - submitted but needs work)
-            document.getElementById('notSentRoutes').innerHTML = data.not_sent
+            document.getElementById('regularNotSentRoutes').innerHTML = (data.regular_not_sent || [])
                 .map(r => `<span class="route-tag route-not-sent">${{r}}</span>`)
                 .join('') || '<em>None</em>';
-
-            // Render awaiting grading routes (gray - submitted but not yet graded)
-            document.getElementById('awaitingGradingRoutes').innerHTML = (data.awaiting_grading || [])
+            document.getElementById('regularAwaitingRoutes').innerHTML = (data.regular_awaiting || [])
                 .map(r => `<span class="route-tag route-awaiting">${{r}}</span>`)
                 .join('') || '<em>None</em>';
+            document.getElementById('regularMissingRoutes').innerHTML = (data.regular_missing || [])
+                .map(r => `<span class="route-tag route-missing">${{r}}</span>`)
+                .join('') || '<em>All complete!</em>';
 
-            // Render missing routes
-            document.getElementById('missingRoutes').innerHTML = data.missing
+            // Midterm Stats
+            document.getElementById('midtermCompletedCount').textContent = data.midterm_count || 0;
+            document.getElementById('midtermSentCount').textContent = data.midterm_sent_count || 0;
+            document.getElementById('midtermMissingCount').textContent = (data.midterm_missing || []).length;
+
+            // Midterm Status (need 2 of 3)
+            const midtermSent = data.midterm_sent_count || 0;
+            let midtermStatus = '';
+            if (midtermSent >= 2) {{
+                midtermStatus = '✅ OK';
+                document.getElementById('midtermStatus').style.color = '#28a745';
+            }} else if (midtermSent === 1) {{
+                midtermStatus = '⚠️ Need 1';
+                document.getElementById('midtermStatus').style.color = '#ffc107';
+            }} else {{
+                midtermStatus = '🔴 Need 2';
+                document.getElementById('midtermStatus').style.color = '#dc3545';
+            }}
+            document.getElementById('midtermStatus').textContent = midtermStatus;
+
+            // Midterm Routes Lists
+            document.getElementById('midtermSentRoutes').innerHTML = (data.midterm_sent || [])
+                .map(r => `<span class="route-tag route-sent">${{r}}</span>`)
+                .join('') || '<em>None yet</em>';
+            document.getElementById('midtermNotSentRoutes').innerHTML = (data.midterm_not_sent || [])
+                .map(r => `<span class="route-tag route-not-sent">${{r}}</span>`)
+                .join('') || '<em>None</em>';
+            document.getElementById('midtermAwaitingRoutes').innerHTML = (data.midterm_awaiting || [])
+                .map(r => `<span class="route-tag route-awaiting">${{r}}</span>`)
+                .join('') || '<em>None</em>';
+            document.getElementById('midtermMissingRoutes').innerHTML = (data.midterm_missing || [])
                 .map(r => `<span class="route-tag route-missing">${{r}}</span>`)
                 .join('') || '<em>All complete!</em>';
 
