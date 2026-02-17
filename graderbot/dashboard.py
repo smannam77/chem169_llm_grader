@@ -37,6 +37,8 @@ NAME_ALIASES = {
     'xinyi_shang_': 'xinyi_shang',
     'shang_xinyi': 'xinyi_shang',
     'shang_xinyi_rid_xyz_code_minji_shang': 'xinyi_shang',
+    # Heyang name order variation (Google Forms extracts as First_Last)
+    'haoye_heyang': 'heyang_haoye',
     # RID_RXXX filename pattern leaves trailing _rid
     'srikumaran_sarayu_rid': 'srikumaran_sarayu',
     'spock_lilian_rid': 'spock_lilian',
@@ -50,7 +52,6 @@ NAME_ALIASES = {
     'jinyi_zhang': 'zhang_jinyi',
     'jingru_zhao': 'zhao_jingru',
     'anya_weeranarawat': 'weeranarawat_anya',
-    'heyang_haoye': 'haoye_heyang',
     'tito_tapia': 'tapia_tito',
     # Single-word names from Route_XXX patterns
     'tiwary': 'tiwary_ayush',
@@ -221,12 +222,25 @@ def scan_submissions(assignments_dir: str = "assignments") -> dict:
                 for f in submissions_dir.glob(ext):
                     name_lower = f.name.lower()
                     # Skip logbook files
-                    if 'logbook' in name_lower:
+                    if 'logbook' in name_lower or 'notebook' in name_lower:
                         continue
-                    # Accept files with deliverable, text_submission, or code in name
-                    if 'deliverable' in name_lower or 'text_submission' in name_lower or 'submission_file' in name_lower or '_code' in name_lower:
+                    # Accept files with deliverable, text_submission, code, _text in name
+                    # Also handle common typos and variations
+                    is_deliverable = (
+                        'deliverable' in name_lower or
+                        'text_submission' in name_lower or
+                        'text_submisison' in name_lower or  # common typo
+                        'submission_file' in name_lower or
+                        '_code' in name_lower or
+                        '_text' in name_lower or
+                        'text file' in name_lower
+                    )
+                    # Fallback: if file has RID but no keyword, treat as deliverable
+                    if not is_deliverable and ('rid' in name_lower or re.search(r'r\d{3}', name_lower)):
+                        is_deliverable = True
+                    if is_deliverable:
                         clean_name = f.name
-                        for tag in ['_deliverable', '_text_submission', '_submission_file', '_code']:
+                        for tag in ['_deliverable', '_text_submission', '_text_submisison', '_submission_file', '_code', '_text', 'text file']:
                             clean_name = re.sub(re.escape(tag), '', clean_name, flags=re.IGNORECASE)
                         student = extract_student_name(clean_name)
                         if student:

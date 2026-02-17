@@ -86,9 +86,20 @@ def find_submission_pair(submissions_dir: str, student_pattern: str) -> tuple[st
 
         # Check if this file belongs to the student
         if pattern_lower in name_lower or name_lower.startswith(pattern_lower.split('_')[0]):
-            if 'deliverable' in name_lower or 'text_submission' in name_lower or 'submission_file' in name_lower or '_code' in name_lower:
+            is_deliverable = (
+                'deliverable' in name_lower or
+                'text_submission' in name_lower or
+                'text_submisison' in name_lower or  # common typo
+                'submission_file' in name_lower or
+                '_code' in name_lower or
+                '_text' in name_lower or
+                'text file' in name_lower
+            )
+            is_logbook = 'logbook' in name_lower or 'notebook' in name_lower
+
+            if is_deliverable and not is_logbook:
                 deliverable = str(f)
-            elif 'logbook' in name_lower:
+            elif is_logbook:
                 logbook = str(f)
 
     return deliverable, logbook
@@ -121,19 +132,43 @@ def list_text_submissions(submissions_dir: str) -> list[dict]:
         # Try to extract student name from filename
         # Patterns: LastName_FirstName_RID_XXX_deliverable.txt
         #           LastName_FirstName_deliverable_RID_XXX.txt
+        #           R013 Text File - FirstName LastName.txt (Google Forms format)
         match = re.match(r'^([A-Za-z]+_[A-Za-z]+)', name, re.IGNORECASE)
         if match:
             student_key = match.group(1).lower()
         else:
-            # Fallback: use first part before underscore
-            student_key = name.split('_')[0].lower()
+            # Try Google Forms format: "R0XX ... - FirstName LastName"
+            gforms_match = re.search(r' - ([A-Za-z]+) ([A-Za-z]+)$', name)
+            if gforms_match:
+                first, last = gforms_match.groups()
+                student_key = f"{last}_{first}".lower()
+            else:
+                # Fallback: use first part before underscore
+                student_key = name.split('_')[0].lower()
 
         if student_key not in students:
             students[student_key] = {'student': student_key, 'deliverable': None, 'logbook': None}
 
-        if 'deliverable' in name_lower or 'text_submission' in name_lower or 'submission_file' in name_lower or '_code' in name_lower:
+        # Match deliverable patterns (including common typos and variations)
+        is_deliverable = (
+            'deliverable' in name_lower or
+            'text_submission' in name_lower or
+            'text_submisison' in name_lower or  # common typo
+            'submission_file' in name_lower or
+            '_code' in name_lower or
+            '_text' in name_lower or  # handles _text.txt files
+            'text file' in name_lower  # handles "R013 Text File" format
+        )
+        is_logbook = 'logbook' in name_lower or 'notebook' in name_lower
+
+        # Fallback: if file has RID but no keyword, treat as deliverable
+        has_rid = bool(re.search(r'rid[_\s]*\d{3}', name_lower) or re.search(r'r\d{3}', name_lower))
+        if not is_deliverable and not is_logbook and has_rid:
+            is_deliverable = True
+
+        if is_deliverable and not is_logbook:
             students[student_key]['deliverable'] = str(f)
-        elif 'logbook' in name_lower:
+        elif is_logbook:
             students[student_key]['logbook'] = str(f)
 
     return list(students.values())
