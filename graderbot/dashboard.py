@@ -205,7 +205,7 @@ def scan_submissions(assignments_dir: str = "assignments") -> dict:
     assignments_path = Path(assignments_dir)
 
     # Routes that use .txt deliverables instead of .ipynb notebooks
-    TXT_DELIVERABLE_ROUTES = {"RID_006", "RID_007", "RID_008", "RID_013"}
+    TXT_DELIVERABLE_ROUTES = {"RID_006", "RID_007", "RID_008", "RID_013", "RID_EC1"}
 
     # Include both RID_* and MID_* folders
     all_route_folders = sorted(list(assignments_path.glob("RID_*")) + list(assignments_path.glob("MID_*")))
