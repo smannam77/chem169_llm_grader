@@ -73,6 +73,7 @@ NAME_ALIASES = {
     'saldivar_garcia': 'saldivar_alexis',
     # Trailing _rid artifacts from midterm filenames
     'pham_richie_rid': 'pham_richie',
+    'nguyen_vanessa_rid': 'nguyen_vanessa',
 }
 
 # Students not enrolled (exclude from dashboard)

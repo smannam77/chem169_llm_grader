@@ -6,6 +6,44 @@ Usage:
     python scripts/sync_and_grade.py --sync --grade
     python scripts/sync_and_grade.py --sync-only
     python scripts/sync_and_grade.py --grade-only
+    python scripts/sync_and_grade.py --all          # sync + grade + dashboard (default)
+
+WORKFLOW FOR GRADING (run from repo root):
+=========================================
+1. Sync + Grade + Dashboard (typical usage):
+       python scripts/sync_and_grade.py
+
+2. Just sync to see new submissions:
+       python scripts/sync_and_grade.py --sync-only
+
+3. Grade without syncing (if already synced):
+       python scripts/sync_and_grade.py --grade-only
+
+4. Regenerate dashboard only:
+       python scripts/sync_and_grade.py --dashboard
+
+ADDING NEW ROUTES:
+==================
+1. Add the Google Drive folder mapping to FORM_ROUTE_MAPPING below
+2. Create local folder: mkdir -p assignments/RID_XXX/{submissions,results}
+3. Copy instructions from climbing-gym-app:
+       cp /Users/ajinich/Documents/repos/climbing-gym-app/content/routes/RXXX_*.md \
+          assignments/RID_XXX/instructions.md
+
+HANDLING LATE SUBMISSIONS:
+==========================
+- Check actual submission time: ~/bin/rclone lsl "gdrive:TheJinichLab/.../folder"
+- Unexcused late: move file to assignments/RID_XXX/submissions/unexcused_late/
+- Dashboard will show these as "Unexcused late" without grading them
+
+NAME ALIAS ISSUES:
+==================
+- If student names don't match, add to NAME_ALIASES in graderbot/dashboard.py
+- Common issues: Google Forms adds " - Student Name" suffix to filenames
+
+NOTE: Route instructions (instructions.md) come from the climbing-gym-app repo:
+    /Users/ajinich/Documents/repos/climbing-gym-app/content/routes/
+    e.g., R018_Choose_Your_Fighter.md -> assignments/RID_018/instructions.md
 """
 
 import argparse
@@ -61,6 +99,9 @@ FORM_ROUTE_MAPPING = {
     "R015_submissions (File responses)": "RID_015",
     "R016_submissions (File responses)": "RID_016",
     "R017_submission (File responses)": "RID_017",
+    "R018_submissions (File responses)": "RID_018",
+    "R019_submissions (File responses)": "RID_019",
+    "R020_submissions (File responses)": "RID_020",
     "M1_submission (File responses)": "MID_001",
     "M2_submission (File responses)": "MID_002",
     "M3_submission (File responses)": "MID_003",
@@ -232,17 +273,24 @@ def find_new_or_changed_files(manifest: dict) -> list[tuple[Path, str]]:
     Find notebooks that are new or changed since last grading.
 
     Returns list of (notebook_path, route_id) tuples.
+
+    Note: Scans both RID_* (regular routes) and MID_* (midterm routes).
+    Skips files in unexcused_late/ subfolders.
     """
     to_grade = []
     graded_files = manifest.get("graded_files", {})
 
-    for rid_folder in LOCAL_ASSIGNMENTS_DIR.glob("RID_*"):
+    # Scan both RID_* and MID_* folders
+    route_folders = list(LOCAL_ASSIGNMENTS_DIR.glob("RID_*")) + list(LOCAL_ASSIGNMENTS_DIR.glob("MID_*"))
+
+    for rid_folder in sorted(route_folders):
         route_id = rid_folder.name
         submissions_dir = rid_folder / "submissions"
 
         if not submissions_dir.exists():
             continue
 
+        # Only get direct children (*.ipynb), not files in subfolders like unexcused_late/
         for notebook in submissions_dir.glob("*.ipynb"):
             file_key = str(notebook.relative_to(LOCAL_ASSIGNMENTS_DIR))
             current_hash = get_file_hash(notebook)
