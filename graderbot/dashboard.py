@@ -75,6 +75,11 @@ NAME_ALIASES = {
     # Trailing _rid artifacts from midterm filenames
     'pham_richie_rid': 'pham_richie',
     'nguyen_vanessa_rid': 'nguyen_vanessa',
+    # Binnafisah typo (letters swapped: ifsah -> fisah)
+    'binnaifsah_abdulghani': 'binnafisah_abdulghani',
+    # File naming artifacts (logboook typo, copy_ prefix)
+    'carmona_jorge_logboook': 'carmona_jorge',
+    'copy_of_escobedo_valerie': 'escobedo_valerie',
 }
 
 # Students not enrolled (exclude from dashboard)
