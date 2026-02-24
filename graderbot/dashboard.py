@@ -91,6 +91,9 @@ EXCLUDED_STUDENTS = {
     'deliverable',    # Bare filename artifact from deliverable_RID_XXX files
     'm3_brenda_o.',   # Unknown midterm submission - cannot identify student
     'm3',             # Bare "M3 -" filename artifact
+    # Not formally enrolled
+    'kuang_yixuan',
+    'quan_weike',
 }
 
 # Routes that get a "free pass" - always count as sent regardless of grade
