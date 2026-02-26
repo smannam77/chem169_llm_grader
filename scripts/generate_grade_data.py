@@ -58,13 +58,16 @@ def generate_penalty_list(threshold=10):
 
     under_threshold = []
     for student, routes in sorted(student_routes.items()):
-        regular = routes - MIDTERM_ROUTES - EC_ROUTES
-        if len(regular) < threshold:
+        regular = routes - MIDTERM_ROUTES
+        ec = routes & EC_ROUTES
+        # Count regular routes + extra credit toward threshold
+        total_toward_threshold = len(regular) + len(ec)
+        if total_toward_threshold < threshold:
             under_threshold.append({
                 'student_id': student,
                 'display_name': student.replace('_', ' ').title(),
-                'routes_sent': len(regular),
-                'routes_needed': threshold - len(regular),
+                'routes_sent': total_toward_threshold,
+                'routes_needed': threshold - total_toward_threshold,
             })
 
     # Sort by routes_sent ascending
