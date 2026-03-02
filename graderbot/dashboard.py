@@ -89,7 +89,9 @@ EXCLUDED_STUDENTS = {
     'cruz_jade',
     'test_student',   # Adrian's own test submissions
     'deliverable',    # Bare filename artifact from deliverable_RID_XXX files
-    'm3_brenda_o.',   # Unknown midterm submission - cannot identify student
+    'm3_brenda_o.',   # Unknown submission - cannot identify student
+    'ro18_brenda_o.', # Unknown submission - cannot identify student
+    'route017_brenda_o.', # Unknown submission - cannot identify student
     'm3',             # Bare "M3 -" filename artifact
     # Not formally enrolled
     'kuang_yixuan',
