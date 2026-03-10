@@ -82,6 +82,12 @@ NAME_ALIASES = {
     'copy_of_escobedo_valerie': 'escobedo_valerie',
     # Mangled filename artifact
     'escobedo_valerie_rid_xyz_code_valerie_escobedo': 'escobedo_valerie',
+    # R008 deliverable files with non-standard naming (deliverable_RID_008 - Name.txt)
+    'deliverable_rid_008_huishan_chen': 'chen_huishan',
+    'deliverable_rid_008_han_pham': 'pham_han',
+    'deliverable_rid_008_md_saddam_hossain': 'hossain_mdsaddam',
+    'deliverable_rid_008_rachel_pham': 'pham_han',
+    'deliverable_rid_008_minji_lee': 'lee_minji',
 }
 
 # Students not enrolled (exclude from dashboard)
