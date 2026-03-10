@@ -80,6 +80,8 @@ NAME_ALIASES = {
     # File naming artifacts (logboook typo, copy_ prefix)
     'carmona_jorge_logboook': 'carmona_jorge',
     'copy_of_escobedo_valerie': 'escobedo_valerie',
+    # Mangled filename artifact
+    'escobedo_valerie_rid_xyz_code_valerie_escobedo': 'escobedo_valerie',
 }
 
 # Students not enrolled (exclude from dashboard)
