@@ -16,6 +16,22 @@ except ImportError:
 import matplotlib.pyplot as plt
 
 
+# Route 037C AF3 Automation Challenge bonuses (+8 routes each)
+ROUTE_037C_STUDENTS = {
+    'li_harry': 8,
+    'zhu_yuntian': 8, 
+    'bachant_megan': 8
+}
+
+def apply_route_037c_bonus(student_key, completion_count):
+    """Apply +8 route bonus for Route 037C students."""
+    for bonus_student, bonus in ROUTE_037C_STUDENTS.items():
+        if bonus_student in student_key.lower():
+            return completion_count + bonus
+    return completion_count
+
+
+
 # Known name aliases for students who submit with inconsistent naming
 NAME_ALIASES = {
     # Kao variations
@@ -639,7 +655,12 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
 
     # Prepare data with student names - only count regular routes for distributions
     students = list(student_routes.keys())
-    completions = [len([r for r in routes if r.startswith('RID_')]) for routes in student_routes.values()]
+    # Calculate completions with Route 037C bonuses
+    completions = []
+    for student_key, routes in student_routes.items():
+        count = len([r for r in routes if r.startswith('RID_')])
+        count = apply_route_037c_bonus(student_key, count)
+        completions.append(count)
     sends = [sum(1 for rid, grade in student_grades.get(s, {}).items()
                  if rid.startswith('RID_') and is_soft_send(grade.get('exercises', []), route_id=rid))
              for s in students]
