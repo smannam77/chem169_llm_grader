@@ -438,7 +438,7 @@ def scan_grading_results(assignments_dir: str = "assignments") -> dict:
 
                 grade_info = {
                     'route_id': rid,
-                    'exercises': [],
+                    'exercises': [],  # Will be populated below from the exercises list
                     'overall_summary': sanitize_text(data.get('overall_summary', '')),
                 }
 
