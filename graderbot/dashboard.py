@@ -420,6 +420,22 @@ def scan_grading_results(assignments_dir: str = "assignments") -> dict:
 
                 # Build grade summary
                 exercises = data.get('exercises', [])
+
+                # Handle RID_EC1 special case: simple grade format without exercises
+                if rid == 'RID_EC1' and not exercises:
+                    status = data.get('status', '').lower()
+                    score = data.get('score', 0)
+                    if status == 'completed' or score >= 100:
+                        # Create synthetic EXCELLENT exercise for completed extra credit
+                        exercises = [{
+                            'exercise_id': 'Extra Credit',
+                            'rating': 'EXCELLENT',
+                            'rationale': data.get('feedback', 'Extra credit completed'),
+                            'flags': [],
+                            'missing_or_wrong': [],
+                            'evidence': []
+                        }]
+
                 grade_info = {
                     'route_id': rid,
                     'exercises': [],
