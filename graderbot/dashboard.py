@@ -1747,7 +1747,7 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
 
                 <!-- Final Routes Section -->
                 <div class="section-header" style="margin-top: 20px; padding: 8px 12px; background: #e3f2fd; border-radius: 6px;">
-                    <strong>🎯 Finals</strong> <span style="font-weight: normal; color: #666;">(need 2 of 2 sent)</span>
+                    <strong>🎯 Finals</strong> <span style="font-weight: normal; color: #666;">(need 1 of 2 sent)</span>
                 </div>
                 <div class="stats-row">
                     <div class="stat-box">
@@ -2001,17 +2001,14 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
             document.getElementById('finalSentCount').textContent = data.final_sent_count || 0;
             document.getElementById('finalMissingCount').textContent = (data.final_missing || []).length;
 
-            // Status logic for finals (need both F036 and F037 to be OK)
+            // Status logic for finals (need 1 of 2 to be OK)
             const finalSent = data.final_sent_count || 0;
             let finalStatus = '';
-            if (finalSent >= 2) {{
+            if (finalSent >= 1) {{
                 finalStatus = '✅ OK';
                 document.getElementById('finalStatus').style.color = '#28a745';
-            }} else if (finalSent === 1) {{
-                finalStatus = '⚠️ Need 1';
-                document.getElementById('finalStatus').style.color = '#ffc107';
             }} else {{
-                finalStatus = '🔴 Need 2';
+                finalStatus = '🔴 Need 1';
                 document.getElementById('finalStatus').style.color = '#dc3545';
             }}
             document.getElementById('finalStatus').textContent = finalStatus;
