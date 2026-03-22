@@ -239,7 +239,7 @@ def scan_submissions(assignments_dir: str = "assignments") -> dict:
     assignments_path = Path(assignments_dir)
 
     # Routes that use .txt deliverables instead of .ipynb notebooks
-    TXT_DELIVERABLE_ROUTES = {"RID_006", "RID_007", "RID_008", "RID_013", "RID_EC1"}
+    TXT_DELIVERABLE_ROUTES = {"RID_006", "RID_007", "RID_008", "RID_013", "RID_EC1", "RID_037C"}
 
     # Include both RID_* and MID_* folders
     all_route_folders = sorted(list(assignments_path.glob("RID_*")) + list(assignments_path.glob("MID_*")))
@@ -274,8 +274,12 @@ def scan_submissions(assignments_dir: str = "assignments") -> dict:
                         is_deliverable = True
                     if is_deliverable:
                         clean_name = f.name
+                        # Remove common deliverable tags
                         for tag in ['_deliverable', '_text_submission', '_text_submisison', '_submission_file', '_code', '_text', 'text file']:
                             clean_name = re.sub(re.escape(tag), '', clean_name, flags=re.IGNORECASE)
+                        # Remove route identifiers that might be in the filename (e.g., "037C", "RID_037C")
+                        clean_name = re.sub(r'_?(RID_)?0?37C?_?', '', clean_name, flags=re.IGNORECASE)
+                        clean_name = re.sub(r'_?EC1_?', '', clean_name, flags=re.IGNORECASE)
                         student = extract_student_name(clean_name)
                         if student:
                             student_routes[student].add(rid)
@@ -421,16 +425,23 @@ def scan_grading_results(assignments_dir: str = "assignments") -> dict:
                 # Build grade summary
                 exercises = data.get('exercises', [])
 
-                # Handle RID_EC1 special case: simple grade format without exercises
-                if rid == 'RID_EC1' and not exercises:
+                # Handle special cases: simple grade format without exercises
+                if rid in ['RID_EC1', 'RID_037C'] and not exercises:
                     status = data.get('status', '').lower()
                     score = data.get('score', 0)
                     if status == 'completed' or score >= 100:
-                        # Create synthetic EXCELLENT exercise for completed extra credit
+                        # Create synthetic EXCELLENT exercise for completed special routes
+                        if rid == 'RID_037C':
+                            exercise_id = 'AF3 Automation Challenge'
+                            default_rationale = 'AF3 automation project completed'
+                        else:  # RID_EC1
+                            exercise_id = 'Extra Credit'
+                            default_rationale = 'Extra credit completed'
+
                         exercises = [{
-                            'exercise_id': 'Extra Credit',
+                            'exercise_id': exercise_id,
                             'rating': 'EXCELLENT',
-                            'rationale': data.get('feedback', 'Extra credit completed'),
+                            'rationale': data.get('feedback', default_rationale),
                             'flags': [],
                             'missing_or_wrong': [],
                             'evidence': []
