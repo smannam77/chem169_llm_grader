@@ -132,10 +132,14 @@ NAME_ALIASES = {
     'f037_final_analysis_wonmin_kim': 'kim_wonmin',
     'jinyi_zhang_final': 'zhang_jinyi',
     'srikumaran_sarayu_f': 'srikumaran_sarayu',
-    # Malformed filename artifacts
+    # Malformed filename artifacts - map to correct students or remove
     'copy_of_final_brenda_o': 'ouyang_christina',
     'final_brenda_o': 'ouyang_christina',
     'final': None,  # Remove completely malformed entry
+    'f037': None,  # Remove standalone F037 artifact
+    'alvarado_isacc_rid': 'alvarado_isacc',  # Fix trailing _rid artifact
+    # Typo in name
+    'binnafisah_abddulghani': 'binnafisah_abdulghani',  # Fix double 'd' typo
     # R008 deliverable files with non-standard naming (deliverable_RID_008 - Name.txt)
     'deliverable_rid_008_huishan_chen': 'chen_huishan',
     'deliverable_rid_008_han_pham': 'pham_han',
