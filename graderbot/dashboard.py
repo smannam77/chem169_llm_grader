@@ -98,7 +98,7 @@ NAME_ALIASES = {
     'copy_of_escobedo_valerie': 'escobedo_valerie',
     # Mangled filename artifact
     'escobedo_valerie_rid_xyz_code_valerie_escobedo': 'escobedo_valerie',
-    # Finals (F036/F037) filename artifacts - pattern: LastName_FirstName_RID_FXXX_code_FirstName_LastName
+    # Finals (F036/F037) filename artifacts - comprehensive patterns
     'wiese_jasmine_rid_f036_code_jasmine_wiese': 'wiese_jasmine',
     'wiese_jasmine_rid_f037_code_jasmine_wiese': 'wiese_jasmine',
     'allam_emile_rid_f036_code_emile_allam': 'allam_emile',
@@ -111,6 +111,31 @@ NAME_ALIASES = {
     'chen_huishan_rid_f037_code_huishan_chen': 'chen_huishan',
     'chiu_abigail_rid_f036_abigail_chiu': 'chiu_abigail',
     'chiu_abigail_rid_f037_abigail_chiu': 'chiu_abigail',
+    # F036 patterns without RID_F036
+    'alvarado_isacc_rid__f036_code_isacc_a': 'alvarado_isacc',
+    'amaral_javier_f036_code_jaqin_vlogs': 'amaral_javier',
+    'anonich_ryan_rid_036f_code_ryan_anonich': 'anonich_ryan',
+    'bachant_megan_f036_code_megan_bachant': 'bachant_megan',
+    'carrer_catherina_rid_036_code_catherina_carrer': 'carrer_catherina',
+    'chang_eugene_rid_036_code_final_eugene_chang': 'chang_eugene',
+    'che_jimmy_rid_036_code_jimmy_che': 'che_jimmy',
+    'fu_zhengyuan_final_exam_route_036_code_zhengyuan_fu': 'fu_zhengyuan',
+    'fu_zhengyuan_final_exam': 'fu_zhengyuan',
+    'garduno_fernando_rid_036_code_fernando_garduno': 'garduno_fernando',
+    'gascon_mauro_rid_036_code_mauro_gascon_navas': 'gascon_mauro',
+    'gianetto_luca_rid_036_code_luca_gianetto': 'gianetto_luca',
+    'heyang_haoye_rid_036_code_haoye_heyang': 'heyang_haoye',
+    'pham_han_f036_code_han_pham': 'pham_han',
+    'pineda_leo_f036_code_leo_pineda': 'pineda_leo',
+    'zhen_kenneth_f036_code_kenneth_zhen': 'zhen_kenneth',
+    # F037 patterns
+    'f037_final_analysis_wonmin_kim': 'kim_wonmin',
+    'jinyi_zhang_final': 'zhang_jinyi',
+    'srikumaran_sarayu_f': 'srikumaran_sarayu',
+    # Malformed filename artifacts
+    'copy_of_final_brenda_o': 'ouyang_christina',
+    'final_brenda_o': 'ouyang_christina',
+    'final': None,  # Remove completely malformed entry
     # R008 deliverable files with non-standard naming (deliverable_RID_008 - Name.txt)
     'deliverable_rid_008_huishan_chen': 'chen_huishan',
     'deliverable_rid_008_han_pham': 'pham_han',
@@ -203,8 +228,12 @@ def extract_student_name(filename: str, track_non_standard: bool = True) -> str:
     # First, handle the specific _RID_R###_ pattern that causes issues
     name = re.sub(r'_RID_R\d+[A-Za-z]*(?:_code)?.*$', '', name, flags=re.IGNORECASE)
 
-    # Handle Finals patterns: _RID_F036_code_FirstName_LastName, _RID_F037_code_FirstName_LastName
+    # Handle Finals patterns: _RID_F036_code_FirstName_LastName, _F036_code_FirstName_LastName, etc.
     name = re.sub(r'_RID_F\d+.*$', '', name, flags=re.IGNORECASE)
+    name = re.sub(r'_F\d+.*$', '', name, flags=re.IGNORECASE)
+    name = re.sub(r'_RID_\d+F.*$', '', name, flags=re.IGNORECASE)
+    name = re.sub(r'_RID__F\d+.*$', '', name, flags=re.IGNORECASE)
+    name = re.sub(r'_final.*$', '', name, flags=re.IGNORECASE)
 
     # Then handle general route patterns
     # Handles: _RID_001, _RID001, _R001, _R_001, _RD_001, _Route_001, _001, _MID_001, _M1, _M01, _RID_M001,
@@ -241,6 +270,10 @@ def extract_student_name(filename: str, track_non_standard: bool = True) -> str:
 
     # Apply known aliases
     name = NAME_ALIASES.get(name, name)
+
+    # Skip malformed entries that map to None
+    if name is None:
+        return None
 
     # Skip excluded students (not enrolled)
     if name in EXCLUDED_STUDENTS:
