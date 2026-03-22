@@ -98,6 +98,19 @@ NAME_ALIASES = {
     'copy_of_escobedo_valerie': 'escobedo_valerie',
     # Mangled filename artifact
     'escobedo_valerie_rid_xyz_code_valerie_escobedo': 'escobedo_valerie',
+    # Finals (F036/F037) filename artifacts - pattern: LastName_FirstName_RID_FXXX_code_FirstName_LastName
+    'wiese_jasmine_rid_f036_code_jasmine_wiese': 'wiese_jasmine',
+    'wiese_jasmine_rid_f037_code_jasmine_wiese': 'wiese_jasmine',
+    'allam_emile_rid_f036_code_emile_allam': 'allam_emile',
+    'allam_emile_rid_f037_code_emile_allam': 'allam_emile',
+    'chang_erin_rid_f036_code_erin_chang': 'chang_erin',
+    'chang_erin_rid_f037_code_erin_chang': 'chang_erin',
+    'chen_debbie_rid_f036_code_debbie_chen': 'chen_debbie',
+    'chen_debbie_rid_f037_code_debbie_chen': 'chen_debbie',
+    'chen_huishan_rid_f036_code_1_huishan_chen': 'chen_huishan',
+    'chen_huishan_rid_f037_code_huishan_chen': 'chen_huishan',
+    'chiu_abigail_rid_f036_abigail_chiu': 'chiu_abigail',
+    'chiu_abigail_rid_f037_abigail_chiu': 'chiu_abigail',
     # R008 deliverable files with non-standard naming (deliverable_RID_008 - Name.txt)
     'deliverable_rid_008_huishan_chen': 'chen_huishan',
     'deliverable_rid_008_han_pham': 'pham_han',
@@ -189,6 +202,9 @@ def extract_student_name(filename: str, track_non_standard: bool = True) -> str:
 
     # First, handle the specific _RID_R###_ pattern that causes issues
     name = re.sub(r'_RID_R\d+[A-Za-z]*(?:_code)?.*$', '', name, flags=re.IGNORECASE)
+
+    # Handle Finals patterns: _RID_F036_code_FirstName_LastName, _RID_F037_code_FirstName_LastName
+    name = re.sub(r'_RID_F\d+.*$', '', name, flags=re.IGNORECASE)
 
     # Then handle general route patterns
     # Handles: _RID_001, _RID001, _R001, _R_001, _RD_001, _Route_001, _001, _MID_001, _M1, _M01, _RID_M001,
