@@ -185,6 +185,12 @@ def extract_student_name(filename: str, track_non_standard: bool = True) -> str:
 
     # Remove common suffixes like _RID_001_code, _R007_code, _RID002_code, _RD_003, _Route_001, _001_code, etc.
     # Also handles midterms: _MID_001, _M001, _M1, _M01, _RID_M001, _MT1, _MO2, _RID_MO2, etc.
+    # Special handling for problematic patterns like _RID_R016_ that can split student names
+
+    # First, handle the specific _RID_R###_ pattern that causes issues
+    name = re.sub(r'_RID_R\d+[A-Za-z]*(?:_code)?.*$', '', name, flags=re.IGNORECASE)
+
+    # Then handle general route patterns
     # Handles: _RID_001, _RID001, _R001, _R_001, _RD_001, _Route_001, _001, _MID_001, _M1, _M01, _RID_M001,
     #          _MT1, _MT_001 (midterm T variant), _MO1, _RID_MO2 (letter O instead of zero), etc.
     name = re.sub(r'_(?:R(?:ID|D|oute)?_?(?:M(?:ID|T|O)?)?_?\d+|Route_?\d+|M(?:ID|T|O)?_?\d+).*$', '', name, flags=re.IGNORECASE)
