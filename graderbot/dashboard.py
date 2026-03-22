@@ -135,8 +135,12 @@ NAME_ALIASES = {
     # Malformed filename artifacts - map to correct students or remove
     'copy_of_final_brenda_o': 'ouyang_christina',
     'final_brenda_o': 'ouyang_christina',
+    'copy_of_final_brenda_o.': None,  # Remove artifact with trailing period
+    'final_brenda_o.': None,  # Remove artifact with trailing period
+    'copy_of': None,  # Remove artifact after regex processing
     'final': None,  # Remove completely malformed entry
     'f037': None,  # Remove standalone F037 artifact
+    'pham_rachel': 'pham_han',  # Consolidate duplicate Rachel Pham entries
     'alvarado_isacc_rid': 'alvarado_isacc',  # Fix trailing _rid artifact
     # Typo in name
     'binnafisah_abddulghani': 'binnafisah_abdulghani',  # Fix double 'd' typo
