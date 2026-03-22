@@ -247,8 +247,8 @@ def scan_submissions(assignments_dir: str = "assignments") -> dict:
     # Routes that use .txt deliverables instead of .ipynb notebooks
     TXT_DELIVERABLE_ROUTES = {"RID_006", "RID_007", "RID_008", "RID_013", "RID_EC1", "RID_037C"}
 
-    # Include both RID_* and MID_* folders
-    all_route_folders = sorted(list(assignments_path.glob("RID_*")) + list(assignments_path.glob("MID_*")))
+    # Include RID_*, MID_*, and F* folders
+    all_route_folders = sorted(list(assignments_path.glob("RID_*")) + list(assignments_path.glob("MID_*")) + list(assignments_path.glob("F*")))
     for rid_folder in all_route_folders:
         rid = rid_folder.name  # e.g., "RID_001" or "MID_001"
         submissions_dir = rid_folder / "submissions"
@@ -337,7 +337,7 @@ def scan_unexcused_late(assignments_dir: str = "assignments") -> dict:
     unexcused = defaultdict(list)
     assignments_path = Path(assignments_dir)
 
-    for rid_folder in sorted(list(assignments_path.glob("RID_*")) + list(assignments_path.glob("MID_*"))):
+    for rid_folder in sorted(list(assignments_path.glob("RID_*")) + list(assignments_path.glob("MID_*")) + list(assignments_path.glob("F*"))):
         rid = rid_folder.name
         late_dir = rid_folder / "submissions" / "unexcused_late"
 
@@ -406,8 +406,8 @@ def scan_grading_results(assignments_dir: str = "assignments") -> dict:
     student_grades = defaultdict(dict)
     assignments_path = Path(assignments_dir)
 
-    # Include both RID_* and MID_* folders
-    all_route_folders = sorted(list(assignments_path.glob("RID_*")) + list(assignments_path.glob("MID_*")))
+    # Include RID_*, MID_*, and F* folders
+    all_route_folders = sorted(list(assignments_path.glob("RID_*")) + list(assignments_path.glob("MID_*")) + list(assignments_path.glob("F*")))
     for rid_folder in all_route_folders:
         rid = rid_folder.name  # e.g., "RID_001" or "MID_001"
         results_dir = rid_folder / "results"
@@ -495,8 +495,8 @@ def get_latest_submission_time(assignments_dir: str = "assignments") -> str:
     assignments_path = Path(assignments_dir)
     latest_time = None
 
-    # Include both RID_* and MID_* folders
-    for pattern in ["RID_*/submissions/*.ipynb", "MID_*/submissions/*.ipynb"]:
+    # Include RID_*, MID_*, and F* folders
+    for pattern in ["RID_*/submissions/*.ipynb", "MID_*/submissions/*.ipynb", "F*/submissions/*.ipynb"]:
         for notebook in assignments_path.glob(pattern):
             mtime = notebook.stat().st_mtime
             if latest_time is None or mtime > latest_time:
@@ -512,8 +512,8 @@ def get_completion_stats(student_routes: dict, assignments_dir: str = "assignmen
     """Calculate completion statistics."""
     # Dynamically count routes that have submissions or instructions
     assignments_path = Path(assignments_dir)
-    # Include both RID_* and MID_* folders
-    route_folders = sorted(list(assignments_path.glob("RID_*")) + list(assignments_path.glob("MID_*")))
+    # Include RID_*, MID_*, and F* folders
+    route_folders = sorted(list(assignments_path.glob("RID_*")) + list(assignments_path.glob("MID_*")) + list(assignments_path.glob("F*")))
     total_routes = len(route_folders)
 
     # Get list of all route IDs
@@ -682,7 +682,7 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
     # Calculate per-route statistics
     route_stats = get_route_stats(student_routes, student_grades, all_routes)
 
-    # Filter to only regular routes (RID_*) for distributions - exclude midterms (MID_*)
+    # Filter to only regular routes (RID_*) for distributions - exclude midterms (MID_*) and finals (F*)
     regular_routes = [r for r in all_routes if r.startswith('RID_')]
     total_regular_routes = len(regular_routes)
 
@@ -724,7 +724,7 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
         horizontal_spacing=0.08
     )
 
-    # --- Histograms (regular routes only, excludes midterms) ---
+    # --- Histograms (regular routes only, excludes midterms and finals) ---
     dist_submitted = Counter(completions)
     dist_sent = Counter(sends)
     x_hist = list(range(total_regular_routes + 1))
@@ -1065,7 +1065,7 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
                     # Not graded yet - awaiting grading (not "needs work")
                     awaiting_grading.append(rid)
 
-        # Separate regular routes (RID_*) from midterms (MID_*)
+        # Separate regular routes (RID_*) from midterms (MID_*) and finals (F*)
         regular_completed = [r for r in completed if r.startswith('RID_')]
         regular_missing = [r for r in missing if r.startswith('RID_')]
         regular_sent = [r for r in sent_routes if r.startswith('RID_')]
@@ -1078,14 +1078,22 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
         midterm_not_sent = [r for r in not_sent_routes if r.startswith('MID_')]
         midterm_awaiting = [r for r in awaiting_grading if r.startswith('MID_')]
 
+        final_completed = [r for r in completed if r.startswith('F')]
+        final_missing = [r for r in missing if r.startswith('F')]
+        final_sent = [r for r in sent_routes if r.startswith('F')]
+        final_not_sent = [r for r in not_sent_routes if r.startswith('F')]
+        final_awaiting = [r for r in awaiting_grading if r.startswith('F')]
+
         # Get unexcused late submissions for this student
         student_unexcused = unexcused_late.get(student, [])
         regular_unexcused = [r for r in student_unexcused if r.startswith('RID_')]
         midterm_unexcused = [r for r in student_unexcused if r.startswith('MID_')]
+        final_unexcused = [r for r in student_unexcused if r.startswith('F')]
 
         # Remove unexcused late from missing (they submitted, just late)
         regular_missing = [r for r in regular_missing if r not in regular_unexcused]
         midterm_missing = [r for r in midterm_missing if r not in midterm_unexcused]
+        final_missing = [r for r in final_missing if r not in final_unexcused]
 
         student_data[student] = {
             "display_name": display_name,
@@ -1119,6 +1127,17 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
             "midterm_count": len(midterm_completed),
             "midterm_sent_count": len(midterm_sent),
             "midterm_total": len([r for r in all_routes if r.startswith('MID_')]),
+
+            # Separated finals
+            "final_completed": sorted(final_completed),
+            "final_missing": sorted(final_missing),
+            "final_sent": sorted(final_sent),
+            "final_not_sent": sorted(final_not_sent),
+            "final_awaiting": sorted(final_awaiting),
+            "final_unexcused": sorted(final_unexcused),
+            "final_count": len(final_completed),
+            "final_sent_count": len(final_sent),
+            "final_total": len([r for r in all_routes if r.startswith('F')]),
         }
 
     student_json = json.dumps(student_data)
@@ -1668,6 +1687,51 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
                         <div id="midtermMissingRoutes"></div>
                     </div>
                 </div>
+
+                <!-- Final Routes Section -->
+                <div class="section-header" style="margin-top: 20px; padding: 8px 12px; background: #e3f2fd; border-radius: 6px;">
+                    <strong>🎯 Finals</strong> <span style="font-weight: normal; color: #666;">(need 2 of 2 sent)</span>
+                </div>
+                <div class="stats-row">
+                    <div class="stat-box">
+                        <div class="stat-number" id="finalCompletedCount">0</div>
+                        <div class="stat-label">Submitted</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number" id="finalSentCount" style="color: #28a745;">0</div>
+                        <div class="stat-label">Sent</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number" id="finalMissingCount">0</div>
+                        <div class="stat-label">Missing</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number" id="finalStatus">-</div>
+                        <div class="stat-label">Status</div>
+                    </div>
+                </div>
+                <div class="routes-section">
+                    <div class="routes-list">
+                        <h4>✅ Sent</h4>
+                        <div id="finalSentRoutes"></div>
+                    </div>
+                    <div class="routes-list">
+                        <h4>⚠️ Needs work</h4>
+                        <div id="finalNotSentRoutes"></div>
+                    </div>
+                    <div class="routes-list">
+                        <h4>⏳ Awaiting</h4>
+                        <div id="finalAwaitingRoutes"></div>
+                    </div>
+                    <div class="routes-list">
+                        <h4>🚫 Unexcused late</h4>
+                        <div id="finalUnexcusedRoutes"></div>
+                    </div>
+                    <div class="routes-list">
+                        <h4>❌ Missing</h4>
+                        <div id="finalMissingRoutes"></div>
+                    </div>
+                </div>
                 <div class="grades-section">
                     <h4>📝 Grading Feedback</h4>
                     <div id="gradesContainer"></div>
@@ -1872,6 +1936,43 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
                 .map(r => `<span class="route-tag route-missing">${{r}}</span>`)
                 .join('') || '<em>All complete!</em>';
             document.getElementById('midtermUnexcusedRoutes').innerHTML = (data.midterm_unexcused || [])
+                .map(r => `<span class="route-tag route-unexcused">${{r}}</span>`)
+                .join('') || '<em>None</em>';
+
+            // Update finals section
+            document.getElementById('finalCompletedCount').textContent = data.final_count || 0;
+            document.getElementById('finalSentCount').textContent = data.final_sent_count || 0;
+            document.getElementById('finalMissingCount').textContent = (data.final_missing || []).length;
+
+            // Status logic for finals (need both F036 and F037 to be OK)
+            const finalSent = data.final_sent_count || 0;
+            let finalStatus = '';
+            if (finalSent >= 2) {{
+                finalStatus = '✅ OK';
+                document.getElementById('finalStatus').style.color = '#28a745';
+            }} else if (finalSent === 1) {{
+                finalStatus = '⚠️ Need 1';
+                document.getElementById('finalStatus').style.color = '#ffc107';
+            }} else {{
+                finalStatus = '🔴 Need 2';
+                document.getElementById('finalStatus').style.color = '#dc3545';
+            }}
+            document.getElementById('finalStatus').textContent = finalStatus;
+
+            // Populate finals routes
+            document.getElementById('finalSentRoutes').innerHTML = (data.final_sent || [])
+                .map(r => `<span class="route-tag route-sent">${{r}}</span>`)
+                .join('') || '<em>None</em>';
+            document.getElementById('finalNotSentRoutes').innerHTML = (data.final_not_sent || [])
+                .map(r => `<span class="route-tag route-not-sent">${{r}}</span>`)
+                .join('') || '<em>None</em>';
+            document.getElementById('finalAwaitingRoutes').innerHTML = (data.final_awaiting || [])
+                .map(r => `<span class="route-tag route-awaiting">${{r}}</span>`)
+                .join('') || '<em>None</em>';
+            document.getElementById('finalMissingRoutes').innerHTML = (data.final_missing || [])
+                .map(r => `<span class="route-tag route-missing">${{r}}</span>`)
+                .join('') || '<em>All complete!</em>';
+            document.getElementById('finalUnexcusedRoutes').innerHTML = (data.final_unexcused || [])
                 .map(r => `<span class="route-tag route-unexcused">${{r}}</span>`)
                 .join('') || '<em>None</em>';
 
