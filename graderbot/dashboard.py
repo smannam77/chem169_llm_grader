@@ -1362,6 +1362,23 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
             background: #d4edda;
             color: #155724;
         }}
+        .route-af3-challenge {{
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            font-weight: bold;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            animation: glow 2s ease-in-out infinite alternate;
+        }}
+        .route-af3-challenge::after {{
+            content: " 🚀+8";
+            font-size: 0.8em;
+            opacity: 0.9;
+        }}
+        @keyframes glow {{
+            from {{ box-shadow: 0 2px 4px rgba(0,0,0,0.2), 0 0 5px rgba(255,107,107,0.3); }}
+            to {{ box-shadow: 0 2px 4px rgba(0,0,0,0.2), 0 0 15px rgba(78,205,196,0.5); }}
+        }}
         .route-not-sent {{
             background: #fff3cd;
             color: #856404;
@@ -1947,7 +1964,12 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
 
             // Regular Routes Lists
             document.getElementById('regularSentRoutes').innerHTML = (data.regular_sent || [])
-                .map(r => `<span class="route-tag route-sent">${{r}}</span>`)
+                .map(r => {{
+                    if (r === 'RID_037C') {{
+                        return `<span class="route-tag route-af3-challenge" title="AF3 Automation Challenge (+8 routes bonus)">${{r}}</span>`;
+                    }}
+                    return `<span class="route-tag route-sent">${{r}}</span>`;
+                }})
                 .join('') || '<em>None yet</em>';
             document.getElementById('regularNotSentRoutes').innerHTML = (data.regular_not_sent || [])
                 .map(r => `<span class="route-tag route-not-sent">${{r}}</span>`)
