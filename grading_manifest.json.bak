@@ -1,0 +1,2527 @@
+{
+  "graded_files": {
+    "RID_001/submissions/Huang_Terry_RID_001_code.ipynb": {
+      "hash": "b091d21eaceafd1670771ce0c54386b8",
+      "graded_at": "2026-01-25T18:41:08.008155",
+      "route_id": "RID_001",
+      "seeded_from": "Huang_Terry_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Wiese_Jasmine_RID_001_code.ipynb": {
+      "hash": "04c5d48d114d23a62db5d9f331b8d0e8",
+      "graded_at": "2026-01-25T18:41:08.009428",
+      "route_id": "RID_001",
+      "seeded_from": "Wiese_Jasmine_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Tran_Nathan_RID_001_code.ipynb": {
+      "hash": "49892075bb6260a8ccbd195f00154999",
+      "graded_at": "2026-01-25T18:41:08.010651",
+      "route_id": "RID_001",
+      "seeded_from": "Tran_Nathan_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Carmona_Jorge_RID_001_code.ipynb": {
+      "hash": "0232e1734fea5869658c7940408f605a",
+      "graded_at": "2026-01-25T18:41:08.011647",
+      "route_id": "RID_001",
+      "seeded_from": "Carmona_Jorge_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Chen_Huishan_RID_001_code.ipynb": {
+      "hash": "0a0a741f8f934be435d3ae4de01d6e35",
+      "graded_at": "2026-01-25T18:41:08.012691",
+      "route_id": "RID_001",
+      "seeded_from": "Chen_Huishan_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Allam_Emile_RID_001_code.ipynb": {
+      "hash": "c24fee666e18588d30d9d4de6201e02d",
+      "graded_at": "2026-01-25T18:41:08.013190",
+      "route_id": "RID_001",
+      "seeded_from": "Allam_Emile_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Anonich_Ryan_RID_001_code.ipynb": {
+      "hash": "53f068b02d6659c41b3c3ca6c0d99729",
+      "graded_at": "2026-01-25T18:41:08.013417",
+      "route_id": "RID_001",
+      "seeded_from": "Anonich_Ryan_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Do_William_RID_001_code.ipynb": {
+      "hash": "1f2af39786c4fc3c344e776f17583073",
+      "graded_at": "2026-01-25T18:41:08.014893",
+      "route_id": "RID_001",
+      "seeded_from": "Do_William_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Yin_Zhiyuan_RID_001_code.ipynb": {
+      "hash": "09e7e9d58c441c84aa3641642573312c",
+      "graded_at": "2026-01-25T18:41:08.015571",
+      "route_id": "RID_001",
+      "seeded_from": "Yin_Zhiyuan_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Heyang_Haoye_RID_001_code.ipynb": {
+      "hash": "b1ba7a15e5ef7f0f19d723b6a8519261",
+      "graded_at": "2026-01-25T18:41:08.016764",
+      "route_id": "RID_001",
+      "seeded_from": "Heyang_Haoye_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/pham_richie_RID_001_code.ipynb": {
+      "hash": "b06e5ec0189b80a284c1985a179b1fce",
+      "graded_at": "2026-01-25T18:41:08.017650",
+      "route_id": "RID_001",
+      "seeded_from": "pham_richie_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Zhu_Yuntian_RID_001_code.ipynb": {
+      "hash": "a858990210176597b6f0b19379cb28e1",
+      "graded_at": "2026-01-25T18:41:08.019156",
+      "route_id": "RID_001",
+      "seeded_from": "Zhu_Yuntian_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Leung_Victoria_RID_001_code.ipynb": {
+      "hash": "360592e886274f09d4daac45e9035870",
+      "graded_at": "2026-01-25T18:41:08.020282",
+      "route_id": "RID_001",
+      "seeded_from": "Leung_Victoria_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Frank_Tania_RID_001_code.ipynb": {
+      "hash": "ca403188fdc27ea91cb01cff1295d5b1",
+      "graded_at": "2026-01-25T18:41:08.021160",
+      "route_id": "RID_001",
+      "seeded_from": "Frank_Tania_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Oh_Seunghoon_RID_001_code.ipynb": {
+      "hash": "fbf9ad8086072affd523f034e4aa1ff9",
+      "graded_at": "2026-01-25T18:41:08.022130",
+      "route_id": "RID_001",
+      "seeded_from": "Oh_Seunghoon_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Chen_Debbie_RID_001_code.ipynb": {
+      "hash": "971566c440679e90eb8882c7a8067d68",
+      "graded_at": "2026-01-25T18:41:08.022644",
+      "route_id": "RID_001",
+      "seeded_from": "Chen_Debbie_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Xinyi_Shang__RID_001_code.ipynb": {
+      "hash": "7ffb6251fd5bdc6e9cf0035ec9a4ef7e",
+      "graded_at": "2026-01-25T18:41:08.023529",
+      "route_id": "RID_001",
+      "seeded_from": "Xinyi_Shang__RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Ouyang_Christina_RID_001_code.ipynb": {
+      "hash": "1f30ac2a6c7a4e39d013c6c36ef35a05",
+      "graded_at": "2026-01-25T18:41:08.024458",
+      "route_id": "RID_001",
+      "seeded_from": "Ouyang_Christina_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Kao_YingChieh_RID_001_Code.ipynb": {
+      "hash": "5b59b08fd84abe7d2d860b1a9e7f7ae7",
+      "graded_at": "2026-01-25T18:41:08.024952",
+      "route_id": "RID_001",
+      "seeded_from": "Kao_YingChieh_RID_001_Code_grade.json"
+    },
+    "RID_001/submissions/saldivar_alexis_RID_001_code.ipynb": {
+      "hash": "4fc70115fce5a04bb8abf6be59a16299",
+      "graded_at": "2026-01-25T18:41:08.025333",
+      "route_id": "RID_001",
+      "seeded_from": "saldivar_alexis_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Liu_Juncheng_RID_001_code.ipynb": {
+      "hash": "fbd28b5e94a5913cf6ac31074a47bc70",
+      "graded_at": "2026-01-25T18:41:08.026052",
+      "route_id": "RID_001",
+      "seeded_from": "Liu_Juncheng_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Zhang_Eve_RID_001_code.ipynb": {
+      "hash": "99c95d063432ae98297588fbf50ce6d7",
+      "graded_at": "2026-01-25T18:41:08.027388",
+      "route_id": "RID_001",
+      "seeded_from": "Zhang_Eve_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Alvarado_Isacc_RID_001_code.ipynb": {
+      "hash": "a913e2486fee531fa0f9de145fe44438",
+      "graded_at": "2026-01-25T18:41:08.028170",
+      "route_id": "RID_001",
+      "seeded_from": "Alvarado_Isacc_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/che_jimmy_RID_001_code.ipynb": {
+      "hash": "ed940b30bcab2bd6f0a74cbbaebe712d",
+      "graded_at": "2026-01-25T18:41:08.029028",
+      "route_id": "RID_001",
+      "seeded_from": "che_jimmy_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Kuznitz_Cole_RID_001.ipynb": {
+      "hash": "4716174502a1046fdef5414eb07ca6ce",
+      "graded_at": "2026-01-25T18:41:08.029914",
+      "route_id": "RID_001",
+      "seeded_from": "Kuznitz_Cole_RID_001_grade.json"
+    },
+    "RID_001/submissions/Amaral_Javier_RID_001_code.ipynb": {
+      "hash": "80f6b866c5ff492bf796a70ea538bba0",
+      "graded_at": "2026-01-25T18:41:08.030182",
+      "route_id": "RID_001",
+      "seeded_from": "Amaral_Javier_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Escobedo_Valerie_RID_001_code.ipynb": {
+      "hash": "4022a4f42db0c5dc51510e1cb3979ce8",
+      "graded_at": "2026-01-25T18:41:08.031076",
+      "route_id": "RID_001",
+      "seeded_from": "Escobedo_Valerie_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/BinNafisah_Abdulghani_RID_001_code.ipynb": {
+      "hash": "cdd50a2c1883bbf6870cd17c472c50e4",
+      "graded_at": "2026-01-25T18:41:08.031916",
+      "route_id": "RID_001",
+      "seeded_from": "BinNafisah_Abdulghani_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/gianetto_luca_RID_001_code.ipynb": {
+      "hash": "10d2e6264e522269917e99ab1a814691",
+      "graded_at": "2026-01-25T18:41:08.032664",
+      "route_id": "RID_001",
+      "seeded_from": "gianetto_luca_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Liang_Kangkai_RID_001_code.ipynb": {
+      "hash": "fcc703ec39ee55e58b4db14cfe2d323a",
+      "graded_at": "2026-01-25T18:41:08.033833",
+      "route_id": "RID_001",
+      "seeded_from": "Liang_Kangkai_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Hossain_MdSaddam_RID_001.ipynb": {
+      "hash": "13f7724dcad9c92778da15a737288e4e",
+      "graded_at": "2026-01-25T18:41:08.034744",
+      "route_id": "RID_001",
+      "seeded_from": "Hossain_MdSaddam_RID_001_grade.json"
+    },
+    "RID_001/submissions/Tamayo_Alana_RID_001_code.ipynb": {
+      "hash": "f8f65e417f099775a45a982e81558d13",
+      "graded_at": "2026-01-25T18:41:08.035668",
+      "route_id": "RID_001",
+      "seeded_from": "Tamayo_Alana_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Li_Harry_RID_001_code.ipynb": {
+      "hash": "fc4b93386b44187b8078b26e41a1e905",
+      "graded_at": "2026-01-25T18:41:08.035989",
+      "route_id": "RID_001",
+      "seeded_from": "Li_Harry_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Xu_Carmen_RID_001_code.ipynb": {
+      "hash": "620857e720c7614632ceff3fcecab8b1",
+      "graded_at": "2026-01-25T18:41:08.036796",
+      "route_id": "RID_001",
+      "seeded_from": "Xu_Carmen_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Kwon_Hyerim_RID_001_code.ipynb": {
+      "hash": "89b59fb119c429a8a7e8cfeab76a67e1",
+      "graded_at": "2026-01-25T18:41:08.037416",
+      "route_id": "RID_001",
+      "seeded_from": "Kwon_Hyerim_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Rinde_Bryan_RID_001_code.ipynb": {
+      "hash": "8b775ae75bbe6dc3e0c1e015ae5e4b11",
+      "graded_at": "2026-01-25T18:41:08.038164",
+      "route_id": "RID_001",
+      "seeded_from": "Rinde_Bryan_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Pham_Han_RID_001_code.ipynb": {
+      "hash": "09277421df428497b809ee8e2d7e6969",
+      "graded_at": "2026-01-25T18:41:08.039147",
+      "route_id": "RID_001",
+      "seeded_from": "Pham_Han_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Ma_Richard_RID_001_code.ipynb": {
+      "hash": "da8c25898c44220aee4a9e8e98c4b4fc",
+      "graded_at": "2026-01-25T18:41:08.040765",
+      "route_id": "RID_001",
+      "seeded_from": "Ma_Richard_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Bachant_Megan_RID_001_code.ipynb": {
+      "hash": "30023012f34c21dba2af12b139c23cc9",
+      "graded_at": "2026-01-25T18:41:08.041448",
+      "route_id": "RID_001",
+      "seeded_from": "Bachant_Megan_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Tsai_I-Shan_RID_001_code.ipynb": {
+      "hash": "aebf21c8ba02db18423245c37058af88",
+      "graded_at": "2026-01-25T18:41:08.042326",
+      "route_id": "RID_001",
+      "seeded_from": "Tsai_I-Shan_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Garduno_Fernando_RID_001_code.ipynb": {
+      "hash": "3a45a2cbeefd2e9fa5e52db8400fea4e",
+      "graded_at": "2026-01-25T18:41:08.043093",
+      "route_id": "RID_001",
+      "seeded_from": "Garduno_Fernando_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Lee_Minji_RID_001_code.ipynb": {
+      "hash": "08188876f87c65b6b52ffcdbb885f14f",
+      "graded_at": "2026-01-25T18:41:08.044381",
+      "route_id": "RID_001",
+      "seeded_from": "Lee_Minji_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/chiu_abigail_RID_001_code.ipynb": {
+      "hash": "55103bec43017aba7d2bb3291c315e2b",
+      "graded_at": "2026-01-25T18:41:08.045393",
+      "route_id": "RID_001",
+      "seeded_from": "chiu_abigail_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Sawyer_Bethany_RID_001_code.ipynb": {
+      "hash": "78a208f34ee6e10ee7a68cab8cbb05f3",
+      "graded_at": "2026-01-25T18:41:08.046106",
+      "route_id": "RID_001",
+      "seeded_from": "Sawyer_Bethany_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/jaramilo_jonathan_RID_001_code.ipynb": {
+      "hash": "54852a496fb841bf4c555c2491ba7796",
+      "graded_at": "2026-01-25T18:41:08.047186",
+      "route_id": "RID_001",
+      "seeded_from": "jaramilo_jonathan_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Pu_Karen_RID_001.ipynb": {
+      "hash": "766024e869e300dd636db31075aace51",
+      "graded_at": "2026-01-25T18:41:08.048123",
+      "route_id": "RID_001",
+      "seeded_from": "Pu_Karen_RID_001_grade.json"
+    },
+    "RID_001/submissions/Zhang_Olivia_RID_001_code.ipynb": {
+      "hash": "64e8f978b887f76cbeb2a6e9a46081a2",
+      "graded_at": "2026-01-25T18:41:08.049155",
+      "route_id": "RID_001",
+      "seeded_from": "Zhang_Olivia_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Kuang_Yixuan_RID_001_code.ipynb": {
+      "hash": "3d10f02cf71dd3869cf4f58f6b31f378",
+      "graded_at": "2026-01-25T18:41:08.050530",
+      "route_id": "RID_001",
+      "seeded_from": "Kuang_Yixuan_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Nguyen_Vanessa_RID_001_code.ipynb": {
+      "hash": "9134c7dfbeaaf25231737dc2873374b8",
+      "graded_at": "2026-01-25T18:41:08.051580",
+      "route_id": "RID_001",
+      "seeded_from": "Nguyen_Vanessa_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Xu_Yixuan_RID001_code.ipynb": {
+      "hash": "215fa5d4ad66865ffdafd62048e7978f",
+      "graded_at": "2026-01-25T18:41:08.052106",
+      "route_id": "RID_001",
+      "seeded_from": "Xu_Yixuan_RID001_code_grade.json"
+    },
+    "RID_001/submissions/Wagner_Eli_A10589679_001_code.ipynb": {
+      "hash": "0afbd5ba903a88c763425ef57b0937dd",
+      "graded_at": "2026-01-25T18:41:08.053148",
+      "route_id": "RID_001",
+      "seeded_from": "Wagner_Eli_A10589679_001_code_grade.json"
+    },
+    "RID_001/submissions/spock_lilian_RID_001_code_and_logbook.ipynb": {
+      "hash": "6909713cf5e7b44e4782e0e484829bde",
+      "graded_at": "2026-01-25T18:41:08.054164",
+      "route_id": "RID_001",
+      "seeded_from": "spock_lilian_RID_001_code_and_logbook_grade.json"
+    },
+    "RID_001/submissions/kim_wonmin_RID_001_code.ipynb": {
+      "hash": "0aead6e6d4a6008dbae2a86377f4d075",
+      "graded_at": "2026-01-25T18:41:08.055195",
+      "route_id": "RID_001",
+      "seeded_from": "kim_wonmin_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Cruz_Jade_RID_001_code.ipynb": {
+      "hash": "4b0fc62a4646912b391d1e04fb5dddc1",
+      "graded_at": "2026-01-25T18:41:08.055934",
+      "route_id": "RID_001",
+      "seeded_from": "Cruz_Jade_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Chang_Eugene_RID_001_code.ipynb": {
+      "hash": "d3b31dd8bc5900a7064fb0329520eef3",
+      "graded_at": "2026-01-25T18:41:08.056737",
+      "route_id": "RID_001",
+      "seeded_from": "Chang_Eugene_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Quan_Weike_RID_001_code.ipynb": {
+      "hash": "783654f2172d18b693f7eb8a5ea7ee1e",
+      "graded_at": "2026-01-25T18:41:08.056891",
+      "route_id": "RID_001",
+      "seeded_from": "Quan_Weike_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/thumati_praharshitha_RID_001_code.ipynb": {
+      "hash": "0f767fb1ddc9ff5a6b2e34dfa3c2a820",
+      "graded_at": "2026-01-25T18:41:08.057893",
+      "route_id": "RID_001",
+      "seeded_from": "thumati_praharshitha_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Hager_Lauren_RID_001_code.ipynb": {
+      "hash": "52ada49001d6163e9e1628f7daf38d90",
+      "graded_at": "2026-01-25T18:41:08.059256",
+      "route_id": "RID_001",
+      "seeded_from": "Hager_Lauren_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Zhen_Kenneth_RID_001_code.ipynb": {
+      "hash": "af5b0f9763ab122a2f3d3fb33916fd3d",
+      "graded_at": "2026-01-25T18:41:08.059943",
+      "route_id": "RID_001",
+      "seeded_from": "Zhen_Kenneth_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Liu_Canlin_RID_001_code.ipynb": {
+      "hash": "77c9197527e22e36a8810d8159b307bc",
+      "graded_at": "2026-01-25T18:41:08.061118",
+      "route_id": "RID_001",
+      "seeded_from": "Liu_Canlin_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Pineda_leo_RID_001_code.ipynb": {
+      "hash": "9fe6553816720b9ec411360c92ae5175",
+      "graded_at": "2026-01-25T18:41:08.062185",
+      "route_id": "RID_001",
+      "seeded_from": "Pineda_leo_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Ontiveros_Avery_RID_001_code.ipynb": {
+      "hash": "9250bcd8b81d1104d245cfc9e57dac9c",
+      "graded_at": "2026-01-25T18:41:08.063312",
+      "route_id": "RID_001",
+      "seeded_from": "Ontiveros_Avery_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Silverman_Jonah_RID_001_code.ipynb": {
+      "hash": "e13c936d54efd0e3bd5fec029bf91d52",
+      "graded_at": "2026-01-25T18:41:08.063820",
+      "route_id": "RID_001",
+      "seeded_from": "Silverman_Jonah_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Weeranarawat_Anya_RID_001_code.ipynb": {
+      "hash": "8aff1ee3a2928211a3f653c06cc70820",
+      "graded_at": "2026-01-25T18:41:08.064749",
+      "route_id": "RID_001",
+      "seeded_from": "Weeranarawat_Anya_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Nguyen_Jenny_RID_001_code.ipynb": {
+      "hash": "6d89e88b1ad55549eaa16d6fc85df9d1",
+      "graded_at": "2026-01-25T18:41:08.065493",
+      "route_id": "RID_001",
+      "seeded_from": "Nguyen_Jenny_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/noblin_terry_RID_001_code.ipynb": {
+      "hash": "61023b972906c1d85c818b0abd918de3",
+      "graded_at": "2026-01-25T18:41:08.066186",
+      "route_id": "RID_001",
+      "seeded_from": "noblin_terry_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Tiwary_Ayush_RID_001_code.ipynb": {
+      "hash": "a59d390467d2b201412d88f61df138df",
+      "graded_at": "2026-01-25T18:41:08.067677",
+      "route_id": "RID_001",
+      "seeded_from": "Tiwary_Ayush_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Truong_Ethan_RID_001_code.ipynb": {
+      "hash": "23dbda9f33e2d98b0e92ddcef3941f88",
+      "graded_at": "2026-01-25T18:41:08.068878",
+      "route_id": "RID_001",
+      "seeded_from": "Truong_Ethan_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Gascon_Mauro_RID_001_code.ipynb": {
+      "hash": "9d7d551b4b07bf236e46ce96a1f15b00",
+      "graded_at": "2026-01-25T18:41:08.069631",
+      "route_id": "RID_001",
+      "seeded_from": "Gascon_Mauro_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Gupta_Siddhartha_RID_001_code.ipynb": {
+      "hash": "b18e5fc81b0b00cfdffed39e4b5c29c9",
+      "graded_at": "2026-01-25T18:41:08.070665",
+      "route_id": "RID_001",
+      "seeded_from": "Gupta_Siddhartha_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Tran_Tram_RID_001_code.ipynb": {
+      "hash": "3891a1b84728b179290b661c5f5eb1af",
+      "graded_at": "2026-01-25T18:41:08.071331",
+      "route_id": "RID_001",
+      "seeded_from": "Tran_Tram_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/carrer_catherina_RID_001_code.ipynb": {
+      "hash": "12e25336b1752a020e8da50f8849edfd",
+      "graded_at": "2026-01-25T18:41:08.072674",
+      "route_id": "RID_001",
+      "seeded_from": "carrer_catherina_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Chang_Erin_RID_001_code.ipynb": {
+      "hash": "09d1dc0483a19aace307a7df95693c6f",
+      "graded_at": "2026-01-25T18:41:08.073339",
+      "route_id": "RID_001",
+      "seeded_from": "Chang_Erin_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/schaap_tamar_RID_001_code.ipynb": {
+      "hash": "f7871d37d1ae2431b69a328008c018bf",
+      "graded_at": "2026-01-25T18:41:08.074481",
+      "route_id": "RID_001",
+      "seeded_from": "schaap_tamar_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/pogue_elizabeth_RID_001_code.ipynb": {
+      "hash": "878295d3bc81c4095c31a27360e54fb7",
+      "graded_at": "2026-01-25T18:41:08.075405",
+      "route_id": "RID_001",
+      "seeded_from": "pogue_elizabeth_RID_001_code_grade.json"
+    },
+    "RID_001/submissions/Tito_Tapia_RID_001_code.ipynb": {
+      "hash": "686327c6423e4e3ce9f100aecd0413f3",
+      "graded_at": "2026-01-25T18:51:27.471644",
+      "route_id": "RID_001"
+    },
+    "RID_001/submissions/Route_002_The_Colab_Warmup_Pineda.ipynb": {
+      "hash": "bee543cfc3c4a7c610b93960736ac28f",
+      "graded_at": "2026-01-25T18:51:35.593319",
+      "route_id": "RID_001"
+    },
+    "RID_001/submissions/Wu_Monica_RID_001_code_v1.ipynb": {
+      "hash": "cfd9d08d750e494c89a72fd5b80353ff",
+      "graded_at": "2026-01-25T18:51:43.646849",
+      "route_id": "RID_001"
+    },
+    "RID_001/submissions/Le_Timothy_RID_001_code (1).ipynb": {
+      "hash": "d473d680cbd7f71c8b93dff96adf3756",
+      "graded_at": "2026-01-25T18:51:54.604080",
+      "route_id": "RID_001"
+    },
+    "RID_001/submissions/Zhao_Zhiheng_RID_001_code.ipynb": {
+      "hash": "070dd7ab71a6bbfb0e6430fad2315a1e",
+      "graded_at": "2026-01-25T18:52:10.475930",
+      "route_id": "RID_001"
+    },
+    "RID_004/submissions/Chang_Eugene_RID_004.ipynb": {
+      "hash": "974e6c6b59514bbd9f5d653423de0c0a",
+      "graded_at": "2026-01-25T18:52:15.604293",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Nguyen_Jenny_RID_004_code.ipynb": {
+      "hash": "b12f89fdaa66fec6db6d6b9bb792ded3",
+      "graded_at": "2026-01-25T18:52:19.758469",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Kuang_Yixuan_RID_004_code.ipynb": {
+      "hash": "152cad8c45847b8b3d564e49c61d6a5e",
+      "graded_at": "2026-01-25T18:52:25.323711",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/VeraCruz_Vayle_RID_004_code.ipynb": {
+      "hash": "796c2f2be7f09c4b9b29b1fd0c6015f9",
+      "graded_at": "2026-01-25T18:52:29.891347",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Wiese_Jasmine_RID_004_code.ipynb": {
+      "hash": "3058b754198489db0624720599aea8b0",
+      "graded_at": "2026-01-25T18:52:33.311223",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Zhang_Olivia_RID_004_code.ipynb": {
+      "hash": "0f168a20d049fb917f35e2f2c6631fe5",
+      "graded_at": "2026-01-25T18:52:38.246180",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Xu_Carmen_RID_004_code.ipynb": {
+      "hash": "d65748cb83fb1afb2b3d7827bf38f112",
+      "graded_at": "2026-01-25T18:52:42.384873",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Truong_Ethan_RID_004.ipynb": {
+      "hash": "acfbbfe90949e7cc10ab9705585c7a66",
+      "graded_at": "2026-01-25T18:52:46.422168",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Nguyen_Vanessa_RID_004_code.ipynb": {
+      "hash": "d17b8b6e7a05cbd0a11334f6bf2672e7",
+      "graded_at": "2026-01-25T18:52:51.241931",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Kuznitz_Cole_RID_004_code.ipynb": {
+      "hash": "614420116fa30fa6c5775215d9cd12a2",
+      "graded_at": "2026-01-25T18:52:56.026805",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Zhao_Jingru_RID004_code.ipynb": {
+      "hash": "2c276cfd4742e85e9d0ac0fba3f17b6d",
+      "graded_at": "2026-01-25T18:53:00.857878",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Alvarado_Isacc_RID_004_code.ipynb": {
+      "hash": "b28563b1a44776f3415766d36d0dce27",
+      "graded_at": "2026-01-25T18:53:05.137809",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Frank_Tania_RID_004_code.ipynb": {
+      "hash": "eed3504f1ec6bdcac8bfc6b279b63c6d",
+      "graded_at": "2026-01-25T18:53:20.587771",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Bachant_Megan_RID_004_code.ipynb": {
+      "hash": "6d49f5dde72cf5f9d163784c3931f3ad",
+      "graded_at": "2026-01-25T18:53:25.276230",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Zhang_Eve_RID_004_code.ipynb": {
+      "hash": "afb7c555cc11331a9a34530f43329f90",
+      "graded_at": "2026-01-25T18:53:29.218260",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Hossain_MdSaddam_RID_004_code.ipynb": {
+      "hash": "8b23905a46643d6386488ff3cc87a1cd",
+      "graded_at": "2026-01-25T18:53:36.291662",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/kim_wonmin_RID_004_code.ipynb": {
+      "hash": "48b7e748d53a53de4702de896e1ee055",
+      "graded_at": "2026-01-25T18:53:39.898541",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Leung_Victoria_RID_004_code.ipynb": {
+      "hash": "dbc59e411cf014c08e5c3beee97fd175",
+      "graded_at": "2026-01-25T18:53:46.116651",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/thumati_praharshitha_RID_004_code.ipynb": {
+      "hash": "56bb681893c4128d474026b3b3adc25f",
+      "graded_at": "2026-01-25T18:53:51.547142",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Gascon_Mauro_RID_004_code.ipynb": {
+      "hash": "53d1ca978a4bd7d1245cfa4c244326f4",
+      "graded_at": "2026-01-25T18:53:55.893902",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Tsai_I-Shan_RID_004_code.ipynb": {
+      "hash": "75e08a30b97217023407884dd934cc3c",
+      "graded_at": "2026-01-25T18:54:00.248791",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Rinde_Bryan_RID_004_code.ipynb": {
+      "hash": "361c9926fc8bef7f23cfbc3367a2afd9",
+      "graded_at": "2026-01-25T18:54:03.876405",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Heyang_Haoye_RID_004_code (1).ipynb": {
+      "hash": "7cd959d676ed702c3075677e2b3cd10b",
+      "graded_at": "2026-01-25T18:54:09.054700",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Chiu_Abigail_RID_004_code.ipynb": {
+      "hash": "94a424e82d73cc433c8afd0c40afbd61",
+      "graded_at": "2026-01-25T18:54:13.210561",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/che_jimmy_RID_004_code.ipynb": {
+      "hash": "cebfeaf14c023ea9620f86e0ef4b56ff",
+      "graded_at": "2026-01-25T18:54:17.878300",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/pogue_elizabeth_RID_004.ipynb": {
+      "hash": "0071ed4e32b0bfd96c4f82092fc75bc6",
+      "graded_at": "2026-01-25T18:54:31.375465",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Liu_Juncheng_RID_004_code.ipynb": {
+      "hash": "d5a6a187691d7df783b5dadd2772cab3",
+      "graded_at": "2026-01-25T18:54:35.478574",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Tran_Nathan_RID_004_code.ipynb": {
+      "hash": "d2b4dac19b18dfe98264f0dd415e6ebf",
+      "graded_at": "2026-01-25T18:54:40.707453",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/carrer_catherina_RID_004_code.ipynb": {
+      "hash": "9b523fc0bd5d89764d71624e631dacb0",
+      "graded_at": "2026-01-25T18:54:45.510845",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Choi_Charles_RID_004_code.ipynb": {
+      "hash": "9db663f3a7909ad1343a3caeddc9f0d7",
+      "graded_at": "2026-01-25T18:54:49.358515",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/spock_lilian_RID_004_code.ipynb": {
+      "hash": "2dda3a4c73b1dc5c07974da95ba61568",
+      "graded_at": "2026-01-25T18:54:53.706964",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Wu_Monica_RID_004_code.ipynb": {
+      "hash": "6ed6676a6531eb8636f37994d5c61aef",
+      "graded_at": "2026-01-25T18:54:58.743292",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Weeranarawat_Anya_RID_004_code.ipynb": {
+      "hash": "52227551469043cf80ccbc43d5096f63",
+      "graded_at": "2026-01-25T18:55:03.317250",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Zhu_Yuntian_RID_004_code.ipynb": {
+      "hash": "704fa26dda4e4a397be1b6fb50b7033b",
+      "graded_at": "2026-01-25T18:55:07.948521",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/BinNafisah_Abdulghani_RID_004_code.ipynb": {
+      "hash": "c05c55bedda58bc9f55596effbc4a5a5",
+      "graded_at": "2026-01-25T18:55:12.308665",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/noblin_terry_RID_004_code.ipynb": {
+      "hash": "2d8b5fc0aaee3b59345148f35143706a",
+      "graded_at": "2026-01-25T18:55:16.742988",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Oh_Seunghoon_RID_004_code.ipynb": {
+      "hash": "33d5db0381cc8c220f7a1ce3644471d9",
+      "graded_at": "2026-01-25T18:55:20.431745",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Amaral_Javier_RID_004_code.ipynb": {
+      "hash": "90f8e7dc970d86065fff07d0d4907547",
+      "graded_at": "2026-01-25T18:55:24.957455",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Chen_Debbie_RID_004_code.ipynb": {
+      "hash": "7bbe3e176008303d54165eae7f4234b7",
+      "graded_at": "2026-01-25T18:55:29.646244",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Kwon_Hyerim_RID_004_code.ipynb": {
+      "hash": "a74fae18014c6c90b8ddc824e051babf",
+      "graded_at": "2026-01-25T18:55:34.865858",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Zhou_Daojia_RID_004_code.ipynb": {
+      "hash": "aff6b7f5824f38432ca02953dd7d7735",
+      "graded_at": "2026-01-25T18:55:38.554169",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Xinyi_Shang_RID_004.ipynb": {
+      "hash": "4a0d389edc2d3a355ea1ce18aae3b721",
+      "graded_at": "2026-01-25T18:55:43.221211",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Pham_Han_RID_004_code.ipynb": {
+      "hash": "47ef3a34902956eef0aed9a3a6bdf230",
+      "graded_at": "2026-01-25T18:55:47.459467",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Do_William_RID_004_code.ipynb": {
+      "hash": "0ea0cb8277e7340b5edb42444b5b80d2",
+      "graded_at": "2026-01-25T18:55:52.316071",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Ontiveros_Avery_RID_004_code.ipynb": {
+      "hash": "f2ed621acf80ec8c8e9269c92977c88a",
+      "graded_at": "2026-01-25T18:55:57.092171",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Chang_Erin_RID_004_code.ipynb": {
+      "hash": "b7cf675934fbbda927ed7f133a8b6331",
+      "graded_at": "2026-01-25T18:56:01.367859",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Yin_Zhiyuan_RID_004_code.ipynb": {
+      "hash": "e75eb386a1725c7dc4f1e8a6b6aaa8b7",
+      "graded_at": "2026-01-25T18:56:04.666571",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Le_Timothy_RID_004_code.ipynb": {
+      "hash": "172c63ec0722ad687a6c78d57351f4c7",
+      "graded_at": "2026-01-25T18:56:07.841345",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Hager_Lauren_RID_004_code.ipynb": {
+      "hash": "7a0f637f5a2df1c4f4b6b5762846f077",
+      "graded_at": "2026-01-25T18:56:12.984477",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Xu_Yixuan_R004_code.ipynb": {
+      "hash": "4455ccbfd008ffe27e789fe26f9242c1",
+      "graded_at": "2026-01-25T18:56:17.338519",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Gianetto_Luca_RID_004_code.ipynb": {
+      "hash": "7e15016d45ba5c47d7e7648ea870149a",
+      "graded_at": "2026-01-25T18:56:21.003931",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Chen_Huishan_RID_004_code.ipynb": {
+      "hash": "e74566d1d98186266b2a984cd61a7266",
+      "graded_at": "2026-01-25T18:56:28.522171",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Pu_Karen_RID_004_code.ipynb": {
+      "hash": "38de82dbde4342750dd9530460362c4d",
+      "graded_at": "2026-01-25T18:56:32.936485",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Sawyer_Bethany_RID_004_code.ipynb": {
+      "hash": "a28fb6a84f9060892dd59bfa582c7a6b",
+      "graded_at": "2026-01-25T18:56:38.400474",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Mohanaraj_ShandhaRubini_RID_004_code.ipynb": {
+      "hash": "42a9066c9ae796c29611604a01265131",
+      "graded_at": "2026-01-25T18:56:42.599100",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/saldivar_alexis_RID_004_code.ipynb": {
+      "hash": "1c8449b1c2bd90c0dbc5294aac5fe1d1",
+      "graded_at": "2026-01-25T18:56:46.444572",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Tran_Tram_RID_004_code.ipynb": {
+      "hash": "cc635f282b915d909e4c9180f8ea5f11",
+      "graded_at": "2026-01-25T18:56:49.926972",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Tiwary_Ayush_RID_004_code.ipynb": {
+      "hash": "ad21cb044b53394f3c8ea0422b0f1c88",
+      "graded_at": "2026-01-25T18:56:53.608128",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Anonich_Ryan_RID_004_code.ipynb": {
+      "hash": "e13a1f822ce3b3cebb97b8897a34a9e8",
+      "graded_at": "2026-01-25T18:56:58.222165",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Li_Harry_RID_004_code.ipynb": {
+      "hash": "3b3d3c08d0aa7bc8ff5bd9bad6623cba",
+      "graded_at": "2026-01-25T18:57:01.818233",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Lee_Minji_RID_004_code.ipynb": {
+      "hash": "adb561b6a739cf143d566f030d836d5c",
+      "graded_at": "2026-01-25T18:57:05.731773",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Huang_Terry_RID_004_code.ipynb": {
+      "hash": "3b543ae0eb1dee7d09ff14eb2bc65eeb",
+      "graded_at": "2026-01-25T18:57:09.383798",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Tamayo_Alana_RID_004_code.ipynb": {
+      "hash": "445b4ff143dd63bf2ea54b58c964c73b",
+      "graded_at": "2026-01-25T18:57:13.204369",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Liu_Canlin_RID_004_code.ipynb": {
+      "hash": "90933095adda8352f30fc15332594c5b",
+      "graded_at": "2026-01-25T18:57:16.714821",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Silverman_Jonah_RID_004.ipynb": {
+      "hash": "850f4dbd49af7e756d0cdd39a970d0ce",
+      "graded_at": "2026-01-25T18:57:20.821610",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Escobedo_Valerie_RID_004_code.ipynb": {
+      "hash": "21a35e47a54e9ff374f074224bb79286",
+      "graded_at": "2026-01-25T18:57:25.337476",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Jaramillo_Jonathan_RID_004_code.ipynb": {
+      "hash": "053268075ef6445ea0b7776b7f36ad8b",
+      "graded_at": "2026-01-25T18:57:29.659874",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Quan_Weike_RID_004_Code.ipynb": {
+      "hash": "f9ded39a37081168883dfea003f37b00",
+      "graded_at": "2026-01-25T18:57:34.951170",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Ma_RIchard_RID_004_code.ipynb": {
+      "hash": "c704589ee1ef1986576e2223572590c8",
+      "graded_at": "2026-01-25T18:57:38.260484",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Pineda_Leo_RID_004_code.ipynb": {
+      "hash": "ffcf0fe5adc6ceb86996275d2de42c09",
+      "graded_at": "2026-01-25T18:57:42.118365",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Liang_Kangkai_RID_004_code.ipynb": {
+      "hash": "41ec535a89b121d8c0079986f4d24744",
+      "graded_at": "2026-01-25T18:57:45.474979",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Kao_Ying_Chieh_RID_004_code.ipynb": {
+      "hash": "fdee19fdd116d254b10621c4fb44ca99",
+      "graded_at": "2026-01-25T18:57:50.271310",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Zhao_Zhiheng_RID_004_code.ipynb": {
+      "hash": "09adff7916cde679d162e31bced4a324",
+      "graded_at": "2026-01-25T18:57:54.166070",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Gupta_Siddhartha_RID_004_code.ipynb": {
+      "hash": "c64cac70926c46a6b29e62c44a9bd9f6",
+      "graded_at": "2026-01-25T18:57:58.030752",
+      "route_id": "RID_004"
+    },
+    "RID_004/submissions/Carmona_Jorge_RID_004_Function_Junction.ipynb": {
+      "hash": "3ddaeb03920d4d8b206ce282ab1bb92c",
+      "graded_at": "2026-01-25T18:58:02.835877",
+      "route_id": "RID_004"
+    },
+    "RID_003/submissions/Amaral_Javier_RID_003_code.ipynb": {
+      "hash": "5ccfcb811c6350fcf6534842955fa5fc",
+      "graded_at": "2026-01-25T18:58:11.236004",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Chen_Debbie_RID_003_code.ipynb": {
+      "hash": "f3bc969c6006ec884f218cc396fb8967",
+      "graded_at": "2026-01-25T18:58:18.807341",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Oh_Seunghoon_RID_003_code.ipynb": {
+      "hash": "073015c008511711391767bb83c0bf08",
+      "graded_at": "2026-01-25T18:58:27.197893",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/noblin_terry_RID_003_code.ipynb": {
+      "hash": "5851ff501df28b520fe76cd2dae1f1b7",
+      "graded_at": "2026-01-25T18:58:36.714159",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Allam_Emile_RID_003_code.ipynb": {
+      "hash": "16310187752592573020644fe6c9519b",
+      "graded_at": "2026-01-25T18:58:44.905926",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/BinNafisah_Abdulghani_RID_003_code.ipynb": {
+      "hash": "2f2113238109553641a85199242af7e6",
+      "graded_at": "2026-01-25T18:58:51.695649",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Weeranarawat_Anya_RID_003_code.ipynb": {
+      "hash": "518a8ea8569427fd43827be6bfdeb722",
+      "graded_at": "2026-01-25T18:59:00.398240",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Zhu_Yuntian_RID_003_code.ipynb": {
+      "hash": "ed6616d865aa38abd198f8849be784fb",
+      "graded_at": "2026-01-25T18:59:09.292427",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/spock_lilian_RID_003_code.ipynb": {
+      "hash": "69ddbb47bc08746cd9af61748734e82f",
+      "graded_at": "2026-01-25T18:59:19.300286",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Wu_Monica_RID_003_code.ipynb": {
+      "hash": "45853523a1fa3724301523dd3b583a6e",
+      "graded_at": "2026-01-25T18:59:33.050358",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Md_Saddam_Hossain_RID_003_code.ipynb": {
+      "hash": "c63aedb3125785e9ad45499e45ed9268",
+      "graded_at": "2026-01-25T18:59:43.688250",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Tran_Nathan_RID_003_code.ipynb": {
+      "hash": "00ce3071aa0b8b903d160d266d9125dd",
+      "graded_at": "2026-01-25T18:59:51.074109",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/carrer_catherina_RID_003_code.ipynb": {
+      "hash": "aa3f955cdc02fcd32281437e11043a80",
+      "graded_at": "2026-01-25T18:59:57.424431",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Liu_Juncheng_RID_003_code.ipynb": {
+      "hash": "22c7aefb7dcacbe41bcea2239488a642",
+      "graded_at": "2026-01-25T19:00:06.218285",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Choi_Charles_RID_003_code.ipynb": {
+      "hash": "9da5230a6b783a886c99b94f0a26b110",
+      "graded_at": "2026-01-25T19:00:15.036718",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/che_jimmy_RID_003_code.ipynb": {
+      "hash": "d01ec8b1200f3923771adcb769a5addf",
+      "graded_at": "2026-01-25T19:00:26.058683",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Chiu_Abigail_RID_003_code.ipynb": {
+      "hash": "0f7cea4c5ba430bec0c1ae8c552c10af",
+      "graded_at": "2026-01-25T19:00:34.981649",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Leung_Victoria_RID_003_code.ipynb": {
+      "hash": "d085c2f45994ee716ef45f94faca09a5",
+      "graded_at": "2026-01-25T19:00:45.037728",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/thumati_praharshitha_RID_003_code.ipynb": {
+      "hash": "648230e7622880d30fd6668418be96bd",
+      "graded_at": "2026-01-25T19:00:52.267131",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/kim_wonmin_RID_003_code.ipynb": {
+      "hash": "3d2ff2026df701b2bd6753afeb23331a",
+      "graded_at": "2026-01-25T19:01:04.289474",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Tsai_I-Shan_RID_003_code.ipynb": {
+      "hash": "a6e021a786fe95caace1c696cf918b47",
+      "graded_at": "2026-01-25T19:01:14.532199",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Gascon_Mauro_RID_003_code.ipynb": {
+      "hash": "8512821f694d11c7610bc6cc0614c357",
+      "graded_at": "2026-01-25T19:01:25.172574",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Jinyi_Zhang_RID_003_code.ipynb": {
+      "hash": "011a67058a0565891ac86098ead52a20",
+      "graded_at": "2026-01-25T19:01:32.610366",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Bachant_Megan_RID_003_code.ipynb": {
+      "hash": "36c52d89b0bfae6b0d37e2962dd62b86",
+      "graded_at": "2026-01-25T19:01:42.385073",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Chen_Huishan_RID_003_code_ipynb.ipynb": {
+      "hash": "868a1eb46451dea8e4ca2c2a4e1882c8",
+      "graded_at": "2026-01-25T19:01:51.492667",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Zhang_Eve_RID_003_code.ipynb": {
+      "hash": "c98a1b2a1401c9767bde93ef99a2552c",
+      "graded_at": "2026-01-25T19:02:01.428770",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Frank_Tania_RID_003_code.ipynb": {
+      "hash": "cff8776793ad5b551a74d34ac0f51b86",
+      "graded_at": "2026-01-25T19:02:10.131252",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Heyang_Haoye_RID_003_code (1).ipynb": {
+      "hash": "31bfdebab7df612de1afb7da6665872f",
+      "graded_at": "2026-01-25T19:02:19.195694",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Alvarado_Isacc_RID_003_code.ipynb": {
+      "hash": "899a39e1567f96a042610e7e10aac040",
+      "graded_at": "2026-01-25T19:02:28.146390",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Zhao_Jingru_RID003_code.ipynb": {
+      "hash": "810b37be29d455a692b3b5482fa70638",
+      "graded_at": "2026-01-25T19:02:38.395097",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Kuznitz_Cole_RID_003_code.ipynb": {
+      "hash": "c265497225a98bcf27033384de56702e",
+      "graded_at": "2026-01-25T19:02:47.711078",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Truong_Ethan_RID_003.ipynb": {
+      "hash": "b3ad53722555e9b0a9d9ef2fef420b57",
+      "graded_at": "2026-01-25T19:02:57.986269",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Carmona_Jorge_RID_003_Lists_Dicts_and_Loops.ipynb": {
+      "hash": "24d64e76b5bbc36209c81408efcf48d3",
+      "graded_at": "2026-01-25T19:03:08.875680",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Nguyen_Vanessa_RID_003_code.ipynb": {
+      "hash": "da2a167bb1119017be27d4f58f81b96c",
+      "graded_at": "2026-01-25T19:03:17.616337",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Zhang_Olivia_RID_003_code.ipynb": {
+      "hash": "f96b6e59395727ff6d1a5de8e434ca03",
+      "graded_at": "2026-01-25T19:03:27.343564",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Xu_Carmen_RID_003_code.ipynb": {
+      "hash": "68d094b967bd252a3addb1b1eccf82f0",
+      "graded_at": "2026-01-25T19:03:37.477897",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/VeraCruz_Vayle_RID_003_code.ipynb": {
+      "hash": "527214762ac4dc6db96a855ee5e6cda7",
+      "graded_at": "2026-01-25T19:03:45.872484",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Wiese_Jasmine_RID_003_code.ipynb": {
+      "hash": "7ab7d79b0e012019a59d943a076e3a01",
+      "graded_at": "2026-01-25T19:03:54.476683",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Kuang_Yixuan_RID_003_code.ipynb": {
+      "hash": "9d9842963af83c8433a65ad313a3ce66",
+      "graded_at": "2026-01-25T19:04:05.027190",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Xinyi_Shang_RID_003_code.ipynb": {
+      "hash": "7a3013827c1e1cacf54ead6012173073",
+      "graded_at": "2026-01-25T19:04:17.006413",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Nguyen_Jenny_RID_003_code.ipynb": {
+      "hash": "3f3bf23899172b1d1325ba76350cfaa1",
+      "graded_at": "2026-01-25T19:04:30.932369",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Gupta_Siddhartha_RID_003_code.ipynb": {
+      "hash": "59864c9a8dd2d024d4051b81ce5141f6",
+      "graded_at": "2026-01-25T19:04:41.785100",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Zhao_Zhiheng_RID_003_code.ipynb": {
+      "hash": "49cab40879f17819af6439216a9a5b0a",
+      "graded_at": "2026-01-25T19:04:57.349018",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Kao_Ying_Chieh_RID_003_code.ipynb": {
+      "hash": "14851bed6d4ee4317781f308122d6023",
+      "graded_at": "2026-01-25T19:05:05.032664",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Chang_Eugene_RID_003_code.ipynb": {
+      "hash": "ce1832eeae5d22f9203f4c13840728bf",
+      "graded_at": "2026-01-25T19:05:14.026328",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Pineda_Leo_RID_003_code.ipynb": {
+      "hash": "53e8b700d131c4e49db573bb9d3fe0dd",
+      "graded_at": "2026-01-25T19:05:25.731594",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Liang_Kangkai_RID_003_code.ipynb": {
+      "hash": "1a15dbea6da025ee015cfca7402ed49a",
+      "graded_at": "2026-01-25T19:05:37.383643",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Ma_Richard_RID_003_code.ipynb": {
+      "hash": "eb65982802aaae0b8164bf6abbdbcc17",
+      "graded_at": "2026-01-25T19:05:53.367375",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Zhou_Daojia_RID_003.ipynb": {
+      "hash": "cc210a00731609b2041ee9cde66ef322",
+      "graded_at": "2026-01-25T19:06:12.332502",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Quan_Weike_RID_003_Code.ipynb": {
+      "hash": "70766c2661f4767e6a24793f6a9e0f73",
+      "graded_at": "2026-01-25T19:06:23.463945",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Jaramillo_Jonathan_RID_003_code.ipynb": {
+      "hash": "f7996fcd690770997e4cf58e52b9c451",
+      "graded_at": "2026-01-25T19:06:34.632075",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Tapia_Tito_RID_003_code.ipynb": {
+      "hash": "32538136e594d3eb70f01bead9a902a6",
+      "graded_at": "2026-01-25T19:06:43.785110",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Escobedo_Valerie_RID_003_code.ipynb": {
+      "hash": "63669d7e5c6c1fe94ac8fb7f379b73a4",
+      "graded_at": "2026-01-25T19:06:51.028258",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Huang_Terry_RID_003_code.ipynb": {
+      "hash": "b838199affa399c229d1011646255a3b",
+      "graded_at": "2026-01-25T19:06:59.778568",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Lee_Minji_RID_003_code.ipynb": {
+      "hash": "6a8170f0205f6f8295cd2a7832b6fe98",
+      "graded_at": "2026-01-25T19:07:07.885735",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Liu_Canlin_RID_003_code.ipynb": {
+      "hash": "7cec1af90bd158c49ad0b191e94adf94",
+      "graded_at": "2026-01-25T19:07:17.640887",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Tamayo_Alana_RID_003_code.ipynb": {
+      "hash": "2036ebfc5e3fb7cac625642fe3580688",
+      "graded_at": "2026-01-25T19:07:28.183633",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Silverman_Jonah_RID_003.ipynb": {
+      "hash": "8cf859d9605167de671f5811f14e0dec",
+      "graded_at": "2026-01-25T19:07:38.022249",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Tiwary_Ayush_RID_003_code.ipynb": {
+      "hash": "c8ccd855b9610cd57fafcd1c22b079a6",
+      "graded_at": "2026-01-25T19:07:50.598955",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Tran_Tram_RID_003_code.ipynb": {
+      "hash": "73a4906786363f8fb676abf5fef21ca1",
+      "graded_at": "2026-01-25T19:07:59.217077",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Li_Harry_RID_003_code.ipynb": {
+      "hash": "4051f04e49d8a03951abe2a3bc34cbe2",
+      "graded_at": "2026-01-25T19:08:12.436618",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Anonich_Ryan_RID003_code.ipynb": {
+      "hash": "34b1a95237aac2d5b2db840abbfdba5e",
+      "graded_at": "2026-01-25T19:08:29.108578",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/saldivar_alexis_RID_003_code.ipynb": {
+      "hash": "515529e19a299145be8dbd823ec97adc",
+      "graded_at": "2026-01-25T19:08:37.298398",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Mohanaraj_ShandhaRubini_RID_003_code.ipynb": {
+      "hash": "a5f418aeb1d03849136b1bfc07d7d88e",
+      "graded_at": "2026-01-25T19:08:45.490092",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Sawyer_Bethany_RID_003_code.ipynb": {
+      "hash": "296e8abc63379518a5268729767087f9",
+      "graded_at": "2026-01-25T19:08:54.642535",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Pu_Karen_RID_003_code.ipynb": {
+      "hash": "b8144fa01bb92f083f9a1152f9544178",
+      "graded_at": "2026-01-25T19:09:02.910279",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Gianetto_Luca_RID_003_code.ipynb": {
+      "hash": "2c28e069535194319e26c0d15c9a079d",
+      "graded_at": "2026-01-25T19:09:13.965497",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Garduno_Fernando_RID_003_code.ipynb": {
+      "hash": "9776b1d71e9024c89b71920017d32245",
+      "graded_at": "2026-01-25T19:09:22.240910",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Ouyang_Christina_RID_003_code.ipynb": {
+      "hash": "ba2640ef66f0cb37f76a8e493f9aa5f8",
+      "graded_at": "2026-01-25T19:09:30.247797",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Xu_Yixuan_R003_code.ipynb": {
+      "hash": "f7e54922deab517a6fb6e9b41b6b2039",
+      "graded_at": "2026-01-25T19:09:40.384608",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Hager_Lauren_RID_003_code.ipynb": {
+      "hash": "61a2b10c6b2e466b91c5cac0cb7859a3",
+      "graded_at": "2026-01-25T19:09:48.475573",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Zhen_Kenneth_RID_003_Code.ipynb": {
+      "hash": "a111a31569adf754a502ad408167d8ba",
+      "graded_at": "2026-01-25T19:09:57.520305",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/pogue_elizabeth_RD_003_code.ipynb": {
+      "hash": "fb1612ff5866da2bdf7d374c6b59c01d",
+      "graded_at": "2026-01-25T19:10:09.466410",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Le_Timothy_RID_003_code.ipynb": {
+      "hash": "1d27e6f58212c40521e82548e3061a68",
+      "graded_at": "2026-01-25T19:10:19.395598",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Yin_Zhiyuan_RID_003_code.ipynb": {
+      "hash": "09b798b574fb81bd8d204d1d3b753d93",
+      "graded_at": "2026-01-25T19:10:28.037581",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Ontiveros_Avery_RID_003_code.ipynb": {
+      "hash": "19f8f8da05e4dfc0e8476c0102353e8e",
+      "graded_at": "2026-01-25T19:10:36.228365",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Chang_Erin_RID_003_code.ipynb": {
+      "hash": "3b59cf63ab007229a826b1bd4a4eda94",
+      "graded_at": "2026-01-25T19:10:44.283566",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Do_William_RID_003_code.ipynb": {
+      "hash": "164ac063689db57657bca54cafa1a43c",
+      "graded_at": "2026-01-25T19:10:52.982555",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Pham_Han_RID_003_code.ipynb": {
+      "hash": "3648a68689fd1c245757539e95113c17",
+      "graded_at": "2026-01-25T19:11:02.539893",
+      "route_id": "RID_003"
+    },
+    "RID_003/submissions/Kwon_Hyerim_RID_003_code.ipynb": {
+      "hash": "6ed662e007fd0de94e5f1a347b9d703d",
+      "graded_at": "2026-01-25T19:11:12.620044",
+      "route_id": "RID_003"
+    },
+    "RID_005/submissions/Xu_Yixuan_R005_code.ipynb": {
+      "hash": "a06e843589c98d27b5e2002080b3699f",
+      "graded_at": "2026-01-25T19:12:04.134866",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Hager_Lauren_RID_005_code.ipynb": {
+      "hash": "248f0477563ea60ad97f2e136133d13c",
+      "graded_at": "2026-01-25T19:12:18.407273",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Zhen_Kenneth_RID_005_code.ipynb": {
+      "hash": "828867a1be299e36bbed8076cc5cc1fc",
+      "graded_at": "2026-01-25T19:12:30.797597",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Gianetto_Luca_RID_005_code.ipynb": {
+      "hash": "e4585303617930bbd7573f38fab61c64",
+      "graded_at": "2026-01-25T19:12:39.108609",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Chen_Huishan_RID_005_code.ipynb": {
+      "hash": "aeda8cf73ffbf383adf0605c311190f5",
+      "graded_at": "2026-01-25T19:12:49.825341",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Zhou_Daojia_RID_005_code.ipynb": {
+      "hash": "e29855f6973112d94d834cb32bfda624",
+      "graded_at": "2026-01-25T19:12:59.145594",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Kwon_Hyerim_RID_005_code.ipynb": {
+      "hash": "f938205bb3962a2d0b926fb9a0a1c809",
+      "graded_at": "2026-01-25T19:13:07.947114",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Pham_Han_RID_005_code.ipynb": {
+      "hash": "4b266c3e96f5a7b9116c7790ec23ed5f",
+      "graded_at": "2026-01-25T19:13:22.731700",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Do_William_RID_005_code.ipynb": {
+      "hash": "d9304a1708d15f43c52a627942df3b4d",
+      "graded_at": "2026-01-25T19:13:30.177856",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Yin_Zhiyuan_RID_005_code.ipynb": {
+      "hash": "d5caf33fe8b3d58e4b4e977035568cad",
+      "graded_at": "2026-01-25T19:13:42.770022",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Ontiveros_Avery_RID_005_code.ipynb": {
+      "hash": "ad3dc106c77fb4d9101602420d7cc87c",
+      "graded_at": "2026-01-25T19:13:52.189999",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Chang_Erin_RID_005_code.ipynb": {
+      "hash": "8572ae9e3644918bdd675f8f0924f2ff",
+      "graded_at": "2026-01-25T19:14:00.995260",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Jaramillo_Jonathan_RID_005_code.ipynb": {
+      "hash": "45c6f1057958fa9ee8790389a9cb0a83",
+      "graded_at": "2026-01-25T19:14:10.083947",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Ma_Richard_RID_005_code.ipynb": {
+      "hash": "79cd5bfbef3d8915dab293edba3cc275",
+      "graded_at": "2026-01-25T19:14:19.483870",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Quan_Weike_RID_005_Code.ipynb": {
+      "hash": "9345fd9049231d8fb41c5248c3682c49",
+      "graded_at": "2026-01-25T19:14:31.613731",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Kao_Ying_Chieh_RID_005_code.ipynb": {
+      "hash": "74ef99b7a8d72fd1058e88d12c515ba6",
+      "graded_at": "2026-01-25T19:14:40.142664",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Pineda_Leo_RID_005_code.ipynb": {
+      "hash": "ef0f22d0bae9f9f2bce5599cd39f8394",
+      "graded_at": "2026-01-25T19:14:50.193386",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Chang_Eugene_RID_005_code.ipynb": {
+      "hash": "d9f033097f96c2cbe6d8b96099403c1c",
+      "graded_at": "2026-01-25T19:15:02.554332",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Liang_Kangkai_RID_005_code.ipynb": {
+      "hash": "56719f0d39062bdfb7c19d88ffc7108b",
+      "graded_at": "2026-01-25T19:15:11.963499",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Tamayo_Alana_RID_005_codebook.ipynb": {
+      "hash": "9e45d94fca0f36693539bd9566f21974",
+      "graded_at": "2026-01-25T19:15:22.001989",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Zhao_Zhiheng_RID_005_code.ipynb": {
+      "hash": "dcc68c67134dd2c2938062202f3c2bc2",
+      "graded_at": "2026-01-25T19:15:32.941377",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Gupta_Siddhartha_RID_005_code.ipynb": {
+      "hash": "ad3a1dd2c442264f03d7f8d961d0f78f",
+      "graded_at": "2026-01-25T19:15:45.993849",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Truong_Ethan_005_code.ipynb": {
+      "hash": "cbd0335f3406db20c6a8b9e3a9d58cec",
+      "graded_at": "2026-01-25T19:15:53.747231",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Mohanaraj_ShandhaRubini_RID_005_code.ipynb": {
+      "hash": "da01bbd638fe995f71c2405bb2233f1b",
+      "graded_at": "2026-01-25T19:16:04.256996",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Sawyer_Bethany_RID_005_code.ipynb": {
+      "hash": "e54efe80ded65d16585062d4c18e7bb8",
+      "graded_at": "2026-01-25T19:16:15.083104",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Pu_Karen_RID_005_code.ipynb": {
+      "hash": "4def27bbb51edf6bdb61280d29d96b38",
+      "graded_at": "2026-01-25T19:16:46.102842",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Le_Timothy_R005_code (1).ipynb": {
+      "hash": "858f5a962b583bdbf76c56dfcc963172",
+      "graded_at": "2026-01-25T19:16:57.612876",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/saldivar_alexis_RID_005_code.ipynb": {
+      "hash": "475167c57bd5ad39eb801e1a9c4b7872",
+      "graded_at": "2026-01-25T19:17:08.349867",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Lee_Minji_RID_005_code.ipynb": {
+      "hash": "5f37387e015fb4a2f6d8c4440a9ad84a",
+      "graded_at": "2026-01-25T19:17:24.825552",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Huang_Terry_RID_005_code.ipynb": {
+      "hash": "b8b33ba6b176175eb5fe04bbe1d736bb",
+      "graded_at": "2026-01-25T19:17:36.754027",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Liu_Canlin_RID_005_code.ipynb": {
+      "hash": "25c0ff4610a0b15de9b567b5be269c66",
+      "graded_at": "2026-01-25T19:17:48.706514",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Tiwary_Ayush_RID_005_code.ipynb": {
+      "hash": "6648873ad09e110e5bdf87356ba79a04",
+      "graded_at": "2026-01-25T19:17:55.533470",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Tran_Tram_RID_005_code.ipynb": {
+      "hash": "36ffd7e694ae5195998a1d10394214be",
+      "graded_at": "2026-01-25T19:18:04.833437",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Anonich_Ryan_RID_005_Code.ipynb": {
+      "hash": "e7cf2bfe89ea2c14cd499b209f34f9de",
+      "graded_at": "2026-01-25T19:18:16.283958",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Li_Harry_RID_005_code.ipynb": {
+      "hash": "2840216987d7b2661837203d087ff022",
+      "graded_at": "2026-01-25T19:18:26.222810",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Escobedo_Valerie_RID_005_code.ipynb": {
+      "hash": "9017e9b5e06b72daeb545d4969ae3bc7",
+      "graded_at": "2026-01-25T19:18:41.256928",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Alvarado_Isacc_RID_005_code.ipynb": {
+      "hash": "06b08b2be82d9f0732709ba02a140185",
+      "graded_at": "2026-01-25T19:18:50.363755",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Bachant_Megan_RID_005_code.ipynb": {
+      "hash": "f61fef45cd2e9f5cddc0d1a34e4e3d67",
+      "graded_at": "2026-01-25T19:18:59.200630",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Silverman_Jonah_RID_005.ipynb": {
+      "hash": "94d2d244463f78dedb7965e9d2187b26",
+      "graded_at": "2026-01-25T19:19:10.587779",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Zhang_Eve_RID_005_code.ipynb": {
+      "hash": "b7f15ab3e5dda5a18094ba4d0c97ea2c",
+      "graded_at": "2026-01-25T19:19:20.131964",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Frank_Tania_RID_005_code.ipynb": {
+      "hash": "b898172156abb3d4ec5bfd05ae75bbbc",
+      "graded_at": "2026-01-25T19:19:28.152519",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Jinyi_Zhang_RID_005_code.ipynb": {
+      "hash": "c5add4399e81e0e9408cbe9fddf47892",
+      "graded_at": "2026-01-25T19:19:37.020350",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/kim_wonmin_RID_005_code.ipynb": {
+      "hash": "ee4efb1d3736781bb75c14823f7d9767",
+      "graded_at": "2026-01-25T19:19:48.792524",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/thumati_praharshitha_RID_005_code.ipynb": {
+      "hash": "70f851083bfef61919e37d97e6f49247",
+      "graded_at": "2026-01-25T19:19:58.621326",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Leung_Victoria_RID_005_code.ipynb": {
+      "hash": "1b37d90f298174cfbbdf454385a52ae8",
+      "graded_at": "2026-01-25T19:20:09.268682",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Gascon_Mauro_RID_005_code.ipynb": {
+      "hash": "20523c868e6080e3e58b1bd41c49dd64",
+      "graded_at": "2026-01-25T19:20:19.916503",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Tsai_I-Shan_RID_005_code.ipynb": {
+      "hash": "6d49360e6de4077fa7e1b300a98ed254",
+      "graded_at": "2026-01-25T19:20:28.536354",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Rinde_Bryan_RID_005_code.ipynb": {
+      "hash": "56afedd0b57e9c4f7143b7c75055d310",
+      "graded_at": "2026-01-25T19:20:39.462292",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Kuang_Yixuan_RID_005_code.ipynb": {
+      "hash": "a34aba97fac7ba847f0504651d154922",
+      "graded_at": "2026-01-25T19:20:48.944778",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Xinyi_Shang_RID_005_code.ipynb": {
+      "hash": "59ef5347c2672a4efd60e8503551e2ac",
+      "graded_at": "2026-01-25T19:20:57.131474",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Nguyen_Jenny_RID_005_code.ipynb": {
+      "hash": "8076cec3d1dc5b53c11390b9f0f05020",
+      "graded_at": "2026-01-25T19:21:04.879549",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Zhang_Olivia_RID_005_code.ipynb": {
+      "hash": "ad9bd329c1cc441fa360558d15e30951",
+      "graded_at": "2026-01-25T19:21:13.168571",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Xu_Carmen_RID_005_code.ipynb": {
+      "hash": "cd5c2c9c932da63504950b85ebb760c9",
+      "graded_at": "2026-01-25T19:21:23.093617",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/VeraCruz_Vayle_RID_005_code.ipynb": {
+      "hash": "84371079db531629e453f971ac3438a2",
+      "graded_at": "2026-01-25T19:21:32.581922",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Wiese_Jasmine_RID_005_code.ipynb": {
+      "hash": "c3feda8f927be077d8865923bd9dd98d",
+      "graded_at": "2026-01-25T19:21:46.717124",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Nguyen_Vanessa_RID_005_code.ipynb": {
+      "hash": "01f6509594aff6ba3d4688aee3d7e8a4",
+      "graded_at": "2026-01-25T19:21:57.405065",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Kuznitz_Cole_RID_005_code.ipynb": {
+      "hash": "9e33a69ec53cfcc8c11d57020d0c69e3",
+      "graded_at": "2026-01-25T19:22:06.711058",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Hossain_MdSaddam_RID005_code.ipynb": {
+      "hash": "0ca3b6320bd34d651ced0e787f7f597f",
+      "graded_at": "2026-01-25T19:22:18.073552",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/pogue_elizabeth_RID_005_code.ipynb": {
+      "hash": "5fe554d71defbbc76095b6d653d6b826",
+      "graded_at": "2026-01-25T19:22:29.154318",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Heyang_Haoye_RID_005_code.ipynb": {
+      "hash": "01499dc2b861b72070e94a28d97ba95e",
+      "graded_at": "2026-01-25T19:22:38.237715",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/BinNafisah_Abdulghani_RID_005_code.ipynb": {
+      "hash": "f87999bdab34e46308958dcdc6804893",
+      "graded_at": "2026-01-25T19:22:48.423436",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Weeranarawat_Anya_RID_005_code.ipynb": {
+      "hash": "e4e5824d14a50251e0ac9dfd312532f1",
+      "graded_at": "2026-01-25T19:22:59.883197",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Zhu_Yuntian_RID_005_code.ipynb": {
+      "hash": "6e7fa843953dd082380926752f572ee8",
+      "graded_at": "2026-01-25T19:23:11.482541",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Chen_Debbie_RID_005_code.ipynb": {
+      "hash": "9a144072274feda0d7263c02e720df15",
+      "graded_at": "2026-01-25T19:23:19.583957",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Carmona_Jorge_RID_005_Import_and_Install.ipynb": {
+      "hash": "dfcac5f00cfce4927799ca1d72034e2d",
+      "graded_at": "2026-01-25T19:23:29.723820",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Oh_Seunghoon_RID_005_code.ipynb": {
+      "hash": "a0e788cb30fce068075439622366f65b",
+      "graded_at": "2026-01-25T19:23:39.009002",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Chiu_Abigail_RID_005_code.ipynb": {
+      "hash": "1fe4ffbeb4f0a48bba212a3fbc54eace",
+      "graded_at": "2026-01-25T19:23:47.627131",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Liu_Juncheng_RID_005_code.ipynb": {
+      "hash": "bec0476b0fbed13363a46e276dfd9097",
+      "graded_at": "2026-01-25T19:23:54.209037",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Tran_Nathan_RID_005_code.ipynb": {
+      "hash": "ada2f2da4c05b3d41332bdf4efb56a9f",
+      "graded_at": "2026-01-25T19:24:03.544888",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/carrer_catherina_RID_005_code.ipynb": {
+      "hash": "92be9b750ac197ded9d43c391bc7a491",
+      "graded_at": "2026-01-25T19:24:15.310982",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Choi_Charles_RID_005_code.ipynb": {
+      "hash": "4bd825d02d79c48da0d7a6a94bc08a99",
+      "graded_at": "2026-01-25T19:24:31.372097",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/spock_lilian_RID_005_code.ipynb": {
+      "hash": "932be0d3644468afc63f6e74058913b3",
+      "graded_at": "2026-01-25T19:24:42.788604",
+      "route_id": "RID_005"
+    },
+    "RID_005/submissions/Wu_Monica_RID_005_code.ipynb": {
+      "hash": "07100f4d9b745bc661fdb75c381a9dca",
+      "graded_at": "2026-01-25T19:24:51.984455",
+      "route_id": "RID_005"
+    },
+    "RID_009/submissions/Nguyen_Vanessa_RID_009_code.ipynb": {
+      "hash": "c23512c5b25883c4135eb5ded1e48bc0",
+      "graded_at": "2026-01-25T19:26:27.899522",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/Tamayo_Alana_RID_009_codebook.ipynb": {
+      "hash": "694e652366f33edd1a501b8e37c459e8",
+      "graded_at": "2026-01-25T19:26:51.387596",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/Hossain_MdSaddam_RID009_code.ipynb": {
+      "hash": "1b7302653a084b0dd9b3cf42b969e3ce",
+      "graded_at": "2026-01-25T19:26:57.037719",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/Tsai_I_Shan_RID_009_code.ipynb": {
+      "hash": "1195d10257d07be31fb030e61cbb36f5",
+      "graded_at": "2026-01-25T19:27:05.406615",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/Xinyi_Shang_RID_009_code.ipynb": {
+      "hash": "544be52a7013b1be42e67aebaddff2fb",
+      "graded_at": "2026-01-25T19:27:13.868101",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/Wiese_Jasmine_RID_009_code.ipynb": {
+      "hash": "3f279cb686dc477f7204cb32b1b356b3",
+      "graded_at": "2026-01-25T19:27:20.977541",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/Rinde_Bryan_RID_009_code.ipynb": {
+      "hash": "f9b92b578cb815c1b8cca377591e32de",
+      "graded_at": "2026-01-25T19:27:28.793803",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/kim_wonmin_RID_009_code.ipynb": {
+      "hash": "98c7e6e0a52bf3121d6452b5b3b379f8",
+      "graded_at": "2026-01-25T19:27:35.870278",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/Leung_Victoria_RID_009_code.ipynb": {
+      "hash": "503d654c43ff5fa959f20d27982c91f8",
+      "graded_at": "2026-01-25T19:27:46.097390",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/Liu_Juncheng_RID_009_code.ipynb": {
+      "hash": "247b13fbc3be8065c5b98a866fec7cc6",
+      "graded_at": "2026-01-25T19:27:54.461522",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/carrer_catherina_RID_009_code.ipynb": {
+      "hash": "775f663faaa6ec1f53315341ff9e09b3",
+      "graded_at": "2026-01-25T19:28:02.072276",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/Wu_Monica_RID_009_code.ipynb": {
+      "hash": "e40c2e304bf0fe4f5f6a8f91e5800986",
+      "graded_at": "2026-01-25T19:28:10.219037",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/Oh_Seunghoon_RID_009_code.ipynb": {
+      "hash": "ff2c3158175b36261c68b29c38f6e629",
+      "graded_at": "2026-01-25T19:28:21.777596",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/Zhu_Yuntian_RID_009_code.ipynb": {
+      "hash": "fd1bc6c82cf84f38aedd3079b2620984",
+      "graded_at": "2026-01-25T19:28:34.192977",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/Do_William_RID_009_code.ipynb": {
+      "hash": "d458e16dbf8d2d5bf7da4c85f3b064e2",
+      "graded_at": "2026-01-25T19:28:41.754860",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/Kuang_Yixuan_RID_009.ipynb": {
+      "hash": "3594c78aed1a0a4dfb6ad8cb05d1e259",
+      "graded_at": "2026-01-25T19:28:48.667760",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/Yin_Zhiyuan_RID_009_code.ipynb": {
+      "hash": "35c6390366c4f889bdc8d753b0817625",
+      "graded_at": "2026-01-25T19:28:58.266977",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/Le_Timothy_RID_009_code.ipynb": {
+      "hash": "aef0347f273d964411e1913718db6472",
+      "graded_at": "2026-01-25T19:29:09.117461",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/Chang_Erin_RID_009_code.ipynb": {
+      "hash": "12dcfe4ca310142c60ec40060a2aebba",
+      "graded_at": "2026-01-25T19:29:16.241162",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/Gianetto_Luca_RID_009_code.ipynb": {
+      "hash": "0c9e30c1f6f95f0e1cb6a29f95c5fb37",
+      "graded_at": "2026-01-25T19:29:23.808248",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/Truong_Ethan_RID_009_code.ipynb": {
+      "hash": "781a1c69da5fcd39c1d47a93edd15c45",
+      "graded_at": "2026-01-25T19:29:32.085878",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/Hager_Lauren_RID_009_Code.ipynb": {
+      "hash": "1607b73d0e92154d2435d1276848243d",
+      "graded_at": "2026-01-25T19:29:39.724982",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/Huang_Terry_RID_009_code.ipynb": {
+      "hash": "b57aee1c6ebb2dab16fbdbd9efa917b7",
+      "graded_at": "2026-01-25T19:29:48.150584",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/Mohanaraj_ShandhaRubini_RID_009_code.ipynb": {
+      "hash": "c6c9990724fba9583d346c0d32965993",
+      "graded_at": "2026-01-25T19:29:55.120859",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/Pu_Karen_RID_009_code.ipynb": {
+      "hash": "e1307c1511427bac77e08c8d658177ce",
+      "graded_at": "2026-01-25T19:30:01.559059",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/saldivar_alexis_RID_009_code.ipynb": {
+      "hash": "ca5a229791318946ea7f7bc793457bac",
+      "graded_at": "2026-01-25T19:30:07.517273",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/Kao_Ying_Chieh_RID_009_code.ipynb": {
+      "hash": "151f3ed1d9644f1c92da34057ac9aaa4",
+      "graded_at": "2026-01-25T19:30:17.114935",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/Jaramillo_Jonathan_RID_009_code.ipynb": {
+      "hash": "feaac2bf4f0b5f3bccce1b57ecba11b4",
+      "graded_at": "2026-01-25T19:30:25.597693",
+      "route_id": "RID_009"
+    },
+    "RID_009/submissions/Ma_Richard_RID_009_code.ipynb": {
+      "hash": "133e6baf6be95e54925e505e087db3e1",
+      "graded_at": "2026-01-25T19:30:33.505142",
+      "route_id": "RID_009"
+    },
+    "RID_007/submissions/Quan_Weike_RID_007_Code.ipynb": {
+      "hash": "1908d6a48650147f06359b839a3a08a9",
+      "graded_at": "2026-01-25T19:30:40.966958",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Zhou_Daojia_RID_007_codeipynb.ipynb": {
+      "hash": "d52699b9aaa85e3711df3cefc2935d5a",
+      "graded_at": "2026-01-25T19:30:48.702631",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Jaramillo_Jonathan_RID_007_code.ipynb": {
+      "hash": "1b45b796693e3d4ed31c47ec0b0d536f",
+      "graded_at": "2026-01-25T19:30:54.593885",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Carmona_Jorge_R007_Github_Basics_Colab_Version.ipynb": {
+      "hash": "dfef3d9501c48c737aa6319f50d88fda",
+      "graded_at": "2026-01-25T19:30:59.973732",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Kao_Ying_Chieh_RID_007_code.ipynb": {
+      "hash": "3d05169f28b99606d2006ef0e76690a3",
+      "graded_at": "2026-01-25T19:31:06.443254",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Pineda_Leo_RID_007_code.ipynb": {
+      "hash": "930cb42537d9a268adcc5da29c644cd1",
+      "graded_at": "2026-01-25T19:31:12.975020",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Liang_Kangkai_RID_007_code.ipynb": {
+      "hash": "8f4e877aeb1c94e0c0f0b55f10711b6e",
+      "graded_at": "2026-01-25T19:31:21.510772",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/saldivar_alexis_RID_007_code.ipynb": {
+      "hash": "bf75643b2acb5889bfd572095c38a36a",
+      "graded_at": "2026-01-25T19:31:30.502630",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Mohanaraj_ShandhaRubini_RID_007_code.ipynb": {
+      "hash": "eb5acdaeaf2c62997f6f86a2c0cd1347",
+      "graded_at": "2026-01-25T19:31:37.534247",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Pu_Karen_RID_007_code.ipynb": {
+      "hash": "502886d742ef410dd172be82871181a6",
+      "graded_at": "2026-01-25T19:31:43.678362",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Tamayo_Alana_RID_007_codebook.ipynb": {
+      "hash": "a444b7f290a767ee4a5abc31362f9ebd",
+      "graded_at": "2026-01-25T19:31:52.437905",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Huang_Terry_RID_007_code.ipynb": {
+      "hash": "b209cd033cec3d9910525c382d46674a",
+      "graded_at": "2026-01-25T19:31:58.986671",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Liu_Canlin_RID_007_code.ipynb": {
+      "hash": "1060eed15e2283367fcab0a16e62008d",
+      "graded_at": "2026-01-25T19:32:05.550810",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Li_Harry_RID_007_code.ipynb": {
+      "hash": "6ea44e7feca8bbfa7e49125c01db0cd1",
+      "graded_at": "2026-01-25T19:32:12.293006",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Xu_Yixuan_RID_007_code.ipynb": {
+      "hash": "fb3295b33ca05ff233a54db56c8352fd",
+      "graded_at": "2026-01-25T19:32:23.774051",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Chang_Eugene_RID_007.ipynb": {
+      "hash": "a43b22a88bf9de7bed2954109e330551",
+      "graded_at": "2026-01-25T19:32:30.153210",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Chen_Debbie_RID_007.ipynb": {
+      "hash": "dcfb14f9f578533f302afe71aaaf2901",
+      "graded_at": "2026-01-25T19:32:36.588824",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Truong_Ethan_RID_007_code.ipynb": {
+      "hash": "114550cd27792447beb5c92c96003693",
+      "graded_at": "2026-01-25T19:32:46.329514",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Anya_weeranarawat_RID_007_code.ipynb": {
+      "hash": "23a7f576a732bce4ad66dec2df260986",
+      "graded_at": "2026-01-25T19:32:53.889638",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Hager_Lauren_RID_007_code.ipynb": {
+      "hash": "86f06e0b0a504ab79be69d2212636069",
+      "graded_at": "2026-01-25T19:33:00.826842",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Gianetto_Luca_RID_007_code.ipynb": {
+      "hash": "17222766750452505fd72a4508bfac1f",
+      "graded_at": "2026-01-25T19:33:07.014726",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Kuang_Yixuan_RID_007.ipynb": {
+      "hash": "ebe64ddcce842c83e7f560afe8b2b3aa",
+      "graded_at": "2026-01-25T19:33:14.141019",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Kwon_Hyerim_RID_007_code.ipynb": {
+      "hash": "cb788e3c0f06d338be8eb3b6a3cb88b9",
+      "graded_at": "2026-01-25T19:33:21.074810",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Yin_Zhiyuan_RID_007_code.ipynb": {
+      "hash": "298f8a341fe4310a81f9f75ae77998cc",
+      "graded_at": "2026-01-25T19:33:29.712783",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Le_Timothy_RID_007_code.ipynb": {
+      "hash": "425d511fc22f2727827ec0ba50e213b5",
+      "graded_at": "2026-01-25T19:33:37.103348",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Ontiveros_Avery_RID_007_code.ipynb": {
+      "hash": "be0be49dac097ab33116f70606957a47",
+      "graded_at": "2026-01-25T19:33:43.422290",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Chang_Erin_RID_007_code.ipynb": {
+      "hash": "6c554fc405709c55903d005c60cf0a96",
+      "graded_at": "2026-01-25T19:33:49.722261",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Do_William_RID_007_code.ipynb": {
+      "hash": "55328a242a13ec08b3db4fe15f2d5e4d",
+      "graded_at": "2026-01-25T19:33:56.867301",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/BinNafisah_Abdulghani_RID_007_code.ipynb": {
+      "hash": "6ae8f42dc9f8a5076823457b1444a021",
+      "graded_at": "2026-01-25T19:34:07.337600",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Zhu_Yuntian_RID_007_code.ipynb": {
+      "hash": "08564008e4d6391604d38a8d8d38fb8e",
+      "graded_at": "2026-01-25T19:34:13.680009",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Oh_Seunghoon_RID_007_code.ipynb": {
+      "hash": "5f808cfd7f1216fb827dc3e92acb0170",
+      "graded_at": "2026-01-25T19:34:20.969012",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Silverman_Jonah_RID_007.ipynb": {
+      "hash": "dca076b4b3efbeb0b2cf65263a8f7541",
+      "graded_at": "2026-01-25T19:34:28.441239",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Chiu_Abigail_RID_007_code.ipynb": {
+      "hash": "ba3e52c7909ff68f30808562ade5ec99",
+      "graded_at": "2026-01-25T19:34:35.746640",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/spock_lilian_RID_007_code.ipynb": {
+      "hash": "90e965ff4409086d46fdd66821af7e9e",
+      "graded_at": "2026-01-25T19:34:44.101712",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Wu_Monica_RID_007_code.ipynb": {
+      "hash": "9fcb480250cdcee08ec233588a1de551",
+      "graded_at": "2026-01-25T19:34:53.041818",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Liu_Juncheng_RID_007_code.ipynb": {
+      "hash": "144e875f0a7f823dd2dd7990134839f8",
+      "graded_at": "2026-01-25T19:34:58.033340",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/carrer_catherina_RID_007_code.ipynb": {
+      "hash": "e21cfd683d86aad2564936a0cb78ae82",
+      "graded_at": "2026-01-25T19:35:03.580554",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Chen_Huishan_RID_007_code (2).ipynb": {
+      "hash": "3f524bed1f0e8106547b2418425615e0",
+      "graded_at": "2026-01-25T19:35:10.883687",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Bachant_Megan_RID_007_code.ipynb": {
+      "hash": "f27bf9c1693f2c1754312968136563d2",
+      "graded_at": "2026-01-25T19:35:17.586319",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Frank_Tania_RID_007_code.ipynb": {
+      "hash": "752955ae6dd3cffc5d63c808aed56398",
+      "graded_at": "2026-01-25T19:35:23.708755",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Xinyi_Shang_RID_007.ipynb": {
+      "hash": "87c14722c9574fecbdcabc3e955737f8",
+      "graded_at": "2026-01-25T19:35:32.319474",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/kim_wonmin_RID_007_code.ipynb": {
+      "hash": "92c0350a7e46573c25271d7f35cb95ed",
+      "graded_at": "2026-01-25T19:35:38.883015",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Leung_Victoria_RID_007_code.ipynb": {
+      "hash": "4bf345d5547c93428e4c392569809926",
+      "graded_at": "2026-01-25T19:35:44.241620",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/thumati_praharshitha_RID_007_code.ipynb": {
+      "hash": "28476cfa8b11bd2d7d5456fbede38a58",
+      "graded_at": "2026-01-25T19:35:53.126287",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Gascon_Mauro_RID_007_code.ipynb": {
+      "hash": "4fee5a5ea5d39b7b4b9b64626148c4a4",
+      "graded_at": "2026-01-25T19:36:01.949604",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Rinde_Bryan_RID_007_code.ipynb": {
+      "hash": "721df8948289155c7dd6d46a5aa511c0",
+      "graded_at": "2026-01-25T19:36:10.983570",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Xu_Carmen_RID_007_code.ipynb": {
+      "hash": "11eabc3467ca85a166b63e4222a15766",
+      "graded_at": "2026-01-25T19:36:20.569765",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Gupa_Siddhartha_RID_007_code.ipynb": {
+      "hash": "952d726bc71ebb2cebf49d4142ef0fd8",
+      "graded_at": "2026-01-25T19:36:27.161381",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Wiese_Jasmine_RID_007_code.ipynb": {
+      "hash": "cd58b6316c6d37040a3f0ab1602e59c2",
+      "graded_at": "2026-01-25T19:36:34.497900",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Tsai_I_Shan_RID_007_code.ipynb": {
+      "hash": "0c57dc44dd8ee01c7f3873b86bb65325",
+      "graded_at": "2026-01-25T19:36:41.579899",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Nguyen_Jenny_RID_007_code.ipynb": {
+      "hash": "cf6dd5ed40b8c1ca2f45f4aac1c7e829",
+      "graded_at": "2026-01-25T19:36:48.326823",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Hossain_MdSaddam_RID007_code.ipynb": {
+      "hash": "f791f1e6a40abbed0926b7789a0f6d8f",
+      "graded_at": "2026-01-25T19:36:53.624022",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/pogue_elizabeth_RID_007_code.ipynb": {
+      "hash": "f248b504f5f7320d40117307cd685f8e",
+      "graded_at": "2026-01-25T19:37:00.256205",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Heyang_Haoye_RID_007_code.ipynb": {
+      "hash": "613bca7f48b037943f112026069c68ec",
+      "graded_at": "2026-01-25T19:37:06.836544",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Nguyen_Vanessa_RID_007_code.ipynb": {
+      "hash": "d537e02e79e7b3375764883a95e9aa93",
+      "graded_at": "2026-01-25T19:37:12.574848",
+      "route_id": "RID_007"
+    },
+    "RID_007/submissions/Ma_Richard_RID_009_code.ipynb": {
+      "hash": "d94445ff6a30a3959ab6888a93a38519",
+      "graded_at": "2026-01-25T19:37:18.271785",
+      "route_id": "RID_007"
+    },
+    "RID_006/submissions/Chiu_Abigail_RID_006_code.ipynb": {
+      "hash": "610f317b0d586fd6075c6dcac57a2408",
+      "graded_at": "2026-01-25T19:37:29.440755",
+      "route_id": "RID_006"
+    },
+    "RID_008/submissions/Silverman_Jonah_RID_008.ipynb": {
+      "hash": "3810810ad7813837d0fd41311b12b4a3",
+      "graded_at": "2026-01-25T19:37:37.273558",
+      "route_id": "RID_008"
+    },
+    "RID_008/submissions/Huang_Terry_RID_008_code.ipynb": {
+      "hash": "2fd5aa3bf4a2db8878e76eea50548df1",
+      "graded_at": "2026-01-25T19:37:45.035503",
+      "route_id": "RID_008"
+    },
+    "RID_002/submissions/Tapia_Tito_RID_002_code.ipynb": {
+      "hash": "ded6c84975d740a944b0768fec1c5d90",
+      "graded_at": "2026-02-12T13:49:33.284902",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Escobedo_Valerie_RID_002_code.ipynb": {
+      "hash": "b3649653cb7829ca51c068cc664b0f25",
+      "graded_at": "2026-02-12T13:49:33.285527",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Li_Harry_RID_002_code.ipynb": {
+      "hash": "0782db7ff57f24b8619818684f8ede4d",
+      "graded_at": "2026-02-12T13:49:33.285764",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Zhao_Jingru_RID002_code - Jingru Zhao.ipynb": {
+      "hash": "223d34300ae6a948ecb74d246cdcb765",
+      "graded_at": "2026-02-12T13:49:33.286228",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Lee_Minji_RID_002_code.ipynb": {
+      "hash": "b5b0409b3b1df3f8fb40b9aebd98d498",
+      "graded_at": "2026-02-12T13:49:33.286366",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Liu_Canlin_RID_002_code.ipynb": {
+      "hash": "ca599972f2f8a8fa80a35c1dde741b96",
+      "graded_at": "2026-02-12T13:49:33.286581",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/saldivar_alexis_RID_002_code.ipynb": {
+      "hash": "97c3c03e367ff162aa9c96ffb87a2085",
+      "graded_at": "2026-02-12T13:49:33.286753",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Saddam_Hossain_RID_002_The_Colab_warm_up_hossain.ipynb": {
+      "hash": "d38cb4cbd10cc03552113860c69e078c",
+      "graded_at": "2026-02-12T13:49:33.287029",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Xinyi_Shang_RID_002_code - minji shang.ipynb": {
+      "hash": "de5596d13bf163246a8a68de850f00f1",
+      "graded_at": "2026-02-12T13:49:33.287440",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Patel_Dhiren_RID_002_code - Dhiren Patel.ipynb": {
+      "hash": "7891a93f43cf4d1141a502802090b16c",
+      "graded_at": "2026-02-12T13:49:33.287736",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Sawyer_Bethany_RID_002_code.ipynb": {
+      "hash": "6dde9ff31e6205f07b4c87eb90f829d7",
+      "graded_at": "2026-02-12T13:49:33.287922",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Chen_Huishan_RID_002_code - Huishan Chen.ipynb": {
+      "hash": "7132750a0f4468b1aad396990110fa3d",
+      "graded_at": "2026-02-12T13:49:33.288112",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Mohanaraj_ShandhaRubini_RID_002_code.ipynb": {
+      "hash": "f959111731d33d7d62800f3ab317dd9e",
+      "graded_at": "2026-02-12T13:49:33.288254",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Gupta_Siddhartha_RID_002_code.ipynb": {
+      "hash": "4e104c5b26497be40048d20c67f38dc1",
+      "graded_at": "2026-02-12T13:49:33.288470",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Zhao_Zhiheng_RID_002_code.ipynb": {
+      "hash": "1c1f3ddf1fccc605af922a222d6e24d0",
+      "graded_at": "2026-02-12T13:49:33.288633",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Chang_Eugene_RID_002.ipynb": {
+      "hash": "25ef168013b691cd8201ffc901678806",
+      "graded_at": "2026-02-12T13:49:33.288861",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Pineda_Leo_RID_002_code.ipynb": {
+      "hash": "a1f0ce8480db0a7ac1a8d31eb3b178fd",
+      "graded_at": "2026-02-12T13:49:33.289024",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Liang_Kangkai_RID_002_code.ipynb": {
+      "hash": "6c21071946617fe7b3b3b876c53259d1",
+      "graded_at": "2026-02-12T13:49:33.289137",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Kao_Ying_Chieh_RID_002_code.ipynb": {
+      "hash": "0de202b2642c08ca5712fe3509dbcd3d",
+      "graded_at": "2026-02-12T13:49:33.289316",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Route_002_ColabWarmUp_Tiwary.ipynb": {
+      "hash": "aef9abc5106155f995efcf9f43ac763a",
+      "graded_at": "2026-02-12T13:49:33.289481",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Quan_Weike_RID_002_code.ipynb": {
+      "hash": "9f8aa4da9f5dd81e54ee859ab2f8aabe",
+      "graded_at": "2026-02-12T13:49:33.289666",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Nguyen_Vanessa_RID_002_code_V2 - Vanessa Nguyen.ipynb": {
+      "hash": "a4aa41fbb94c651a32b62ea9cb554d11",
+      "graded_at": "2026-02-12T13:49:33.289779",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Truong_Ethan_RID_002.ipynb": {
+      "hash": "c1690f8628024803df8ffbccb4d42c71",
+      "graded_at": "2026-02-12T13:49:33.289978",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Ma_Richard_RID_002_code.ipynb": {
+      "hash": "5468cf7bfde691220122ab1bbdd77f6b",
+      "graded_at": "2026-02-12T13:49:33.290172",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Jingru_zhao_RID002_code - Jingru Zhao.ipynb": {
+      "hash": "ce0655c9c367e588dfb4d8aadbe8a604",
+      "graded_at": "2026-02-12T13:49:33.290733",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Jaramillo_Jonathan_RID_002_code.ipynb": {
+      "hash": "20df246d93551d2d8eaf192a51a73ded",
+      "graded_at": "2026-02-12T13:49:33.290918",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Route_R002_The_Colab_Warm_Up_Pham - Richie Pham.ipynb": {
+      "hash": "658b1691fb650a874d18355f04d60d6f",
+      "graded_at": "2026-02-12T13:49:33.291032",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Ontiveros_Avery_RID_002_code.ipynb": {
+      "hash": "9a65ba094519184b0623e80c48e24f18",
+      "graded_at": "2026-02-12T13:49:33.291146",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Chang_Erin_RID_002_code.ipynb": {
+      "hash": "cbd5c39ba0d4052e18cd55ad6efaf6fe",
+      "graded_at": "2026-02-12T13:49:33.291266",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Le_Timothy_RID_002_code.ipynb": {
+      "hash": "f27706b75b0d71e6c5fc223cd93c7fa0",
+      "graded_at": "2026-02-12T13:49:33.291383",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Fu_Zhengyuan_RID_002_code - Zhengyuan Fu.ipynb": {
+      "hash": "f7771971b4be2924dc50365edd258b50",
+      "graded_at": "2026-02-12T13:49:33.291648",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Yin_Zhiyuan_RID_002_code.ipynb": {
+      "hash": "37ec9b84b40f38b9eb23d93a9b34e483",
+      "graded_at": "2026-02-12T13:49:33.291876",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Do_William_RID_002_code.ipynb": {
+      "hash": "14b38ca9d90a94d5129c7b359bb76a8e",
+      "graded_at": "2026-02-12T13:49:33.291985",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Zhou_Daojia_RID_002_code - Daojia Zhou.ipynb": {
+      "hash": "f359f46c10a1fc05bb80714e9238f5b0",
+      "graded_at": "2026-02-12T13:49:33.292377",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Pham_Han_RID_002_code.ipynb": {
+      "hash": "0efe423f6dc80d361e11aaf434263ee0",
+      "graded_at": "2026-02-12T13:49:33.292543",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Kwon_Hyerim_RID_002_code.ipynb": {
+      "hash": "decc2918d4941ab260c59e13c7adbe9a",
+      "graded_at": "2026-02-12T13:49:33.292742",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Frank_Tania_RID_002.ipynb": {
+      "hash": "698ca7942455dcb036f6cc09536e0885",
+      "graded_at": "2026-02-12T13:49:33.292936",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/spock_lilian_RID_002_code_and_logbook.ipynb": {
+      "hash": "457fda95f1613031edeedf3731d3f025",
+      "graded_at": "2026-02-12T13:49:33.293046",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Amaral_Javier_RID_002_code - Javier Amaral.ipynb": {
+      "hash": "91a622c2f90621aeafe18da5a0c352b7",
+      "graded_at": "2026-02-12T13:49:33.293171",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Garduno_Fernando_RID_002_code.ipynb": {
+      "hash": "0214263e871555b8375e2671a5d592a2",
+      "graded_at": "2026-02-12T13:49:33.293262",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Gianetto_Luca_RID_002_code.ipynb": {
+      "hash": "862fc59e00c22b0be0e230a014cb8418",
+      "graded_at": "2026-02-12T13:49:33.293354",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Silverman_Jonah_RID_002 - Jonah Silverman.ipynb": {
+      "hash": "4f98c9a197646c1d50bcc6c4ad74efa9",
+      "graded_at": "2026-02-12T13:49:33.293526",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Ouyang_Christina_RID_002_code.ipynb": {
+      "hash": "365cdc861fb21d77e7d0635fbe949444",
+      "graded_at": "2026-02-12T13:49:33.293688",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Hager_Lauren_RID_002_code.ipynb": {
+      "hash": "f7fac7b795180b43ba6e4e55900307c9",
+      "graded_at": "2026-02-12T13:49:33.293783",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Route_RID002_The_Colab_Warm_Up_Huang.ipynb": {
+      "hash": "cb7b67f49498a9b563e7a071d1ef1dbb",
+      "graded_at": "2026-02-12T13:49:33.293891",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Wu_Monica_RID_002_code.ipynb": {
+      "hash": "947c73be4cc243f2c5bce4ad947b030b",
+      "graded_at": "2026-02-12T13:49:33.294088",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Pu_Karen_RID002_code.ipynb": {
+      "hash": "5282f537a054da5a151ab80ae399316c",
+      "graded_at": "2026-02-12T13:49:33.294247",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Tran_Nathan_RID_002_code.ipynb": {
+      "hash": "ded7f5549e271bdb98abc6034ab0c781",
+      "graded_at": "2026-02-12T13:49:33.294357",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Xu_Yixuan_RID002_code.ipynb": {
+      "hash": "23da8a6e11547339b7a200949faeac34",
+      "graded_at": "2026-02-12T13:49:33.294543",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Tamayo_Alana_RID_002_code (1).ipynb": {
+      "hash": "4b2833b648a324fe20eee7342e216bfc",
+      "graded_at": "2026-02-12T13:49:33.294650",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Liu_Juncheng_RID_002_code.ipynb": {
+      "hash": "f38f36cf6af55d203c4818d220830a1a",
+      "graded_at": "2026-02-12T13:49:33.294839",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Chiu_Abigail_RID_002_code.ipynb": {
+      "hash": "5b540a355046dbaf00e6888d4c32c8ec",
+      "graded_at": "2026-02-12T13:49:33.295037",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/che_jimmy_RID_002_code.ipynb": {
+      "hash": "eccd5ce8d1cc60e43b118f4d4e6cddf8",
+      "graded_at": "2026-02-12T13:49:33.295345",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Tran_Tram_RID_002.ipynb": {
+      "hash": "18972c338e5dfca0b392e6ef809f80ad",
+      "graded_at": "2026-02-12T13:49:33.295546",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Mohanaraj_ShandhaRubini_RID_002_code - Shandha Mohanaraj.ipynb": {
+      "hash": "f959111731d33d7d62800f3ab317dd9e",
+      "graded_at": "2026-02-12T13:49:33.295684",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Hossain_MdSaddam_RID_002_Code - Md Saddam Hossain.ipynb": {
+      "hash": "467c7d790678538acbb692be842da571",
+      "graded_at": "2026-02-12T13:49:33.295905",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Oh_Seunghoon_RID_002_code.ipynb": {
+      "hash": "7d08fca597918d054f974a942791916f",
+      "graded_at": "2026-02-12T13:49:33.296137",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Nguyen_Jenny_RID_002_code - Jenny Nguyen.ipynb": {
+      "hash": "c7b0374401a221d73d50b1c526d862de",
+      "graded_at": "2026-02-12T13:49:33.296362",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Chen_Debbie_RID_002_code.ipynb": {
+      "hash": "55635bb067c75d80f60bf8ebdc18129e",
+      "graded_at": "2026-02-12T13:49:33.296468",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Cruz_Jade_RID_002_code.ipynb": {
+      "hash": "ab5469c73dc77f1ded2e1d5deb27360b",
+      "graded_at": "2026-02-12T13:49:33.296557",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Zhen_Kenneth_RID_002_Code - kenneth zhen.ipynb": {
+      "hash": "84e78a06cb14ddefc5ab71e59d6c7639",
+      "graded_at": "2026-02-12T13:49:33.296739",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/noblin_terry_RID_002_code.ipynb": {
+      "hash": "9c0004904eec1caa77a2b5a7fcbd0411",
+      "graded_at": "2026-02-12T13:49:33.296876",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Weeranarawat_Anya_RID_002_code.ipynb": {
+      "hash": "aa8c0346fa5cd5e5d60823726cb3c2e9",
+      "graded_at": "2026-02-12T13:49:33.297063",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Kao_Ying_Chieh_RID_002_code_V2 - Kao Jay.ipynb": {
+      "hash": "93d763b3d95c5bf4a46ddac583ad9ffa",
+      "graded_at": "2026-02-12T13:49:33.297172",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Zhu_Yuntian_RID_002_code.ipynb": {
+      "hash": "05fb70614ed5a03472146326e348b393",
+      "graded_at": "2026-02-12T13:49:33.297350",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Allam_Emile_RID_002_code.ipynb": {
+      "hash": "8ba30d4ec48522805e1136aa8150a308",
+      "graded_at": "2026-02-12T13:49:33.297439",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/BinNafisah_Abdulghani_RID_002_code.ipynb": {
+      "hash": "4979655201861a1fecbbf126f176586d",
+      "graded_at": "2026-02-12T13:49:33.297525",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Srikumaran_Sarayu_RID_002_code - Sarayu Srikumaran.ipynb": {
+      "hash": "1c8f08648acddbf06d08b951c9447696",
+      "graded_at": "2026-02-12T13:49:33.297950",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/pogue_elizabeth_RID_002_code.ipynb": {
+      "hash": "fa0c483a39031a82c1376dfbc6eaf6fe",
+      "graded_at": "2026-02-12T13:49:33.298109",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Heyang_Haoye_RID_002_code.ipynb": {
+      "hash": "d5469b429e0031370f81ea5003df9a3a",
+      "graded_at": "2026-02-12T13:49:33.298212",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Kuznitz_Cole_RID_002_code.ipynb": {
+      "hash": "51a6458d335d51c35ae874b799b63b1d",
+      "graded_at": "2026-02-12T13:49:33.298401",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Nguyen_Vanessa_RID_002_code.ipynb": {
+      "hash": "e4fd7495ae4dd91a27cfcee7761a7857",
+      "graded_at": "2026-02-12T13:49:33.298592",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Carmona_Jorge_RID_002_TheColabWarmUp.ipynb": {
+      "hash": "be3c0a2da6a4e4a957d76bca7c267efa",
+      "graded_at": "2026-02-12T13:49:33.298761",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Wiese_Jasmine_RID_002_code.ipynb": {
+      "hash": "31b1600e126d72501a5cf44bf27cd4b7",
+      "graded_at": "2026-02-12T13:49:33.298878",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Zhang_Olivia_RID_002_code.ipynb": {
+      "hash": "2d115c10b5456c4488f49e133ef39991",
+      "graded_at": "2026-02-12T13:49:33.299070",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Xu_Carmen_RID_002_code.ipynb": {
+      "hash": "adeeb9440819ffeb149d43a75e551359",
+      "graded_at": "2026-02-12T13:49:33.299390",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Xinyi_Shang_RID_002_code.ipynb": {
+      "hash": "de5596d13bf163246a8a68de850f00f1",
+      "graded_at": "2026-02-12T13:49:33.299622",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Le_Timothy_RID_002_code - Timothy Le.ipynb": {
+      "hash": "f2a3bff2094712fefe0e43c25e3270ad",
+      "graded_at": "2026-02-12T13:49:33.299822",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Nguyen_Jenny_RID_002_code.ipynb": {
+      "hash": "0ef9fa47946857e95f3b9c083012a849",
+      "graded_at": "2026-02-12T13:49:33.300048",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/VeraCruz_Vayle_RID_002_code - Vayle Vera Cruz.ipynb": {
+      "hash": "a85bfbfb6906492201ca090ef0d187ef",
+      "graded_at": "2026-02-12T13:49:33.300254",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Kuang_Yixuan_RID_002_code.ipynb": {
+      "hash": "5410fba5324b7bc5677cfcc2506ccd8f",
+      "graded_at": "2026-02-12T13:49:33.300369",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/R003_Lists_Dicts_and_Loops - Adrian Jinich.ipynb": {
+      "hash": "795f31f3909a6617e3149922df036b5f",
+      "graded_at": "2026-02-12T13:49:33.300486",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Anonich_Ryan_RID2_code.ipynb": {
+      "hash": "4da9b9024cd48789614bfd668efca4a2",
+      "graded_at": "2026-02-12T13:49:33.300731",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/thumati_praharshitha_RID_002_code.ipynb": {
+      "hash": "57fa2e9359b13fac5ee2db5d5b59d98c",
+      "graded_at": "2026-02-12T13:49:33.301038",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Leung_Victoria_RID_002_code.ipynb": {
+      "hash": "d14266f08a1812fa9d34c73aaa6ba6f1",
+      "graded_at": "2026-02-12T13:49:33.301132",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/kim_wonmin_RID_002_code.ipynb": {
+      "hash": "1e9d81f282267bf06b3311ccafb0be32",
+      "graded_at": "2026-02-12T13:49:33.301331",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Tsai_I-Shan_RID_002_code.ipynb": {
+      "hash": "88a71ed37aa7dc260b2dfbb20ad110df",
+      "graded_at": "2026-02-12T13:49:33.301440",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Rinde_Bryan_RID_002_code.ipynb": {
+      "hash": "f573d29d36347b196089480875e32731",
+      "graded_at": "2026-02-12T13:49:33.301579",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Gascon_Mauro_RID_002_code.ipynb": {
+      "hash": "1faa21927147bc876c47616d976ce05e",
+      "graded_at": "2026-02-12T13:49:33.301746",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/JInyi_Zhang_RID_002_code - Jinyi Zhang.ipynb": {
+      "hash": "2e02d9e3da6de39092359dc310956655",
+      "graded_at": "2026-02-12T13:49:33.301956",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Bachant_Megan_RID_002_code.ipynb": {
+      "hash": "841c2ec8807970729f179641c0045f86",
+      "graded_at": "2026-02-12T13:49:33.302159",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Zhang_Eve_RID_002_code.ipynb": {
+      "hash": "4c0d83bcbadffb664300b5dd378850b4",
+      "graded_at": "2026-02-12T13:49:33.302390",
+      "route_id": "RID_002"
+    },
+    "RID_002/submissions/Alvarado_Isacc_RID_002_code.ipynb": {
+      "hash": "8396f559cdd288dd25ee6e487db759f1",
+      "graded_at": "2026-02-12T13:49:33.302521",
+      "route_id": "RID_002"
+    }
+  },
+  "last_sync": null,
+  "seeded_at": "2026-01-25T18:41:08.090959",
+  "last_graded": "2026-01-25T19:37:45.035534"
+}

@@ -53,11 +53,15 @@ FORM_ROUTE_MAPPING = {
     "R015_submissions (File responses)": "RID_015",
     "R016_submissions (File responses)": "RID_016",
     "R017_submission (File responses)": "RID_017",
+    "RO29_submissions (File responses)": "RID_029",
     "M1_submission (File responses)": "MID_001",
     "M2_submission (File responses)": "MID_002",
     "M3_submission (File responses)": "MID_003",
     "F036_submissions (File responses)": "F036",
     "F037_submissions (File responses)": "F037",
+    "R038A_submissions (File responses)": "RID_038A",
+    "R038B_submissions (File responses)": "RID_038B",
+    "R038C_submissions (File responses)": "RID_038C",
 }
 
 # ============================================================================
