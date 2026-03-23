@@ -174,6 +174,29 @@ FREE_PASS_ROUTES = {
     'RID_007',  # Instructions were unclear, students submitted wrong format
 }
 
+# Students who dropped the course - exclude from dashboard
+DROPPED_STUDENTS = {
+    'huang_terry',  # Dropped course mid-semester
+}
+
+# Students who submitted Final Projects (First Ascent) instead of regular finals
+FINAL_PROJECT_STUDENTS = {
+    'carmona_jorge',      # 3D Descriptors / Climb Route Project
+    'do_william',         # CHEM269 Final Solution
+    'le_timothy',         # Final Project Route
+    'pogue_elizabeth',    # Forever Chemicals Traverse
+    'tran_nathan',        # Model7 Project
+    'weeranarawat_anya',  # Quantum Entanglement RAG
+    'kao_ying',           # Final Project Code
+    'veracruz_vayle',     # UMA Benchmark
+    'zhang_eve',          # BACE-1 Inhibitor Prediction
+    'gupta_siddhartha',   # Disordered Wall Pipeline
+    'truong_ethan',       # Email submission - GitHub repo + route doc
+    'tiwary_ayush',       # Email submission - Perovskite Solar Cell
+    'frank_tania',        # Email submission - Ribozyme Analysis
+    'pu_karen',           # Email submission - GitHub project
+}
+
 # Track files with non-standard naming (populated during scan)
 NON_STANDARD_FILES = []
 
@@ -207,6 +230,36 @@ def extract_student_name(filename: str, track_non_standard: bool = True) -> str:
     # Remove extension
     name = Path(filename).stem
     original_name = name
+
+    # Handle "Final_Route_XXX - First Last" format for final projects
+    if re.match(r'^Final_Route_\d+\s*-\s*', name, flags=re.IGNORECASE):
+        # Extract the part after the dash
+        match = re.match(r'^Final_Route_\d+\s*-\s*(.+)$', name, flags=re.IGNORECASE)
+        if match:
+            student_name = match.group(1).strip()
+            # Convert "First Last" to "last_first" format
+            if ' ' in student_name:
+                parts = student_name.split()
+                if len(parts) >= 2:
+                    # Take last name first, then first name
+                    name = f"{parts[-1]}_{parts[0]}".lower()
+                    if track_non_standard:
+                        NON_STANDARD_FILES.append({
+                            'original': filename,
+                            'extracted_name': name,
+                            'issue': 'Final_Route format'
+                        })
+                    # Skip the rest of processing and return normalized name
+                    return name.replace(' ', '_').replace('-', '_').rstrip('_')
+            else:
+                name = student_name.lower()
+                if track_non_standard:
+                    NON_STANDARD_FILES.append({
+                        'original': filename,
+                        'extracted_name': name,
+                        'issue': 'Final_Route format (single name)'
+                    })
+                return name.replace(' ', '_').replace('-', '_').rstrip('_')
 
     # Handle "Route_XXX_..._StudentName" format - extract last word as student name
     if re.match(r'^Route', name, flags=re.IGNORECASE):
@@ -353,7 +406,11 @@ def scan_submissions(assignments_dir: str = "assignments") -> dict:
                 if student:
                     student_routes[student].add(rid)
 
-    return dict(student_routes)
+    # Filter out dropped students
+    filtered_routes = {student: routes for student, routes in student_routes.items()
+                       if student not in DROPPED_STUDENTS}
+
+    return dict(filtered_routes)
 
 
 def is_soft_send(exercises: list, threshold: float = 0.8, route_id: str = None) -> bool:
@@ -472,8 +529,20 @@ def scan_grading_results(assignments_dir: str = "assignments") -> dict:
         if not results_dir.exists():
             continue
 
-        # Sort grade files by modification time (newest last) so v2/resubmits take precedence
-        grade_files = sorted(results_dir.glob("*_grade.json"), key=lambda f: f.stat().st_mtime)
+        # Sort grade files by priority (v2/resubmit patterns first), then by modification time
+        def get_file_priority(filepath):
+            """Return priority score for grade files. Higher score = higher priority."""
+            name = filepath.name.lower()
+            if any(pattern in name for pattern in ['v2', 'final']):
+                return (3, filepath.stat().st_mtime)
+            elif any(pattern in name for pattern in ['resubmit', 'resub']):
+                return (2, filepath.stat().st_mtime)
+            elif '(1)' in name:
+                return (1, filepath.stat().st_mtime)
+            else:
+                return (0, filepath.stat().st_mtime)
+
+        grade_files = sorted(results_dir.glob("*_grade.json"), key=get_file_priority)
 
         for json_file in grade_files:
             try:
@@ -542,7 +611,11 @@ def scan_grading_results(assignments_dir: str = "assignments") -> dict:
                 print(f"Warning: Could not read {json_file}: {e}")
                 continue
 
-    return dict(student_grades)
+    # Filter out dropped students
+    filtered_grades = {student: grades for student, grades in student_grades.items()
+                       if student not in DROPPED_STUDENTS}
+
+    return dict(filtered_grades)
 
 
 def get_latest_submission_time(assignments_dir: str = "assignments") -> str:
@@ -1195,6 +1268,7 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
             "final_count": len(final_completed),
             "final_sent_count": len(final_sent),
             "final_total": len([r for r in all_routes if r.startswith('F')]),
+            "has_final_project": student in FINAL_PROJECT_STUDENTS,
         }
 
     student_json = json.dumps(student_data)
@@ -1395,6 +1469,30 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
             background: #d6d8db;
             color: #1b1e21;
             border: 1px dashed #6c757d;
+        }}
+        .final-project-badge {{
+            background: linear-gradient(45deg, #9c27b0, #673ab7);
+            color: white;
+            font-weight: bold;
+            padding: 8px 15px;
+            margin: 5px 0;
+            border-radius: 20px;
+            display: inline-block;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+            animation: finalGlow 3s ease-in-out infinite alternate;
+            font-size: 0.95em;
+        }}
+        .final-project-badge::before {{
+            content: "🏔️ ";
+            font-size: 1.1em;
+        }}
+        .final-project-badge::after {{
+            content: " ✨";
+            font-size: 0.9em;
+        }}
+        @keyframes finalGlow {{
+            from {{ box-shadow: 0 3px 6px rgba(0,0,0,0.2), 0 0 8px rgba(156,39,176,0.4); }}
+            to {{ box-shadow: 0 3px 6px rgba(0,0,0,0.2), 0 0 20px rgba(103,58,183,0.6); }}
         }}
         .chart-container {{
             background: white;
@@ -2023,22 +2121,34 @@ def plot_interactive_dashboard(student_routes: dict, output_path: str = "dashboa
             document.getElementById('finalSentCount').textContent = data.final_sent_count || 0;
             document.getElementById('finalMissingCount').textContent = (data.final_missing || []).length;
 
-            // Status logic for finals (need 1 of 2 to be OK)
+            // Status logic for finals (need 1 of 2 to be OK, OR has final project)
             const finalSent = data.final_sent_count || 0;
+            const hasFinalProject = data.has_final_project || false;
             let finalStatus = '';
-            if (finalSent >= 1) {{
+
+            if (hasFinalProject) {{
+                finalStatus = '🏔️ First Ascent';
+                document.getElementById('finalStatus').style.color = '#9c27b0';
+                document.getElementById('finalStatus').style.fontWeight = 'bold';
+            }} else if (finalSent >= 1) {{
                 finalStatus = '✅ OK';
                 document.getElementById('finalStatus').style.color = '#28a745';
+                document.getElementById('finalStatus').style.fontWeight = 'normal';
             }} else {{
                 finalStatus = '🔴 Need 1';
                 document.getElementById('finalStatus').style.color = '#dc3545';
+                document.getElementById('finalStatus').style.fontWeight = 'normal';
             }}
             document.getElementById('finalStatus').textContent = finalStatus;
 
             // Populate finals routes
-            document.getElementById('finalSentRoutes').innerHTML = (data.final_sent || [])
-                .map(r => `<span class="route-tag route-sent">${{r}}</span>`)
-                .join('') || '<em>None</em>';
+            if (hasFinalProject) {{
+                document.getElementById('finalSentRoutes').innerHTML = '<div class="final-project-badge">First Ascent Final Project</div>';
+            }} else {{
+                document.getElementById('finalSentRoutes').innerHTML = (data.final_sent || [])
+                    .map(r => `<span class="route-tag route-sent">${{r}}</span>`)
+                    .join('') || '<em>None</em>';
+            }}
             document.getElementById('finalNotSentRoutes').innerHTML = (data.final_not_sent || [])
                 .map(r => `<span class="route-tag route-not-sent">${{r}}</span>`)
                 .join('') || '<em>None</em>';

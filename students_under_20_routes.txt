@@ -1,0 +1,24 @@
+Students with < 20 Routes, Sorted by SENDS (16 total)
+Generated: 2026-03-22
+
+ 1. Vayle Veracruz            - 18 sends | 19 routes
+ 2. Cole Kuznitz              - 18 sends | 18 routes
+ 3. Jimmy Che                 - 18 sends | 18 routes
+ 4. Lilian Spock              - 17 sends | 19 routes
+ 5. Zhiheng Zhao              - 17 sends | 17 routes
+ 6. Richie Pham               - 16 sends | 17 routes
+ 7. Emile Allam               - 16 sends | 16 routes
+ 8. Tania Frank               - 15 sends | 16 routes
+ 9. Elizabeth Pogue           - 15 sends | 16 routes
+10. Javier Amaral             - 15 sends | 15 routes
+11. Shandharubini Mohanaraj   - 14 sends | 15 routes
+12. Abigail Chiu              - 14 sends | 14 routes
+13. Leo Pineda                - 13 sends | 14 routes
+14. Christina Ouyang          - 11 sends | 13 routes
+15. Terry Huang               - 10 sends | 10 routes
+16. Charles Choi              - 3 sends | 5 routes
+
+Notes:
+- "Sends" = routes with 80%+ exercises rated EXCELLENT/OK
+- Only RID_ routes counted (excludes midterms/finals)
+- Route 037C bonus (+8) applied where applicable

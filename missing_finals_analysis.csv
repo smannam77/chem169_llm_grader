@@ -1,0 +1,15 @@
+Student Name,Regular Routes,Priority,Status,Notes
+Charles Choi,5,Low,Low activity,Likely needs outreach - only 5 routes total
+Tania Frank,16,Medium,Active student,Possible sync/communication issue
+Terry Huang,10,Medium,Moderate activity,May have missed deadline
+Karen Pu,23,HIGH PRIORITY,Very active,Very active - likely sync issue
+Bryan Rinde,21,HIGH PRIORITY,Very active,Very active - likely sync issue
+Jonah Silverman,20,HIGH PRIORITY,Very active,Very active - likely sync issue
+Ayush Tiwary,20,HIGH PRIORITY,Very active,Very active - likely sync issue
+Ethan Truong,26,URGENT,Most active,Most active student missing finals
+
+Summary Info:
+Total without regular finals,18
+Have final projects,10
+Missing both finals and final projects,8
+High priority students to investigate,5
