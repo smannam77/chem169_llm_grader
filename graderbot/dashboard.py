@@ -185,6 +185,7 @@ FINAL_PROJECT_STUDENTS = {
     'do_william',         # CHEM269 Final Solution
     'le_timothy',         # Final Project Route
     'pogue_elizabeth',    # Forever Chemicals Traverse
+    'rinde_bryan',        # Final Project submission
     'tran_nathan',        # Model7 Project
     'weeranarawat_anya',  # Quantum Entanglement RAG
     'kao_ying',           # Final Project Code
