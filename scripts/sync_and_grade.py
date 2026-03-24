@@ -215,7 +215,7 @@ def sync_from_gdrive(dry_run: bool = False) -> bool:
 
         # Google Forms creates subfolders for each file type, so we need to copy recursively
         cmd = [
-            RCLONE_BIN, "copy",  # Use copy to merge with existing files
+            RCLONE_BIN, "copy",  # Use copy to merge with existing files (already recursive by default)
             gdrive_path,
             str(local_path),
             "--include", "*.ipynb",
